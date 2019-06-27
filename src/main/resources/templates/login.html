@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="style/index.css" th:href="@{/style/index.css}"/>
+    <style>
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+        .header p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<div th:replace="header :: header"></div>
+<div class="header">
+    <div class="am-g">
+        <h1>登录界面</h1>
+    </div>
+    <hr />
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+
+        <form method="post" class="am-form">
+            <label for="username">账号:</label>
+            <input type="text" name="" id="username" value="" placeholder="账号">
+            <br>
+            <label for="password">密码:</label>
+            <input type="password" name="" id="password" value="" placeholder="密码">
+            <br>
+            <label for="remember-me">
+                <input id="remember-me" type="checkbox">
+                记住密码
+            </label>
+            <br/>
+            <div class="am-cf">
+                <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
+                <button class="am-btn am-btn-default am-btn-sm am-fr"><a href="#" style="color:black;">忘记密码 ^_^?</a></button>
+                <!--<input type="submit" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">-->
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

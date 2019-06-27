@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="assets/css/amazeui.css" th:href="@{/assets/css/amazeui.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style/index.css" th:href="@{/style/index.css}"/>
+</head>
+<body>
+<!--头部-->
+<div th:replace="header :: header"></div>
+
+<!--主体-->
+<div class="app-main">
+    <section class="am-u-md-9 qz-session">
+        <div class="qz-session-swiper">
+            <div class="am-u-md-2 qz-swiper-list">
+                <ul class="am-slides">
+                    <li><img src="style/images/1.jpg"/></li>
+                    <li><img src="style/images/timg.jpg"/></li>
+                    <li><img src="style/images/1.jpg"/></li>
+                    <li><img src="style/images/timg.jpg"/></li>
+                    <li><img src="style/images/1.jpg"/></li>
+                </ul>
+            </div>
+            <div class="am-u-md-10 qz-swiper-content">
+                <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+                    <div class="am-u-md-8">
+                        <ul class="am-slides">
+                            <li><img src="style/images/1.jpg"/></li>
+                            <li><img src="style/images/timg.jpg"/></li>
+                            <li><img src="style/images/1.jpg"/></li>
+                            <li><img src="style/images/timg.jpg"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--博客-->
+        <div class="qz-session-content">
+            <div class="qz-center">
+                <header class="qz-article">
+                    <h1 itemprop="name">
+                        <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
+                    </h1>
+                    <div class="qz-tt">
+                        <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>
+                        <span class="">日期</span>
+                        <span class="">强子</span>
+                        <span class="">java</span>
+                    </div>
+                </header>
+                <div class="article-entry" style="height: 150px; margin-top: 6px">
+                    前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。接着往下看就会明白这几个类的奥秘了
+                </div>
+                <div class="read-all">
+                    <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
+                </div>
+                <hr>
+                <div class="article-tags">
+                    <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;浏览次数</a></i>
+                    <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;点赞</a></i>
+                    <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--侧边-->
+    <aside class="am-u-md-3 qz-aside">
+        <div class="qz-list">
+            <div class="content">
+                <ul>
+                    <li>
+                        <img src="style/images/myPicture.jpg">
+                    </li>
+                    <li class="am-kai qz-li">
+                        <i>强子</i>
+                    </li>
+                    <li>
+                        <p class="am-monospace qz-mingyan">比你优秀的人都还在努力，你有资格不奋斗努力吗？</p>
+                    </li>
+                    <li>
+                        <p class="qz-weixin"><span class="am-icon-weixin">Wechat:1158821459@qq.com</span></p>
+
+                        <p class="qz-weixin"><span class="am-icon-qq">QQ:1158821459</span></p>
+                    </li>
+                    <li class="qz-hr"></li>
+                    <li class="qz-icon">
+                        <a class="am-icon-github am-icon-md "
+                           data-am-popover="{content: 'GitHub', trigger: 'hover focus'}"
+                           href="https://github.com/memo012?tab=repositories" target="_blank"
+                           title="GitHub"></a>
+                        <a href="https://blog.csdn.net/qq_41066066" target="_blank" title="CSDN"><img
+                                data-am-popover="{content: 'CSDN', trigger: 'hover focus'}" src="style/images/csdn.jpg"
+                                style="width: 30px"></a>
+                        <a href="##" class="am-primary am-icon-qq am-icon-sm"
+                           data-am-popover="{content: 'QQ', trigger: 'hover focus'}"></a>
+                        <a href="##" class="am-primary am-icon-wechat am-icon-sm"
+                           data-am-popover="{content: 'Wechat', trigger: 'hover focus'}"></a>
+                    <li>
+                </ul>
+            </div>
+        </div>
+        <div class="qz-list">
+            <h2 class="am-kai qz-title">热门文章</h2>
+            <hr>
+            <div class="content">
+                <ul>
+                    <li>
+                        <a href="#">springboot如何快速搭建个人博客，敬请期待</a>
+                    </li>
+                    <div class="qz-look">
+                        <span class="qz-zan am-icon-thumbs-up">12</span>
+                        <span class="qz-zan am-icon-eye">123</span>
+                    </div>
+                    <hr>
+                    <li><a href="#">springboot如何快速搭建个人博客，敬请期待</a></li>
+                    <div class="qz-look">
+                        <span class="qz-zan am-icon-thumbs-up">12</span>
+                        <span class="qz-zan am-icon-eye">123</span>
+                    </div>
+                    <hr>
+                    <li><a href="#">springboot如何快速搭建个人博客，敬请期待</a></li>
+                    <div class="qz-look">
+                        <span class="qz-zan am-icon-thumbs-up">12</span>
+                        <span class="qz-zan am-icon-eye">123</span>
+                    </div>
+                    <hr>
+                    <li><a href="#">springboot如何快速搭建个人博客，敬请期待</a></li>
+                    <div class="qz-look">
+                        <span class="qz-zan am-icon-thumbs-up">12</span>
+                        <span class="qz-zan am-icon-eye">123</span>
+                    </div>
+                    <hr>
+                    <li><a href="#">springboot如何快速搭建个人博客，敬请期待</a></li>
+                    <div class="qz-look">
+                        <span class="qz-zan am-icon-thumbs-up">12</span>
+                        <span class="qz-zan am-icon-eye">123</span>
+                    </div>
+                    <hr>
+                </ul>
+            </div>
+        </div>
+        <div class="qz-list">
+            <div class="blog-clear-margin blog-sidebar-widget am-g">
+                <h2 class="blog-title"><i>标签云</i></h2>
+                <hr>
+                <div class="am-u-sm-12 blog-clear-padding">
+                    <a href="" class="blog-tag am-kai">springboot</a>
+                    <a href="" class="blog-tag am-kai">dubbo</a>
+                    <a href="" class="blog-tag am-kai">面试题</a>
+                    <a href="" class="blog-tag am-kai">spring</a>
+                    <a href="" class="blog-tag am-kai">springMVC</a>
+                    <a href="" class="blog-tag am-kai">mybatis</a>
+                    <a href="" class="blog-tag am-kai">springCloud</a>
+                    <a href="" class="blog-tag am-kai">ElasticSearch</a>
+                    <a href="" class="blog-tag am-kai">shiro</a>
+                    <a href="" class="blog-tag am-kai">docker</a>
+                    <a href="" class="blog-tag am-kai">linux</a>
+                    <a href="" class="blog-tag am-kai">springSecurity</a>
+                    <a href="" class="blog-tag"></a>
+                </div>
+            </div>
+        </div>
+        <div class="qz-list">
+            <div class="am-hide-sm-only">
+                <h5 class="qz-title">
+                    <i class="am-icon-info site-icon"></i>
+                    <strong style="margin-left: 15px">网站信息</strong>
+                </h5>
+                <hr>
+                <ul class="site-default">
+                    <li>
+                        <i class="am-icon-file site-default-icon"></i>
+                        <span class="site-default-word">文章总数</span>：0 篇
+                    </li>
+                    <li>
+                        <i class="am-icon-tags site-default-icon"></i>
+                        <span class="site-default-word">标签总数</span>：0 个
+                    </li>
+                    <li>
+                        <i class="am-icon-comments-o site-default-icon"></i>
+                        <span class="site-default-word">留言总数</span>：0 条
+                    </li>
+                    <li>
+                        <i class="am-icon-commenting-o site-default-icon"></i>
+                        <span class="site-default-word">评论总数</span>：0 条
+                    </li>
+                    <li>
+                        <i class="am-icon-pencil-square site-default-icon"></i>
+                        <span class="site-default-word">网站最后更新</span>：
+                        <span class="siteUpdateTime">2019年06月15日23点</span>
+                    </li>
+                    <li>
+                        <i class="am-icon-calendar site-default-icon"></i>
+                        <span class="site-default-word">网站运行天数</span>：
+                        <span class="siteRunningTime">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!--引入公共底部-->
+<div th:replace="footer :: footer"></div>
+</body>
+
+
+<script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="assets/js/amazeui.js"></script>
+<script src="style/js/index.js"/>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="style/index.css" th:href="@{/style/index.css}"/>
+    <style>
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .header p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!--引入公共头部-->
+<div th:replace="header :: header"></div>
+
+<div class="header">
+    <div class="am-g">
+        <h1>注册界面</h1>
+    </div>
+    <hr/>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+
+        <form method="post" class="am-form">
+            <label for="username">账号:</label>
+            <input type="text" name="" id="username" value="" required="required" placeholder="账号">
+            <br>
+            <label for="password">密码:</label>
+            <input type="password" name="" id="password" value="" required="required" placeholder="密码">
+            <br>
+            <label for="passwordSure">确认密码:</label>
+            <input type="password" name="" id="passwordSure" value="" required="required" placeholder="再输一次密码">
+            <br>
+            <label for="email">邮箱:</label>
+            <input type="email" name="" id="email" value="" required="required" placeholder="个人邮箱">
+            <br>
+            <label for="password">性别:</label>
+            <div class="radio_input am-form-group" style="margin: 0 0 10px auto">
+                <label class="am-radio-inline">
+                    <input type="radio" name="gender" value="male" data-am-ucheck>
+                    <span class="am-icon-male am-icon-sm"></span>
+                </label>
+                <label class="am-radio-inline" style="margin-left: 40px">
+                    <input type="radio" name="gender" value="female">
+                    <span class="am-icon-female am-icon-sm"></span>
+                </label>
+            </div>
+            <br>
+            <br/>
+            <div class="am-cf">
+                <input type="submit" name="" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl">
+                <button class="am-btn am-btn-default am-btn-sm am-fr"><a href="index.html" style="color:black;">登录试试
+                    ^_^?</a></button>
+            </div>
+            <br>
+            <br>
+        </form>
+    </div>
+</div>
+</body>
+</html>

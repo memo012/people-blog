@@ -1,0 +1,174 @@
+.am-topbar{
+    box-shadow:2px 2px 20px #AAAAAA;
+}
+.am-topbar-brand img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+    border-radius: 50%;
+}
+.qz-h1{
+    margin-left: 4%;
+}
+.qz-header{
+    margin-left: 20%;
+}
+.qz-blog{
+    margin-left: 15%;
+}
+.qz-blog a{
+    font-size: 14px;
+    color: #b5b5b5;
+}
+.qz-blog a:hover{
+    color: black;
+}
+
+/*主体*/
+.app-main{
+    margin: 50px auto;
+    width: 92.8%!important;
+    min-width: 0;
+    background: white;
+}
+/*文章*/
+.qz-session{
+    display: flex;
+    flex-direction: column;
+}
+/*文章-轮播图*/
+.qz-session-swiper,.qz-session-content{
+    width: 100%;
+}
+.qz-session-swiper .qz-swiper-list{
+    padding: 0;
+    margin: 0;
+}
+.qz-session-swiper .qz-swiper-content{
+    padding: 0;
+    margin: 0;
+}
+.am-u-md-2 img{
+    width: 95%;
+    height: auto;
+    margin: 0 auto 6px auto;
+    opacity: .7;
+    filter: alpha(opacity=70);
+}
+.am-u-md-2 img:hover{
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.am-slider-default .am-control-nav{
+    bottom: 15px;
+}
+/*侧边*/
+.qz-aside{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #F8F8F8;
+}
+.qz-list{
+    width: 95%;
+    height: auto;
+    margin: 5px auto;
+    background: white;
+    border-radius: 30px;
+}
+.qz-list .content ul li{
+    list-style-type: none;
+}
+.qz-list .content ul li:first-child img{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    margin-left: 23%;
+    margin-top: 10%;
+}
+.qz-list .content ul li.qz-li{
+    text-align: center;
+    font-weight: 600;
+}
+.qz-list .content ul li p.qz-mingyan{
+    font-size: 15px;
+    text-indent: 13%;
+}
+.qz-list .content ul li p.qz-weixin{
+    font-size: 13px;
+    text-align: center;
+    color: #333267;
+}
+.qz-list .content ul li.qz-hr{
+    height: 1px;
+    width: 100%;
+    margin-left: -12px;
+    background: #cccccc;
+}
+.qz-list li{
+    list-style-type: none;
+    font-size: 15px;
+}
+.qz-list .content ul li.qz-icon a{
+    padding: 5%;
+}
+.qz-list h5{
+    margin-left: 5%;
+    margin-top: 8%;
+}
+
+/*标签*/
+.blog-clear-margin {
+    margin-left: 0rem !important;
+    margin-right: 0rem !important;
+}
+.blog-sidebar-widget {
+    padding: 0 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+.blog-tag{
+    font-size: 14px;
+    color: blue;
+}
+.blog-tag:hover{
+    color: #0b6fa2;
+    text-decoration: underline;
+}
+.qz-list .qz-title{
+    margin-left: 8%;
+    margin-top: 5%;
+}
+.qz-list .content a{
+    font-size: 14px;
+}
+.qz-list .content .qz-zan{
+    font-size: 13px;
+    color: #cccccc;
+}
+.qz-list .content .qz-look{
+    float: right;
+}
+
+/*博客*/
+.qz-session-content{
+    width: 90%;
+    margin: auto;
+}
+.qz-session-content .qz-center{
+    background: #fafafa;
+    border-radius: 5%;
+}
+.qz-session-content .qz-center .qz-article{
+    padding-left: 3%;
+}
+.qz-session-content .qz-center .qz-article h1{
+    padding-top: 3%;
+}
+.qz-session-content .qz-center .qz-article h1 a:hover{
+    text-decoration: underline;
+    color: #0a628f;
+}
+.qz-article .qz-tt .qz-mark{
+    border-radius: 45%;
+}
