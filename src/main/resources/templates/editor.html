@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文章编辑</title>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="style/index.css"/>
+    <link rel="stylesheet" href="style/css/editormd/editor.css">
+</head>
+<body>
+<div id="removeId">
+    <header class="am-topbar">
+        <div class="am-u-sm-7 am-u-md-4">
+            <h1 class="am-topbar-brand qz-h1">
+                <img src="style/images/myPicture.jpg">
+                <a href="#" class="am-kai">强子博客</a>
+            </h1>
+        </div>
+        <div class="am-u-sm-12 am-u-md-4">
+            <h1 class="am-topbar-brand am-kai" style="font-size: 19px">Welcome to 强子 创作室</h1>
+        </div>
+        <div class="am-u-sm-12 am-u-md-4">
+
+
+            <div class="am-topbar-right" style="display: inline-block">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="register.html"
+                                                                                           style="color: white">注册</a>
+                </button>
+            </div>
+            <div class="am-topbar-right" style="display: inline-block">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="login.html"
+                                                                                           style="color: white">登录</a>
+                </button>
+            </div>
+
+            <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
+                  style="display: inline-block">
+                <div class="am-form-group am-topbar-btn">
+                    <span class="am-icon-signing"/>
+                    <a href="">写博客</a>
+                </div>
+            </form>
+        </div>
+    </header>
+    <div id="writeArticle">
+        <div class="zhy-editor">
+            <div class="zhy-editor-input">
+                <input id="zhy-editor-title" type="text" placeholder="输入文章标题">
+                <button type="button" class="publishBtn am-btn am-btn-danger">发布博客</button>
+            </div>
+        </div>
+        <div class="zhy-editor-writing">
+
+            <!--MarkDown的id标志 -->
+            <div id="my-editormd">
+                <!-- 书写与实时显示的textarea -->
+                <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display:none;"></textarea>
+                <!-- 用于后端获取md稳当内容，Java中：request.getParameter("my-editormd-html-code")。 -->
+                <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+            </div>
+        </div>
+
+        <div class="notice-box notice-box-title">
+            <i class="am-icon-exclamation-circle"></i>
+            <span> 文章标题不能为空</span>
+        </div>
+        <div class="notice-box notice-box-content">
+            <i class="am-icon-exclamation-circle"></i>
+            <span> 文章內容不能为空</span>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="assets/js/amazeui.js"></script>
+</html>
