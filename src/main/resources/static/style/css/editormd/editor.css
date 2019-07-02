@@ -24,11 +24,11 @@
     font-weight: 500;
     font-family: 华文行楷;
 }
-.zhy-editor-input{
+.qz-editor-input{
     /*padding: 0 140px 0 30px;*/
     margin: 10px 30px 13px 30px;
 }
-#zhy-editor-title{
+#qz-editor-title{
     width: 90%;
     height: 40px;
     box-sizing: border-box;
@@ -49,7 +49,7 @@
     margin-left: 15px;
     border-radius: 7px;
 }
-.zhy-editor-writing{
+.qz-editor-writing{
     margin-top: 10px;
 }
 .notice-box{

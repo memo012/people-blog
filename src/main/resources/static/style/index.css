@@ -1,5 +1,6 @@
 .am-topbar{
-    box-shadow:2px 2px 20px #AAAAAA;
+    box-shadow: 0px 1px 13px 0.9px #aaa;
+    background: rgba(7, 74, 77, 0.5);
 }
 .am-topbar-brand img{
     width: 30px;
@@ -7,6 +8,7 @@
     margin-bottom: 4px;
     border-radius: 50%;
 }
+
 header .qz-h1 img{
     width: 40px;
     height: 40px;
