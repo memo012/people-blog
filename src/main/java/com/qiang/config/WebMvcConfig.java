@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @Author: qiang
  * @ProjectName: adminsystem
  * @Package: com.qiang.config
- * @Description:
+ * @Description: 路径映射配置
  * @Date: 2019/6/27 0027 17:24
  **/
 @Configuration
