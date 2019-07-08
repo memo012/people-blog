@@ -28,7 +28,7 @@ public class BlogMessage {
     /**
      * 标签id
      */
-    private String labelVlues;
+    private String labelValues;
 
     /**
      * 文章类型
@@ -142,12 +142,12 @@ public class BlogMessage {
         this.text = text;
     }
 
-    public String getLabelVlues() {
-        return labelVlues;
+    public String getLabelValues() {
+        return labelValues;
     }
 
-    public void setLabelVlues(String labelVlues) {
-        this.labelVlues = labelVlues;
+    public void setLabelValues(String labelValues) {
+        this.labelValues = labelValues;
     }
 
     public String getSelectType() {

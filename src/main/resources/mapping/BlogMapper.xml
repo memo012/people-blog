@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiang.mapper.BlogMapper">
+
+    <insert id="publishBlog" parameterType="BlogMessage">
+      insert into blog
+      values(#{id}, #{title}, #{text}, #{labelValues}, #{selectType},
+              #{selectCategories}, #{selectGrade}, #{originalAuthor},
+              #{message}, #{createTime}, #{like}, #{name}, #{articleTabloid});
+    </insert>
+
+</mapper>

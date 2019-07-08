@@ -91,6 +91,11 @@ selectType.blur(function () {
     }
 });
 
+
+function publishSuccessPutIn(data) {
+    $("#removeDiv").html('');
+}
+
 /*
 发表博客
  */
@@ -172,7 +177,15 @@ surePublishBtn.click(function () {
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (data) {
-                console.log(data);
+                if(data.status == 200){
+                    $("#my-alert").modal('close');
+                    $("#publish-success").modal();
+                }else if(data.status == 500){
+                    $(".notice-box-publish").show();
+                    setTimeout(function () {
+                        noticeBox.hide();
+                    }, 3000);
+                }
             }
         })
     }
@@ -183,3 +196,12 @@ surePublishBtn.click(function () {
     }, 3000);
 
 })
+
+/**
+ * 发布成功跳转页面
+ * @type {*|jQuery|HTMLElement}
+ */
+var issueSuccess = $("#issue-success");
+issueSuccess.click(function () {
+    window.location.href="/";
+});

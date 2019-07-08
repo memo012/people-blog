@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--个人信息-->
+<div th:fragment="aside">
+    <div class="qz-right layui-hide-xs">
+        <div class="qz-list">
+            <ul>
+                <li>
+                    <img src="style/images/myPicture.jpg">
+                </li>
+                <li class="am-kai qz-li">
+                    <h1>强子</h1>
+                </li>
+                <li>
+                    <p class="am-kai qz-mingyan">比你优秀的人都还在努力，你有资格不奋斗努力吗？</p>
+                </li>
+                <li>
+                    <p class="qz-weixin"><span class="am-icon-weixin">:1158821459@qq.com</span></p>
+
+                    <p class="qz-weixin"><span class="am-icon-qq">:1158821459</span></p>
+                </li>
+                <li class="qz-hr"></li>
+                <li class="qz-icon layui-row">
+                    <a class="am-icon-github am-icon-md"
+                       data-am-popover="{content: 'GitHub', trigger: 'hover focus'}"
+                       href="https://github.com/memo012?tab=repositories" target="_blank"
+                       title="GitHub"></a>
+                    <a href="https://blog.csdn.net/qq_41066066" target="_blank" title="CSDN"><img
+                            data-am-popover="{content: 'CSDN', trigger: 'hover focus'}" src="style/images/csdn.jpg"
+                            style="width: 30px; margin-left: 4%"></a>
+                    <a href="##" class="am-primary am-icon-qq am-icon-sm"
+                       data-am-popover="{content: 'QQ', trigger: 'hover focus'}"></a>
+                    <a href="##" class="am-primary am-icon-wechat am-icon-sm"
+                       data-am-popover="{content: 'Wechat', trigger: 'hover focus'}"></a>
+                <li>
+            </ul>
+        </div>
+        <div class="qz-list">
+            <div class="am-g">
+                <h1 class="blog-title"><i>标签云</i></h1>
+                <hr>
+                <div class="am-u-sm-12 blog-clear-padding">
+                    <a href="" class="blog-tag am-kai">springboot</a>
+                    <a href="" class="blog-tag am-kai">dubbo</a>
+                    <a href="" class="blog-tag am-kai">面试题</a>
+                    <a href="" class="blog-tag am-kai">spring</a>
+                    <a href="" class="blog-tag am-kai">springMVC</a>
+                    <a href="" class="blog-tag am-kai">mybatis</a>
+                    <a href="" class="blog-tag am-kai">springCloud</a>
+                    <a href="" class="blog-tag am-kai">ElasticSearch</a>
+                    <a href="" class="blog-tag am-kai">shiro</a>
+                    <a href="" class="blog-tag am-kai">docker</a>
+                    <a href="" class="blog-tag am-kai">linux</a>
+                    <a href="" class="blog-tag am-kai">springSecurity</a>
+                    <a href="" class="blog-tag"></a>
+                </div>
+            </div>
+        </div>
+        <div class="qz-list">
+            <div class="am-hide-sm-only">
+                <h5 class="qz-title">
+                    <i class="am-icon-info site-icon"></i>
+                    <strong style="margin-left: 4px">网站信息</strong>
+                </h5>
+                <hr>
+                <ul class="site-default">
+                    <li>
+                        <i class="am-icon-file site-default-icon"></i>
+                        <span class="site-default-word">文章总数</span>：0 篇
+                    </li>
+                    <li>
+                        <i class="am-icon-tags site-default-icon"></i>
+                        <span class="site-default-word">标签总数</span>：0 个
+                    </li>
+                    <li>
+                        <i class="am-icon-comments-o site-default-icon"></i>
+                        <span class="site-default-word">留言总数</span>：0 条
+                    </li>
+                    <li>
+                        <i class="am-icon-commenting-o site-default-icon"></i>
+                        <span class="site-default-word">评论总数</span>：0 条
+                    </li>
+                    <li>
+                        <i class="am-icon-pencil-square site-default-icon"></i>
+                        <span class="site-default-word">网站最后更新</span>：
+                        <span class="siteUpdateTime">2019年06月15日23点</span>
+                    </li>
+                    <li>
+                        <i class="am-icon-calendar site-default-icon"></i>
+                        <span class="site-default-word">网站运行天数</span>：
+                        <span class="siteRunningTime">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
