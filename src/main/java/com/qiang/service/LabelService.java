@@ -2,6 +2,8 @@ package com.qiang.service;
 
 import com.qiang.pojo.Label;
 
+import java.util.List;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -24,4 +26,10 @@ public interface LabelService {
      * @return
      */
     int selByLabelName(String labelName);
+
+    /**
+     * 查询标签全部
+     * @return
+     */
+    List<Label> selAllLabel();
 }

@@ -34,7 +34,6 @@ public class EditorController {
         // 生成文章摘要
         BuildArticleTabloidUtil buildArticleTabloidUtil = new BuildArticleTabloidUtil();
         String articleHtmlContent = buildArticleTabloidUtil.buildArticleTabloid(blogMessage.getArticleHtmlContent());
-        System.out.println(articleHtmlContent);
         blogMessage.setArticleTabloid(articleHtmlContent + "...");
 
         //标签

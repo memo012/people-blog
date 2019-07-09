@@ -15,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  **/
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName("index");
+//    }
     @Bean
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter() {
         WebMvcConfigurerAdapter webMvcConfigurerAdapter = new WebMvcConfigurerAdapter() {
@@ -26,19 +26,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/**")
-                        .addResourceLocations("classpath:/META-INF/resources/")
+                        .addResourceLocations("classpath:/static/");
+                registry.addResourceHandler("/article/**")
                         .addResourceLocations("classpath:/static/");
             }
 
-            @Override
-            public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("index");
-                registry.addViewController("/login.html").setViewName("login");
-                registry.addViewController("/register.html").setViewName("register");
-                registry.addViewController("/editor.html").setViewName("editor");
-                registry.addViewController("/update.html").setViewName("update");
-                registry.addViewController("/archive.html").setViewName("archive");
-            }
         };
         return webMvcConfigurerAdapter;
     }

@@ -26,12 +26,19 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogMapper blogMapper;
 
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public BlogMessage findById(long id) {
+        return blogMapper.findById(id);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int publishBlog(BlogMessage blogMessage) {
-        String id = UUID.randomUUID().toString();
+        long id = new TimeUtil().getLongTime();
         blogMessage.setId(id);
         blogMessage.setLike(0);
+        blogMessage.setLook(0);
         TimeUtil timeUtil = new TimeUtil();
         blogMessage.setCreateTime(timeUtil.getFormatDateForThree());
         return blogMapper.publishBlog(blogMessage);

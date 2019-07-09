@@ -13,7 +13,7 @@ public class BlogMessage {
     /**
      * 标识符
      */
-    private String id;
+    private long id;
 
     /**
      * 标题
@@ -86,6 +86,19 @@ public class BlogMessage {
      */
     private String[] tagValue;
 
+    /**
+     * 浏览次数
+     */
+    private int look;
+
+    public int getLook() {
+        return look;
+    }
+
+    public void setLook(int look) {
+        this.look = look;
+    }
+
     public String[] getTagValue() {
         return tagValue;
     }
@@ -118,11 +131,11 @@ public class BlogMessage {
         this.articleTabloid = articleTabloid;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

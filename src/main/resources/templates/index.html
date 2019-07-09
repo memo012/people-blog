@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>强子的博客~~</title>
+    <link rel="alternate icon" type="image/png" href="myPicture.jpg">
     <link rel="stylesheet" href="assets/css/amazeui.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/index.css"/>
@@ -24,150 +25,41 @@
             </div>
             <div class="layui-col-md8 qz-center">
                 <div class="qz-session-content">
-                    <div class="qz-center">
-                        <header class="qz-article">
-                            <h1 itemprop="name">
-                                <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
-                            </h1>
-                            <div class="qz-tt">
-                                <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>&nbsp;&nbsp;
-                                <span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;2019-6-30</span>&nbsp;&nbsp;
-                                <span style="font-size: 14px;"><i class="am-icon-user">&nbsp;强子</i></span>
+                    <div class="qz-session-center">
+                        <div class="qz-center">
+
+                            <header class="qz-article">
+                                <h1 itemprop="name">
+                                    <a class="qz-article-title" href="#" target="_blank"></a>
+                                </h1>
+                                <div class="qz-tt">
+                                    <span class="am-badge am-badge-success qz-mark"></span>&nbsp;&nbsp;
+                                    <!--<span class=""><span class="am-icon-calendar"></span></span>&nbsp;&nbsp;-->
+                                    <!--<span style="font-size: 14px;"><i class="am-icon-user"></i></span>-->
+                                    <!--<span style="font-size: 14px; color: #c611e2;"><i class="am-icon-eye"></i></span>-->
+                                </div>
+                            </header>
+                            <div class="article-entry" style="height: 130px;">
+                                <p></p>
                             </div>
-                        </header>
-                        <div class="article-entry" style="height: 130px;">
-                            <p>前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，
-                                今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。
-                                本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。
-                                为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。
-                                接着往下看就会明白这几个类的奥秘了</p>
-                        </div>
-                        <div class="read-all">
-                            <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                        </div>
-                        <hr>
-                        <div class="article-tags">
-                            <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;java</a></i>&nbsp;&nbsp;
-                            <i class="layui-icon layui-icon-praise"><a class="tag" href="#" style="font-size: 14px">点赞</a></i>
-                            <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
+                            <div class="read-all">
+                                <a href="#">阅读全文 <i class="am-icon-angle-double-right"></i></a>
+                            </div>
+                            <hr>
+                            <div class="article-tags">
+                                <i class="am-icon-tag"><a class="tag aa" href="#"></a></i>&nbsp;&nbsp;
+                                <!--<i class="layui-icon layui-icon-praise"><a class="tag" href="#"-->
+                                <!--style="font-size: 14px">点赞</a></i>-->
+                                <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;springboot</a></i>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="qz-center">
-                        <header class="qz-article">
-                            <h1 itemprop="name">
-                                <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
-                            </h1>
-                            <div class="qz-tt">
-                                <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>&nbsp;&nbsp;
-                                <span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;2019-6-30</span>&nbsp;&nbsp;
-                                <span style="font-size: 14px;"><i class="am-icon-user">&nbsp;强子</i></span>
-                            </div>
-                        </header>
-                        <div class="article-entry" style="height: 130px;">
-                            <p>前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，
-                                今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。
-                                本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。
-                                为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。
-                                接着往下看就会明白这几个类的奥秘了</p>
-                        </div>
-                        <div class="read-all">
-                            <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                        </div>
-                        <hr>
-                        <div class="article-tags">
-                            <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;java</a></i>&nbsp;&nbsp;
-                            <i class="layui-icon layui-icon-praise"><a class="tag" href="#" style="font-size: 14px">点赞</a></i>
-                            <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
-                        </div>
-                    </div>
-                    <div class="qz-center">
-                        <header class="qz-article">
-                            <h1 itemprop="name">
-                                <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
-                            </h1>
-                            <div class="qz-tt">
-                                <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>&nbsp;&nbsp;
-                                <span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;2019-6-30</span>&nbsp;&nbsp;
-                                <span style="font-size: 14px;"><i class="am-icon-user">&nbsp;强子</i></span>
-                            </div>
-                        </header>
-                        <div class="article-entry" style="height: 130px;">
-                            <p>前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，
-                                今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。
-                                本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。
-                                为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。
-                                接着往下看就会明白这几个类的奥秘了</p>
-                        </div>
-                        <div class="read-all">
-                            <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                        </div>
-                        <hr>
-                        <div class="article-tags">
-                            <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;java</a></i>&nbsp;&nbsp;
-                            <i class="layui-icon layui-icon-praise"><a class="tag" href="#" style="font-size: 14px">点赞</a></i>
-                            <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
-                        </div>
-                    </div>
-                    <div class="qz-center">
-                        <header class="qz-article">
-                            <h1 itemprop="name">
-                                <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
-                            </h1>
-                            <div class="qz-tt">
-                                <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>&nbsp;&nbsp;
-                                <span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;2019-6-30</span>&nbsp;&nbsp;
-                                <span style="font-size: 14px;"><i class="am-icon-user">&nbsp;强子</i></span>
-                            </div>
-                        </header>
-                        <div class="article-entry" style="height: 130px;">
-                            <p>前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，
-                                今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。
-                                本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。
-                                为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。
-                                接着往下看就会明白这几个类的奥秘了</p>
-                        </div>
-                        <div class="read-all">
-                            <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                        </div>
-                        <hr>
-                        <div class="article-tags">
-                            <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;java</a></i>&nbsp;&nbsp;
-                            <i class="layui-icon layui-icon-praise"><a class="tag" href="#" style="font-size: 14px">点赞</a></i>
-                            <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
-                        </div>
-                    </div>
-                    <div class="qz-center">
-                        <header class="qz-article">
-                            <h1 itemprop="name">
-                                <a class="qz-article-title" href="#" target="_blank">&nbsp;LinkedHashMap源码解读</a>
-                            </h1>
-                            <div class="qz-tt">
-                                <span class="am-badge am-badge-success qz-mark">&nbsp;原创</span>&nbsp;&nbsp;
-                                <span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;2019-6-30</span>&nbsp;&nbsp;
-                                <span style="font-size: 14px;"><i class="am-icon-user">&nbsp;强子</i></span>
-                            </div>
-                        </header>
-                        <div class="article-entry" style="height: 130px;">
-                            <p>前言之前在看HashMap的源码时看到几个空实现的函数，当时也没有在意，
-                                今天在了解LinkedHashMap时突然明白了那个空实现函数(钩子函数)的意义。
-                                本文源码版本依旧是JDK1.8。LinkedHashMap钩子函数首先先来看看HashMap中所谓的钩子函数。
-                                为什么在HashMap中会有这几个空实现的钩子函数呢，原因很简单，因为HashMap的子类要用啊。
-                                接着往下看就会明白这几个类的奥秘了</p>
-                        </div>
-                        <div class="read-all">
-                            <a href="#" target="_blank">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                        </div>
-                        <hr>
-                        <div class="article-tags">
-                            <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;java</a></i>&nbsp;&nbsp;
-                            <i class="layui-icon layui-icon-praise"><a class="tag" href="#" style="font-size: 14px">点赞</a></i>
-                            <i class="am-icon-tag"><a class="tag" href="#"> &nbsp;&nbsp;&nbsp;&nbsp;回复</a></i>
-                        </div>
-                    </div>
-                    <!--//分页-->
-                    <div class="qz-center">
+
+                    <div class="qz-page" id="page-helper">
 
                     </div>
+
                 </div>
             </div>
         </div>
@@ -187,6 +79,9 @@
 </body>
 
 <script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="style/js/index.js"></script>
 <script src="assets/js/amazeui.js"></script>
+<script src="style/js/pagehelper.js"></script>
+<script src="style/js/tags.js"></script>
 
 </html>

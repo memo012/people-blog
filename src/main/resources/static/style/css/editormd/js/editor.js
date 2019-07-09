@@ -169,7 +169,6 @@ surePublishBtn.click(function () {
             text: myEditormdHtmlCode.val(),
             articleHtmlContent: testEditor.getHTML()
         };
-        console.log(data);
         $.ajax({
             type: "POST",
             url: "/publishEditor",

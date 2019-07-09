@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -20,4 +22,7 @@ public interface LabelMapper {
 
     @Select("select count(*) from label where labelName = #{arg0}")
     int selByLabelName(String labelName);
+
+    @Select("select * from label")
+    List<Label> selAllLabel();
 }

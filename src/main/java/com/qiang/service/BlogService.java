@@ -18,4 +18,11 @@ public interface BlogService {
      */
     int publishBlog(BlogMessage blogMessage);
 
+    /**
+     * 通过id查询该文章详情
+     * @param id
+     * @return
+     */
+    BlogMessage findById(long id);
+
 }

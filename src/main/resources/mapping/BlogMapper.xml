@@ -8,7 +8,7 @@
       insert into blog
       values(#{id}, #{title}, #{text}, #{labelValues}, #{selectType},
               #{selectCategories}, #{selectGrade}, #{originalAuthor},
-              #{message}, #{createTime}, #{like}, #{name}, #{articleTabloid});
+              #{message}, #{createTime}, #{like}, #{name}, #{articleTabloid}, #{look});
     </insert>
 
 </mapper>

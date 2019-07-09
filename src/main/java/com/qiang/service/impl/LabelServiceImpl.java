@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -23,6 +24,12 @@ public class LabelServiceImpl implements LabelService {
     @Autowired
     private LabelMapper labelMapper;
 
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<Label> selAllLabel() {
+        return labelMapper.selAllLabel();
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insLabel(String[] label) {
@@ -32,7 +39,6 @@ public class LabelServiceImpl implements LabelService {
                 Label tags = new Label();
                 String id = UUID.randomUUID().toString();
                 tags.setId(id);
-                System.out.println(id);
                 tags.setLabelName(label[i]);
                 flag = labelMapper.insLabel(tags);
             }
