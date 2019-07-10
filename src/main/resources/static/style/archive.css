@@ -149,7 +149,6 @@ a{
 }
 .qz-time dl dd .qz-file{
     margin-top: 3%;
-    margin-left: 17%;
 }
 .qz-time dl dd .qz-flie a:hover{
     color: #9b0cb1;
@@ -162,5 +161,4 @@ a{
     clear: both;
     height: 0;
     box-sizing: border-box;
-    background: red;
 }

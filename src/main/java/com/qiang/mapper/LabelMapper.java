@@ -25,4 +25,5 @@ public interface LabelMapper {
 
     @Select("select * from label")
     List<Label> selAllLabel();
+
 }

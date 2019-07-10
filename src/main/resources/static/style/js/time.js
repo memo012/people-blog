@@ -1,8 +1,9 @@
+var createTime = "";
 /**
- * 归档渲染
+ * 发布时间渲染
  * @param data
  */
-function putInArchive(data) {
+function putInTime(data) {
     var timeOne;
     $(".container-before-icon").html('');
     $(".qz-time").html('');
@@ -19,7 +20,7 @@ function putInArchive(data) {
             timeOne = obj['createTime'].split('-');
             center = $(
                 '<dl>'+
-                '<dt>'+timeOne[0]+'</dt>'+
+                '<dt>'+obj['createTime']+'</dt>'+
                 '<dd class="qz-right qz-dt-div">'+
                 '<div class="circ"></div>'+
                 ' <div class="time">'+timeOne[1]+'月'+timeOne[2]+'日</div>'+
@@ -163,22 +164,32 @@ function putPageHelper(data, curnum){
     });
 }
 
+$.ajax({
+    type: 'HEAD', // 获取头信息，type=HEAD即可
+    url: window.location.href,
+    async: false,
+    success: function (data, status, xhr) {
+        createTime = xhr.getResponseHeader("createTime");
+    }
+});
+
+
 /**
- * 分页归档
+ * 分页时间查询
  * @param currentPage
  */
 function ajaxFirst(currentPage) {
-    var jsonStr = {pageSize: 5, pageNum: currentPage};
+    var jsonStr = {pageSize: 5, pageNum: currentPage, createTime: createTime};
     $.ajax({
         type: "GET",
-        url: "/myArticles",
+        url: "/getTime",
         // contentType: "application/x-www-form-urlencoded",
         contentType: "application/json",
         dataType: "json",
         data: jsonStr,
         success: function (data) {
             //放入数据
-            putInArchive(data.data);
+            putInTime(data.data);
             scrollTo(0, 0);//回到顶部
 
             // 分页查询

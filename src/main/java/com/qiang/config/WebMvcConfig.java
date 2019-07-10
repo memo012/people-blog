@@ -29,6 +29,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                         .addResourceLocations("classpath:/static/");
                 registry.addResourceHandler("/article/**")
                         .addResourceLocations("classpath:/static/");
+                registry.addResourceHandler("/categories/**")
+                        .addResourceLocations("classpath:/static/");
+                registry.addResourceHandler("/templates/**")
+                        .addResourceLocations("classpath:/static/");
+                registry.addResourceHandler("/time/**")
+                        .addResourceLocations("classpath:/static/");
             }
 
         };

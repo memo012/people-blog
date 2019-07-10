@@ -15,6 +15,19 @@ public class BlogMessageVO extends BlogMessage {
      */
     private String articleUrl;
 
+    /**
+     * 规定标签
+     */
+    private String specificTag;
+
+    public String getSpecificTag() {
+        return specificTag;
+    }
+
+    public void setSpecificTag(String specificTag) {
+        this.specificTag = specificTag;
+    }
+
     public String getArticleUrl() {
         return articleUrl;
     }

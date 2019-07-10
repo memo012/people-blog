@@ -15,7 +15,7 @@ function putInLabel(data){
         '</div>');
     tagVaues.append(center);
     $.each(data, function (index, obj) {
-        var cent = $('<a href="tags?tag=' + obj['labelName'] + '" class="blog-tag am-kai">' + obj['labelName'] + '&nbsp;&nbsp;</a>');
+        var cent = $('<a href="/tags?tag=' + obj['labelName'] + '" class="blog-tag am-kai">' + obj['labelName'] + '&nbsp;&nbsp;</a>');
         $(".blog-clear-padding").append(cent);
     })
 }

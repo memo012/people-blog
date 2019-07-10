@@ -1,5 +1,6 @@
 package com.qiang.service;
 
+import com.github.pagehelper.Page;
 import com.qiang.commons.PagedResult;
 
 /**
@@ -18,5 +19,32 @@ public interface ArticleService {
      * @return
      */
     PagedResult findAllBlog(Integer page, Integer pageSize);
+
+    /**
+     * 通过标签查询文章
+     * @param page
+     * @param pageSize
+     * @param tag 标签名
+     * @return
+     */
+    PagedResult findByTag(Integer page, Integer pageSize, String tag);
+
+    /**
+     * 通过文章归类查询
+     * @param page
+     * @param pageSize
+     * @param categories
+     * @return
+     */
+    PagedResult findByCategories(Integer page, Integer pageSize, String categories);
+
+    /**
+     * 通过时间查询
+     * @param page
+     * @param pageSize
+     * @param time
+     * @return
+     */
+    PagedResult findByTime(Integer page, Integer pageSize, String time);
 
 }
