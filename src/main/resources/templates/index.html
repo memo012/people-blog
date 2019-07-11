@@ -11,14 +11,92 @@
     <link rel="stylesheet" href="layui/css/layui.css"/>
     <script src="layui/layui.js"></script>
     <style type="text/css">
-        .read-all{
+        .read-all {
             padding-top: 10%;
         }
     </style>
 </head>
 <body>
 
-<div th:replace="header :: header"></div>
+<!--头部-->
+<header class="am-topbar">
+    <div class="am-u-sm-7 am-u-md-2">
+        <h1 class="am-topbar-brand qz-h1">
+            <img src="style/images/myPicture.jpg">
+            <a href="/" class="am-kai" style="color: #111111">强子博客</a>
+        </h1>
+    </div>
+    <div class="am-u-sm-12 am-u-md-7">
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse qz-header" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="/"><span class="am-icon-home"></span>首页</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;"
+                       style="color: #111111">
+                        <span class="am-icon-gg"/>技术专题 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#">Java学习指南</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">spring</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">springMVC</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">Spring Boot</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">MyBatis</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">面试题</a></li>
+                    </ul>
+                </li>
+                <li><a href="/archive" style="color: #111111"><span class="am-icon-archive"/>归档</a></li>
+                <li><a href="/update" style="color: #111111"><span class="am-icon-calendar-plus-o"/>更新</a></li>
+                <li><a href="/guest" style="color: #111111"><span class="am-icon-pencil"/>留言板</a></li>
+                <li><a href="#" style="color: #111111"><i class="layui-icon layui-icon-senior"></i>友链</a></li>
+                <li><a href="#" style="color: #111111"><i class="layui-icon layui-icon-username"></i>关于我</a></li>
+            </ul>
+
+            <form class="am-topbar-form am-topbar-left am-form-inline" role="search">
+                <div class="am-form-group">
+                    <input type="text" class="am-form-field am-input-sm" placeholder="搜索" style="width: 150px">
+                    <span class="am-icon-search"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-3">
+
+        <div class="am-topbar-right" style="display: inline-block">
+            <div class="am-dropdown" data-am-dropdown>
+                <button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"
+                        data-am-dropdown-toggle style="border-radius: 50%;">
+                    <span>强子</span>
+                    <span class="am-icon-caret-down"></span>
+                </button>
+                <ul class="am-dropdown-content">
+                    <li><a href="/user">个人主页</a></li>
+                    <li><a href="/#">网站后台管理</a></li>
+                    <li><a href="/#" class="news">消息<span class="newsNum am-badge am-badge-danger"></span></a></li>
+                    <li><a class="feedbackClick">反馈</a></li>
+                    <hr style="margin: 10px 0 5px 0;">
+                    <li><a>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
+              style="display: inline-block">
+            <div class="am-form-group am-topbar-btn">
+                <span class="am-icon-signing"/>
+                <a href="/editor">写博客</a>
+            </div>
+        </form>
+    </div>
+</header>
+
 
 <!--主体-->
 <div class="layui-row layui-col-space25 qz-session">

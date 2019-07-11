@@ -29,6 +29,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int updLike(long articleId) {
+        articleMapper.updLike(articleId);
+        return articleMapper.findLike(articleId);
+    }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public PagedResult findByTime(Integer page, Integer pageSize, String time) {

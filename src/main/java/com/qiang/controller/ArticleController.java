@@ -71,4 +71,18 @@ public class ArticleController {
         PagedResult byTag = articleService.findByTag(pageNum, pageSize, s);
         return BlogJSONResult.ok(byTag);
     }
+
+    /**
+     * 点赞(游客即可)
+     * @param articleId
+     * @return
+     */
+    @GetMapping("getArticleLike")
+    public BlogJSONResult getArticleLike(@RequestParam("articleId") long articleId){
+        int result = articleService.updLike(articleId);
+        if(result > 0){
+            return BlogJSONResult.ok(result);
+        }
+        return BlogJSONResult.errorMsg("点赞失败");
+    }
 }

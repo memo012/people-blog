@@ -142,6 +142,45 @@ textarea{
     float: right;
 }
 .sub-comment{
-    background: red;
+
+}
+textarea{
+    resize: none;
+}
+.quitReplyWordBtn{
+    float: right;
+    margin-right: 5%;
+}
+.sendReplyWordBtn{
+    margin-left: 5%;
+}
+.replyWordBtn button{
+    border-radius: 23%;
+}
+.sub-comment-list {
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px 0 5px 3%;
+    border-left: 2px solid #d9d9d9;
+}
+.visitorReplyTime {
+    color: #969696;
+    margin: 6px auto;
+    font-size: 15px;
+}
+.visitorReplyTime a:hover{
+    cursor: pointer;
+    color: #f9a477;
+}
+.tool-group a:hover{
+    cursor: pointer;
+    color: #f9a477;
+}
+.more-comment{
+    font-size: 18px;
+}
+.more-comment a:hover{
+    cursor: pointer;
+    color: #f9a477;
 }
 

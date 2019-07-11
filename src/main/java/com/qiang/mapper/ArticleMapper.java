@@ -4,6 +4,7 @@ import com.qiang.pojo.BlogMessage;
 import com.qiang.pojo.VO.BlogMessageVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,11 @@ public interface ArticleMapper {
 
     @Select("select * from blog where createTime = #{arg0} order by id desc")
     List<BlogMessage> findByTime(String time);
+
+    @Update("update blog set likes = likes + 1 where id = #{articleId}")
+    int updLike(@Param("articleId") long articleId);
+
+    @Select("select likes from blog where id = #{articleId}")
+    int findLike(@Param("articleId") long articleId);
 
 }

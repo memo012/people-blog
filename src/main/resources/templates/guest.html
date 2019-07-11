@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/index.css"/>
     <link rel="stylesheet" href="style/show.css"/>
+    <link rel="stylesheet" href="style/guest.css"/>
     <link rel="stylesheet" href="layui/css/layui.css"/>
     <script src="layui/layui.js"></script>
     <style type="text/css">
@@ -72,34 +73,29 @@
             <div class="layui-col-md8 qz-center">
                 <div class="qz-session-content">
                     <div class="qz-art">
-                        <div class="qz-article-top">
-                            <div class="article-top"></div>
-                            <div class="qz-tt article-info">
-                            </div>
-                        </div>
-                        <div class="qz-article-content">
-                            <div id="wordsView" class="qz-markerdown">
-
-                            </div>
-                        </div>
-                        <div id="article-share">
-                            <div class="article-button">
-                                <button class="article-btn" id="article-like" style="border: none;">
-                                    <span>❤ 喜欢  </span><span id="article-like-span">0</span></button>
-                            </div>
+                        <div class="qz-guest">
+                            <ul>
+                                <li class="am-kai">强子的博客正式开业了~~~</li>
+                                <li class="am-kai">这个网站进行长期维护哦(⊙o⊙)？</li>
+                                <li class="am-kai">客官对网站有更好的建议，欢迎大家留言~~~~</li>
+                                <li class="am-kai">客官在使用过程中遇到了bug，欢迎指出来</li>
+                                <li class="am-kai">你的建议，就是我的最大动力</li>
+                                <li class="am-kai">乘风破浪~~~</li>
+                            </ul>
                         </div>
                         <hr>
+
 
                         <div class="qz-comment">
                             <div class="comment-top">
                                 <div class="comment-top-input">
                                     <div class="goToLogin">
-                                        &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以发表评论呦...
+                                        &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以留言呦...
                                     </div>
                                 </div>
 
                                 <div class="commentBtn">
-                                    <button id="commentBtn" type="button" class="am-btn am-btn-secondary">发表评论</button>
+                                    <button id="commentBtn" type="button" class="am-btn am-btn-secondary">留言</button>
                                 </div>
 
 
@@ -108,19 +104,18 @@
 
                         <div class="qz-comment">
                         <textarea class="">
-                            客官可以发表言论(⊙o⊙)？
+                            客官可以留言提出意见哦(⊙o⊙)？
                         </textarea>
                             <div class="commentBt">
-                                <button id="commentBn" type="button" class="am-btn am-btn-secondary">发表评论</button>
+                                <button id="commentBn" type="button" class="am-btn am-btn-secondary">留言</button>
                             </div>
                         </div>
-
-
                         <div class="article-comment-title">
                             <span class="article-comment-word">评论</span>
                             <div class="article-comment-line"></div>
                         </div>
 
+                        <!--留言列表-->
                         <div class="visitorComment">
                             <div class="am-g">
                                 <div class="visitorCommentImg am-u-sm-2 am-u-lg-1">
@@ -323,5 +318,4 @@
 <script src="assets/js/jquery-1.12.4.min.js"></script>
 <script src="assets/js/amazeui.js"></script>
 <script src="style/js/tags.js"></script>
-<script src="style/js/show.js"></script>
 </html>

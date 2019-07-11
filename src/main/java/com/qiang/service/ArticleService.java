@@ -47,4 +47,11 @@ public interface ArticleService {
      */
     PagedResult findByTime(Integer page, Integer pageSize, String time);
 
+    /**
+     * 点赞人数
+     * @param articleId
+     * @return
+     */
+    int updLike(long articleId);
+
 }

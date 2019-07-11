@@ -34,7 +34,7 @@ public class BackController {
      * 登录页面
      * @return
      */
-    @GetMapping("/login")
+    @GetMapping("login")
     public String login(){
         return "/login";
     }
@@ -43,7 +43,7 @@ public class BackController {
      * 注册页面
      * @return
      */
-    @GetMapping("/register")
+    @GetMapping("register")
     public String register(){
         return "/register";
     }
@@ -52,7 +52,7 @@ public class BackController {
      * 博客发布页面
      * @return
      */
-    @GetMapping("/editor")
+    @GetMapping("editor")
     public String editor(){
         return "/editor";
     }
@@ -134,7 +134,7 @@ public class BackController {
      * @param response
      * @return
      */
-    @GetMapping("/categories")
+    @GetMapping("categories")
     public String categories(HttpServletRequest request
                                 ,HttpServletResponse response){
         try {
@@ -148,5 +148,24 @@ public class BackController {
         }
         return "categories";
     }
+
+    /**
+     * 留言板
+     * @return
+     */
+    @GetMapping("/guest")
+    public String guest(){
+        return "guest";
+    }
+
+    /**
+     * 个人中心
+     * @return
+     */
+    @GetMapping("/user")
+    public String user(){
+        return "user";
+    }
+
 
 }

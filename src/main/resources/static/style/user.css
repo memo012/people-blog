@@ -1,0 +1,9 @@
+.admin-main {
+    padding: 0;
+}
+.admin-content-body{
+    display: none;
+}
+.qz-show{
+    display: block;
+}

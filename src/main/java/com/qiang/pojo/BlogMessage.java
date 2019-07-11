@@ -1,7 +1,5 @@
 package com.qiang.pojo;
 
-import javax.xml.crypto.Data;
-
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -63,7 +61,7 @@ public class BlogMessage {
     /**
      * 点赞
      */
-    private Integer like;
+    private Integer likes;
 
     /**
      * 作者名字
@@ -204,11 +202,11 @@ public class BlogMessage {
     }
 
     public Integer getLike() {
-        return like;
+        return likes;
     }
 
-    public void setLike(Integer like) {
-        this.like = like;
+    public void setLike(Integer likes) {
+        this.likes = likes;
     }
 
     public String getName() {

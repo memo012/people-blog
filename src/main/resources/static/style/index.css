@@ -106,7 +106,6 @@ header .qz-h1 img{
 
 .qz-center .qz-boke{
     height: 200px;
-    background: red;
 }
 
 .article-entry p{
@@ -117,7 +116,6 @@ header .qz-h1 img{
     font-size: 15px;
     color: #5e5f62;
 }
-
 .read-all a:hover{
     text-decoration: underline;
     color: #0a628f;

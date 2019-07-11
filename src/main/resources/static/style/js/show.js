@@ -46,10 +46,40 @@ $.ajax({
     },
     success: function (data) {
         //放入数据
-        console.log(data);
+        $("#article-like-span").html(data.data.like);
         putInArticleDetail(data.data);
     },
     error: function () {
         alert("出错啦...");
     }
+});
+
+/**
+ * 点赞
+ */
+$(function () {
+    $("#article-like").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/getArticleLike",
+            // contentType: "application/x-www-form-urlencoded",
+            contentType: "application/json",
+            dataType: "json",
+            data: {
+                articleId: articleId
+            },
+            success: function (data) {
+                //放入数据
+                 $("#article-like-span").html(data.data);
+                 $(".article-btn").css({
+                     "background-color": "#EA6F5A",
+                     "color":"white"
+                 });
+            },
+            error: function () {
+                alert("出错啦...");
+            }
+        });
+    });
+
 });
