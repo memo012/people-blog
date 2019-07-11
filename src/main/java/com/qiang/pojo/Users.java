@@ -27,22 +27,22 @@ public class Users {
     private String password;
 
     /**
-     * 邮箱
+     * 手机
      */
-    private String email;
+    private String phone;
 
     /**
-     * 性别
+     * 性别（0-男 1-女）
      */
     private int sex;
 
     /**
      * 最后一次登录时间
      */
-    private Data datetime;
+    private Data lastTime;
 
     /**
-     * 角色(1-超级管理员 2-普通用户)
+     * 角色(1-超级管理员 2-普通用户 3-会员)
      */
     private int roleId;
 
@@ -70,14 +70,6 @@ public class Users {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getSex() {
         return sex;
     }
@@ -86,12 +78,20 @@ public class Users {
         this.sex = sex;
     }
 
-    public Data getDatetime() {
-        return datetime;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setDatetime(Data datetime) {
-        this.datetime = datetime;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Data getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(Data lastTime) {
+        this.lastTime = lastTime;
     }
 
     public int getRoleId() {
