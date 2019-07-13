@@ -14,6 +14,9 @@
             background: rgba(1, 89, 90, 0.5);
             color: white;
         }
+        .admin-sidebar{
+            overflow-y: hidden;
+        }
     </style>
 </head>
 <body>
@@ -103,11 +106,12 @@
         <div class="am-offcanvas-bar admin-offcanvas-bar">
             <ul class="am-list admin-sidebar-list qz-ul-a">
                 <li class="list-item active"><a style="cursor: pointer;"><span class="am-icon-file"></span> 个人资料<span
-                          class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
                 <li class="list-item"><a style="cursor: pointer;"><span class="am-icon-cog"></span> 安全配置<span
-                          class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
-                <li class="list-item"><a style="cursor: pointer;"><span class="am-icon-pencil-square-o am-icon-commenting"></span> 我的评论<span
-                           class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
+                <li class="list-item"><a style="cursor: pointer;"><span
+                        class="am-icon-pencil-square-o am-icon-commenting"></span> 我的评论<span
+                        class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
                 <li class="list-item"><a style="cursor: pointer;"><span class="am-icon-comments"></span> 我的留言<span
                         class="am-icon-angle-right am-fr am-margin-right"></span></a></li>
             </ul>
@@ -125,7 +129,7 @@
     <!-- content start -->
     <div class="admin-content">
 
-        <div class="admin-content-body qz-show"  style="padding-bottom: 70px;">
+        <div class="admin-content-body qz-show" style="padding-bottom: 70px;">
             <div class="am-cf am-padding am-padding-bottom-0">
                 <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong> /
                     <small>Personal information</small>
@@ -203,7 +207,8 @@
                                 <input type="text" id="yan" placeholder="验证码"
                                        style="width: 140px;">
                                 <button class="authCodeBtn am-btn am-btn-secondary am-round am-btn-sm"
-                                        id="authCodeBtn" type="button" style="position: relative;top: -37px;left: 180px;">获取验证码
+                                        id="authCodeBtn" type="button"
+                                        style="position: relative;top: -37px;left: 180px;">获取验证码
                                 </button>
                             </div>
                         </div>
@@ -246,7 +251,7 @@
 
         <div class="admin-content-body" style="padding-bottom: 70px;">
             <div class="am-cf am-padding am-padding-bottom-0">
-                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">我的回复</strong> /
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">我的留言</strong> /
                     <small>replay information</small>
                 </div>
             </div>

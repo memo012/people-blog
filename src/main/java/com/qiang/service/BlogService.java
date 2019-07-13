@@ -16,7 +16,7 @@ public interface BlogService {
      * @param blogMessage 博客实体类
      * @return
      */
-    int publishBlog(BlogMessage blogMessage);
+    void publishBlog(BlogMessage blogMessage);
 
     /**
      * 通过id查询该文章详情

@@ -4,10 +4,13 @@ import com.qiang.commons.BlogJSONResult;
 import com.qiang.commons.PagedResult;
 import com.qiang.commons.TransCodingUtil;
 import com.qiang.pojo.BlogMessage;
+import com.qiang.pojo.es.EsBlogMessage;
 import com.qiang.service.ArticleService;
 import com.qiang.service.BlogService;
+import com.qiang.service.EsService;
 import org.pegdown.PegDownProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +30,9 @@ public class ArticleController {
 
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private EsService esService;
 
     /**
      * 首页分页查询文章
@@ -84,5 +90,13 @@ public class ArticleController {
             return BlogJSONResult.ok(result);
         }
         return BlogJSONResult.errorMsg("点赞失败");
+    }
+
+    @GetMapping("getArticleByEs")
+    public BlogJSONResult getArticleByEs(@RequestParam(value = "pageSize") Integer pageSize,
+                                         @RequestParam(value = "pageNum") Integer pageNum,
+                                         @RequestParam(value = "wordKey") String wordKey){
+        Page<EsBlogMessage> allBlog = esService.findAllBlog(pageNum, pageSize, wordKey);
+        return BlogJSONResult.ok(allBlog);
     }
 }

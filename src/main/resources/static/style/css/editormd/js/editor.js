@@ -159,6 +159,7 @@ surePublishBtn.click(function () {
         $(".notice-box-originalAuthor").show();
     } else {
         var data = {
+            id: $(".surePublishBtn").attr("id"),
             tagValue: tagValues,
             selectType: selectTypes,
             selectCategories: selectCategorie,

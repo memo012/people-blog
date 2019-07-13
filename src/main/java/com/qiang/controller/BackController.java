@@ -36,7 +36,7 @@ public class BackController {
      */
     @GetMapping("login")
     public String login(){
-        return "/login";
+        return "login";
     }
 
     /**
@@ -45,7 +45,7 @@ public class BackController {
      */
     @GetMapping("register")
     public String register(){
-        return "/register";
+        return "register";
     }
 
     /**

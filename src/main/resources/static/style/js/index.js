@@ -97,6 +97,17 @@ function ajaxFirst(currentPage) {
 
 ajaxFirst(1);
 
+/**
+ * 搜索
+ */
+$(".es").keyup(function (event) {
+    console.log($(".es").val());
+    if(event.which == "13"){
+        var $word = $(".es").val();
+    }
+    
+})
+
 
 
 
