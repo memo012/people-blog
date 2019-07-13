@@ -7,11 +7,8 @@
 ## 英雄帖
 该项目中还有一些功能还未完成，有改进之处，欢迎大家issue
 ## 整体效果
-![
-
-
-
-]
+### 首页效果
+![image](https://github.com/memo012/people-blog/blob/master/images/index.png)
 ## 使用的技术
 ## 环境配置
 #### 数据库：MySQL
