@@ -1,5 +1,6 @@
 package com.qiang.service.impl;
 
+import com.qiang.commons.StringAndArray;
 import com.qiang.pojo.es.EsBlogMessage;
 import com.qiang.repository.EsBlogRepository;
 import com.qiang.service.EsService;
@@ -30,9 +31,14 @@ public class EsServiceImpl implements EsService {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public Page<EsBlogMessage> findAllBlog(Integer page, Integer pageSize, String key) {
-        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(page-1, pageSize, sort);
         Page<EsBlogMessage> es = esBlogRepository.findDistinctByTitleContainingOrNameContaining(key, key, pageable);
+        for (EsBlogMessage e:
+             es.getContent()) {
+            e.setTagValue(StringAndArray.stringToArray(e.getLabelValues()));
+            e.setArticleUrl("/article/" + e.getId());
+        }
         return es;
     }
 

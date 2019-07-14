@@ -1,6 +1,6 @@
 package com.qiang.pojo;
 
-import javax.xml.crypto.Data;
+import java.io.Serializable;
 
 /**
  * @Author: qiang
@@ -9,7 +9,7 @@ import javax.xml.crypto.Data;
  * @Description: 用户信息表
  * @Date: 2019/7/4 0004 11:13
  **/
-public class Users {
+public class Users implements Serializable {
 
     /**
      * 标识符id
@@ -39,12 +39,25 @@ public class Users {
     /**
      * 最后一次登录时间
      */
-    private Data lastTime;
+    private String lastTime;
 
     /**
      * 角色(1-超级管理员 2-普通用户 3-会员)
      */
     private int roleId;
+
+    /**
+     * 真实姓名
+     */
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -82,16 +95,16 @@ public class Users {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Data getLastTime() {
+    public String getLastTime() {
         return lastTime;
     }
 
-    public void setLastTime(Data lastTime) {
+    public void setLastTime(String lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getRoleId() {

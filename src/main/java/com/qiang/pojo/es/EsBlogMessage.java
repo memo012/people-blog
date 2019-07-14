@@ -274,6 +274,8 @@ public class EsBlogMessage implements Serializable {
         this.name = name;
     }
 
+    public EsBlogMessage(){}
+
     public EsBlogMessage(BlogMessage blogMessage){
         this.id = blogMessage.getId();
         this.title = blogMessage.getTitle();

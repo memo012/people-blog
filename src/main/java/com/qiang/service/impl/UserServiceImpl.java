@@ -1,5 +1,6 @@
 package com.qiang.service.impl;
 
+import com.qiang.commons.TimeUtil;
 import com.qiang.mapper.UsersMapper;
 import com.qiang.pojo.Users;
 import com.qiang.service.UserService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 /**
  * @Author: qiang
@@ -18,14 +21,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     @Autowired
     private UsersMapper usersMapper;
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int insUsers(Users users) {
+        String id = UUID.randomUUID().toString();
+        users.setId(id);
+        users.setName("");
+        users.setRoleId(2);
+        String data = new TimeUtil().getFormatDateForThree();
+        users.setLastTime(data);
+        return usersMapper.insUsers(users);
+    }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public Users findByPhone(String phone) {
-        Users byPhone = usersMapper.findByPhone(phone);
+    public int findByPhone(String phone) {
+        int byPhone = usersMapper.findByPhone(phone);
         return byPhone;
     }
 }

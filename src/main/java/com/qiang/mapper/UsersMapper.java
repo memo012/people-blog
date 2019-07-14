@@ -1,6 +1,7 @@
 package com.qiang.mapper;
 
 import com.qiang.pojo.Users;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsersMapper {
 
-    @Select("select * from user where phone = #{arg0}")
-    Users findByPhone(String phone);
+    @Select("select count(*) from user where phone = #{arg0}")
+    int findByPhone(String phone);
+
+    @Insert("insert into user values(#{id}, #{username}, #{password}, #{phone}, #{sex}, #{lastTime}, #{roleId}, #{name})")
+    int insUsers(Users users);
 }

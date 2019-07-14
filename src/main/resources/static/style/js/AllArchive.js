@@ -1,12 +1,23 @@
-
 /**
  * 博客渲染
  * @param data
  */
-function putInArticle(data) {
+function putInAllArticle(data) {
     var length = data.length;
-    $(".qz-session-center").empty();
-    var artiles = $(".qz-session-center");
+    $(".qiang").html('');
+    var artiles = $(".qiang");
+    if (length == 0) {
+        var center = $(
+            '<div class="qz-center">' +
+            '<header class="qz-article">' +
+            '<h1 itemprop="name" style="padding-bottom: 4%;color: #8f3786">客官,查询无结果(⊙o⊙)？</h1>' +
+            '</header>' +
+            '</div>'
+        );
+        artiles.append(center);
+
+        return;
+    }
     $.each(data, function (index, obj) {
         var center = $(
             '<div class="qz-center">' +
@@ -39,65 +50,65 @@ function putInArticle(data) {
             articleTags.eq(index).append(articleTag);
         }
     })
-}
-
-/**
- * 分页查询文章
- * @param data
- */
-function putPageHelper(data, curnum) {
-    //总页数大于页码总数
-    layui.use('laypage', function () {
-        var laypage = layui.laypage;
-        //执行一个laypage实例
-        laypage.render({
-            elem: 'page-helper'
-            , count: data.data.records //数据总数
-            , limit: 5
-            , curr: curnum
-            , jump: function (obj, first) {
-                if (!first) {
-                    curnum = obj.curr;
-                    ajaxFirst(curnum, 0);
-                }
-
-            }
-        });
-    });
-}
+};
 
 
 /**
- * 分页查询博客文章
- * @param currentPage
+ * 搜索
  */
-function ajaxFirst(currentPage, flag) {
-    var jsonStr = {pageSize: 5, pageNum: currentPage};
+var $word = "";
+var EspageNum = "";
+$(".es").keyup(function (event) {
+    if (event.which == "13") {
+        $word = $(".es").val().trim();
+        if ($word.trim() == undefined || $word.trim().length == 0 || $word.trim() == "") {
+            ajaxFirst(1, 0);
+            return;
+        }
+        EspageNum = 1;
+        f(EspageNum, $word);
+    }
+
+});
+
+function f(pageNum, word) {
+    $word = word;
+    EspageNum = pageNum;
+    var data1 = {pageSize: 1, pageNum: EspageNum, wordKey: $word};
     $.ajax({
         type: "GET",
-        url: "/myArticles",
-        // contentType: "application/x-www-form-urlencoded",
+        url: "/getArticleByEs",
         contentType: "application/json",
-        dataType: "json",
-        data: jsonStr,
+        // dataType: "json",
+        data: data1,
         success: function (data) {
             //放入数据
-            putInArticle(data.data.rows);
+            console.log(data);
+            putInAllArticle(data.data);
             scrollTo(0, 0);//回到顶部
-            $("#page-helper").show();
-            $(".left-page").hide();
-            $(".right-page").hide();
-
-            // 分页查询
-            if(flag == 0){
-                putPageHelper(data, currentPage);
+            $("#page-helper").hide();
+            if (EspageNum == 1) {
+                if (data.data.length != 0) {
+                    $(".left-page").hide();
+                    $(".right-page").show();
+                }
+            } else if (data.data.length < 5) {
+                $(".right-page").hide();
+                $(".left-page").show();
+            } else {
+                $(".left-page").show();
+                $(".right-page").show();
             }
-
         },
         error: function () {
             alert("出错啦...");
         }
-    });
+    })
 }
-var flag = 0;
-ajaxFirst(1, flag);
+
+$(".right-page").click(function () {
+    f(EspageNum + 1, $word);
+});
+$(".left-page").click(function () {
+    f(EspageNum - 1, $word);
+});

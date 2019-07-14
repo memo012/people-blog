@@ -15,5 +15,14 @@ public interface UserService {
      * @param phone 手机号
      * @return
      */
-    Users findByPhone(String phone);
+    int findByPhone(String phone);
+
+
+    /**
+     * 注册
+     * @param users
+     * @return
+     */
+    int insUsers(Users users);
+
 }

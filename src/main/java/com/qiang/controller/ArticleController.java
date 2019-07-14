@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -92,11 +94,15 @@ public class ArticleController {
         return BlogJSONResult.errorMsg("点赞失败");
     }
 
-    @GetMapping("getArticleByEs")
+    @GetMapping("/getArticleByEs")
     public BlogJSONResult getArticleByEs(@RequestParam(value = "pageSize") Integer pageSize,
                                          @RequestParam(value = "pageNum") Integer pageNum,
                                          @RequestParam(value = "wordKey") String wordKey){
+        System.out.println(pageNum);
+        List<EsBlogMessage> list = null;
         Page<EsBlogMessage> allBlog = esService.findAllBlog(pageNum, pageSize, wordKey);
-        return BlogJSONResult.ok(allBlog);
+        list = allBlog.getContent();
+        return BlogJSONResult.ok(list);
+
     }
 }

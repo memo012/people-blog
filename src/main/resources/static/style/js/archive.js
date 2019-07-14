@@ -1,3 +1,4 @@
+var flag = "";
 /**
  * 归档渲染
  * @param data
@@ -167,7 +168,7 @@ function putPageHelper(data, curnum){
  * 分页归档
  * @param currentPage
  */
-function ajaxFirst(currentPage) {
+function ajaxFirst(currentPage, flag) {
     var jsonStr = {pageSize: 5, pageNum: currentPage};
     $.ajax({
         type: "GET",
@@ -180,9 +181,14 @@ function ajaxFirst(currentPage) {
             //放入数据
             putInArchive(data.data);
             scrollTo(0, 0);//回到顶部
+            $("#page-helper").show();
+            $(".left-page").hide();
+            $(".right-page").hide();
 
             // 分页查询
-            putPageHelper(data, currentPage);
+            if(flag == 0){
+                putPageHelper(data, currentPage);
+            }
         },
         error: function () {
             alert("出错啦...");
@@ -190,4 +196,5 @@ function ajaxFirst(currentPage) {
     });
 }
 
-ajaxFirst(1);
+var flag = 0;
+ajaxFirst(1, 0);

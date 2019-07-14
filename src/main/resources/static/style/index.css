@@ -202,3 +202,49 @@ a.blog-tag:hover{
 .site-default li{
     margin: 10px 0;
 }
+
+/*分页*/
+.qz-pagehelder{
+    margin-top: 6%;
+}
+.qz-pagehelder > div{
+    display: inline-block;
+}
+.left-page{
+    float: left;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 5px 6px 14px rgba(255,192,203,0.5);
+    transition-property: box-shadow,background-color,-webkit-box-shadow;
+    transition-duration: .2s;
+    background-color: pink;
+    color: white;
+    font-weight: 600;
+    padding: 10px 40px;
+    font-size: 2rem;
+    line-height: 1;
+}
+.left-page:hover{
+    box-shadow: 5px 6px 14px rgba(176, 134, 141, 0.55);
+}
+.right-page{
+    float: right;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 5px 6px 14px rgba(14, 252, 255, 0.23);
+    transition-property: box-shadow,background-color,-webkit-box-shadow;
+    transition-duration: .2s;
+    background: rgba(52.94%, 80.78%, 95.16%, 0.5);
+    color: white;
+    font-weight: 600;
+    padding: 10px 40px;
+    font-size: 2rem;
+    line-height: 1;
+}
+.right-page:hover{
+    box-shadow: 5px 6px 14px rgba(13, 150, 153, 0.5);
+}
