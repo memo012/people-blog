@@ -35,6 +35,8 @@
 ![image](https://github.com/memo012/people-blog/blob/master/images/arthiv.png)
 
 ## 更新记录
+### 2019/7/21
+shiro实现登录权限管理
 ### 2019/7/13
 个人中心页面搭建完毕    
 浏览博客一系列操作前后台交互完毕
