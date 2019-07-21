@@ -21,7 +21,7 @@
 ## tips
 这个项目现在正在分模块进行开发，现在页面的话，除了后台管理页面，其他的页面基本搭成，基本功能(发布,查看,浏览),现在正在不断地完善中。
 ## 英雄帖
-该项目中还有一些功能还未完成，有改进之处，欢迎大家issue
+该项目中有改进之处或有bug之处，欢迎大家issue
 ## 整体效果
 ### 首页效果
 ![image](https://github.com/memo012/people-blog/blob/master/images/index.png)
