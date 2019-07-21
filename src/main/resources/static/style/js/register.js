@@ -14,6 +14,7 @@ registerBtn.click(function () {
     var phone1 = phone.val().trim();
     var yan1 = yan.val();
     var username1 = username.val();
+    console.log(username1.length);
     var password1 = password.val();
     var passwordSure1 = passwordSure.val();
     var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -29,8 +30,10 @@ registerBtn.click(function () {
         $(".notice-box-yan").show();
     } else if (username1.length == 0) {
         $(".notice-box-user").show();
-    }else if(username1.toLowerCase().indexOf("admin") || username1.toLowerCase().indexOf("user")){
+    }else if(username1.toLowerCase().indexOf("admin") == 0 || username1.toLowerCase().indexOf("user") == 0){
         $(".notice-box-name").show();
+    }else if(username1.length > 16){
+        $(".notice-box-user-length").show();
     } else if (password1.length == 0 || passwordSure1.length == 0) {
         $(".notice-box-password").show();
     } else if (password1.length < 6 || password1.length > 18) {
@@ -87,7 +90,6 @@ issueSuccess.click(function () {
  * @param data
  */
 function checkPhone(data) {
-    console.log(data);
     var str = {phone: data};
     var mes = true;
     $.ajax({

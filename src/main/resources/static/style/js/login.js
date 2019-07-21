@@ -10,7 +10,7 @@ qzLogin.click(function () {
         var str = {phone: phone, password: pass};
         $.ajax({
             type: "GET",
-            url: "login",
+            url: "loginUser",
             // contentType: "application/x-www-form-urlencoded",
             contentType: "application/json",
             dataType: "json",
@@ -18,7 +18,7 @@ qzLogin.click(function () {
             success: function (data) {
                 //放入数据
                 if(data.status == 200){
-                    $("#publish-success").modal();
+                    window.location.href="/";
                 }else if(data.status == 500){
                     $(".notice-box-res").show();
                     setTimeout(function () {

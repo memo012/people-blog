@@ -10,7 +10,7 @@ function putInAllArticle(data) {
         var center = $(
             '<div class="qz-center">' +
             '<header class="qz-article">' +
-            '<h1 itemprop="name" style="padding-bottom: 4%;color: #8f3786">客官,查询无结果(⊙o⊙)？</h1>' +
+            '<h1 itemprop="name" style="padding-bottom: 4%;color: #8f3786">客官,查询到底了(⊙o⊙)？</h1>' +
             '</header>' +
             '</div>'
         );
@@ -74,7 +74,7 @@ $(".es").keyup(function (event) {
 function f(pageNum, word) {
     $word = word;
     EspageNum = pageNum;
-    var data1 = {pageSize: 1, pageNum: EspageNum, wordKey: $word};
+    var data1 = {pageSize: 2, pageNum: EspageNum, wordKey: $word};
     $.ajax({
         type: "GET",
         url: "/getArticleByEs",
@@ -92,7 +92,7 @@ function f(pageNum, word) {
                     $(".left-page").hide();
                     $(".right-page").show();
                 }
-            } else if (data.data.length < 5) {
+            } else if (data.data.length < 2) {
                 $(".right-page").hide();
                 $(".left-page").show();
             } else {

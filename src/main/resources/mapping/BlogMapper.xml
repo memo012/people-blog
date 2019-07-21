@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qiang.mapper.BlogMapper">
+<mapper namespace="com.qiang.modules.sys.mapper.BlogMapper">
 
     <insert id="publishBlog" parameterType="BlogMessage">
       insert into blog

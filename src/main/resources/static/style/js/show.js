@@ -83,3 +83,26 @@ $(function () {
     });
 
 });
+
+
+/**
+ *  发表评论
+ */
+var commentBn = $("#commentBn");
+commentBn.click(function () {
+    var message = $("#desc").val();
+    $.ajax({
+        type: "GET",
+        url: "/InsComment",
+        // contentType: "application/x-www-form-urlencoded",
+        contentType: "application/json",
+        dataType: "json",
+        data: {message: message},
+        success: function (data) {
+            console.log(data);
+        },
+        error: function () {
+            alert("出错啦...");
+        }
+    });
+});
