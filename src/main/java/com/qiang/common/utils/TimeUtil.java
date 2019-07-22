@@ -61,12 +61,13 @@ public class TimeUtil {
 
     /**
      * 解析日期
-     * @param date 日期 2018-06-21 12:01:25
+     * 日期 2018-06-21 12:01:25
      * @return
      */
-    public LocalDate getParseDateForSix(String date){
+    public String getParseDateForSix(){
+        LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDate.parse(date, format);
+        return now.format(format);
     }
 
     /**
@@ -103,5 +104,9 @@ public class TimeUtil {
         s.append("-");
         s.append(str.substring(5,7));
         return String.valueOf(s);
+    }
+    
+    public static void main(String[] args){
+        System.out.println(new TimeUtil().getParseDateForSix());
     }
 }

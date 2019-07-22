@@ -8,7 +8,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: 192.168.233.130
+    host: 192.168.233.132
     port: 6379
     password:
     pool:

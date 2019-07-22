@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
+    public Users findByName(String name) {
+        return usersMapper.findByName(name);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
     public Users findByPhone(String phone) {
         Users byPhone = usersMapper.findByPhone(phone);
         return byPhone;

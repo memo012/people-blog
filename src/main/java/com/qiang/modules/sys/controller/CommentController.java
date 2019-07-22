@@ -1,9 +1,15 @@
 package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.BlogJSONResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.Users;
+import com.qiang.modules.sys.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author: qiang
@@ -15,13 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CommentController {
 
+    @Autowired
+    private CommentService commentService;
+
     /**
      * 新增评论
      * @return
      */
-    @PostMapping("InsComment")
-    public BlogJSONResult InsComment(@RequestParam("message") String message){
-        return BlogJSONResult.ok();
+    @PostMapping("/insComment")
+    public BlogJSONResult InsComment(@RequestBody Comment comment, HttpServletRequest request){
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user == null){
+            return BlogJSONResult.errorMsg("用户已过期");
+        }
+        Comment comments = new Comment();
+        comments.setMessage(comment.getMessage());
+        comments.setBlogId(comment.getBlogId());
+        comments.setAuthorName(user.getUsername());
+        comments.setUserId(user.getId());
+        List<Comment> result = commentService.insComment(comments);
+        if(result != null){
+            return BlogJSONResult.ok(result);
+        }
+        return BlogJSONResult.errorMsg("新增评论失败");
+    }
+
+    /**
+     * 评论查询
+     * @return
+     */
+    @GetMapping("/getComment")
+    public BlogJSONResult getComment(@RequestParam("blogId") long blogId){
+        List<Comment> allComment = commentService.getAllComment(blogId);
+        if(allComment != null){
+            return BlogJSONResult.ok(allComment);
+        }else{
+            return BlogJSONResult.errorMsg("无果");
+        }
     }
 
 }

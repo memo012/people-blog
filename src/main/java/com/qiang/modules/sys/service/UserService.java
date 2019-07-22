@@ -33,4 +33,11 @@ public interface UserService {
      */
     int findByPhonePass(String phone, String password);
 
+    /**
+     *  通过用户查询
+     * @param name
+     * @return
+     */
+    Users findByName(String name);
+
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiang.modules.sys.mapper.CommentMapper">
+
+    <resultMap id="com" type="Comment">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="blogId" property="blogId"/>
+        <result column="message" property="message"/>
+        <result column="createTime" property="createTime"/>
+        <result column="likes" property="likes"/>
+        <result column="authorName" property="authorName"/>
+        <result column="isRead" property="isRead"/>
+        <collection property="reportComments" ofType="ReportComment">
+            <id column="rid" property="rid"/>
+            <result column="commentId" property="commentId"/>
+            <result column="Repmess" property="Repmess"/>
+            <result column="reportedId" property="reportedId"/>
+            <result column="rcreateTime" property="rcreateTime"/>
+            <result column="risRead" property="risRead"/>
+            <result column="repName" property="repName"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insComment" parameterType="Comment">
+        insert into
+         comment
+          values (#{id}, #{userId}, #{blogId}, #{message}, #{createTime}, #{likes}, #{isRead}, #{authorName})
+    </insert>
+
+    <select id="findByBlogIdAndPid" resultMap="com" parameterType="Long">
+      SELECT c.*, r.*
+      from comment c
+      LEFT JOIN reportComment r on c.id = r.commentId
+      where c.blogId = #{arg0}
+      order by c.id desc
+    </select>
+
+</mapper>

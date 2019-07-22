@@ -22,4 +22,7 @@ public interface UsersMapper {
 
     @Select("select count(*) from user where phone = #{arg0} and password = #{arg1}")
     int findByPhonePass(String phone, String password);
+
+    @Select("select * from user where name = #{arg0}")
+    Users findByName(String name);
 }
