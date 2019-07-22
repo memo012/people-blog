@@ -127,7 +127,7 @@ function putInComment(data) {
             '<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
             '<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg">' +
             '</div>' +
-            '<div class="am-u-sm-10 am-u-lg-11 comment">' +
+            '<div class="am-u-sm-10 am-u-lg-11 cn">' +
             '<div class="visitorInfo">' +
             '<span class="visitorName">' + obj['authorName'] + '</span>&nbsp;&nbsp;' +
             '<span class="visitorFloor">#' + (length--) + '楼</span>' +
@@ -147,7 +147,7 @@ function putInComment(data) {
 
             '</div>' +
             '<div class="more-comment">' +
-            '<a><i class="moreComment am-icon-edit"> 添加新评论</i></a>' +
+            '<a class="moreComment"><i class="moreComment am-icon-edit"> 添加新评论</i></a>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -155,6 +155,20 @@ function putInComment(data) {
             '</div>' +
             '<hr>'
         );
+
+        var repor = $(
+            '<div class="reply-sub-comment-list am-animation-slide-bottom">' +
+            '<div class="replyWord">' +
+            '<div class="replyWordBtn">' +
+            '<textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>' +
+            '<button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送' +
+            '</button>' +
+            ' <button type="button" class="quitReplyWordBtn am-btn">取消</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+        $(".sub-comment").append(repor);
         var author = obj['authorName'];
         comment.append(center);
         var reLen = obj['reportComments'].length;// 回复的数量
@@ -181,6 +195,64 @@ function putInComment(data) {
             })
         }
     })
+
+    /**
+     * 添加评论
+     */
+
+    $(".moreComment").click(function () {
+        var $this = $(this);
+        $.ajax({
+            type: 'get',
+            url: '/isLogin',
+            dataType: 'json',
+            async: false,
+            data: {},
+            success: function (data) {
+                if (data.status == 500) {
+                    toLogin();
+                } else {
+                    $this.parent().parent().next().css("display", "block");
+                    $this.parent().parent().next().find($('.replyWordTextarea')).focus();
+                }
+            },
+            error: function () {
+            }
+        });
+    });
+
+    /**
+     * 回复
+     */
+    $(".replyReply").click(function () {
+        console.log(123);
+        var $this = $(this);
+        $.ajax({
+            type: 'get',
+            url: '/isLogin',
+            dataType: 'json',
+            async: false,
+            data: {},
+            success: function (data) {
+                if (data.status == 500) {
+                    toLogin();
+                } else {
+                    $this.parent().parent().next().css("display", "block");
+                    $this.parent().parent().next().find($('.replyWordTextarea')).focus();
+                }
+            },
+            error: function () {
+            }
+        });
+    });
+
+    /**
+     * 取消发送
+     */
+    $(".quitReplyWordBtn").click(function () {
+        var $this = $(this);
+        $this.parent().parent().parent().css("display", "none");
+    });
 }
 
 /**
@@ -196,14 +268,13 @@ $.ajax({
         blogId: articleId
     },
     success: function (data) {
-        if(data.data.length > 0){
+        if (data.data.length > 0) {
             putInComment(data.data);
-        }else {
+        } else {
             putInNotComment();
         }
     },
     error: function () {
-        alert("出错啦...");
     }
 });
 
@@ -213,11 +284,19 @@ $.ajax({
 function putInNotComment() {
     $(".comment").empty();
     var center = $(
-        '<div class="am-g">'+
-        '<div class="comment-com am-kai">'+
-        '暂无评论，抢个沙发吧'+
-        '</div>'+
+        '<div class="am-g">' +
+        '<div class="comment-com am-kai">' +
+        '暂无评论，抢个沙发吧' +
+        '</div>' +
         '</div>'
     );
     $(".comment").append(center);
 }
+
+/**
+ * 登录
+ */
+function toLogin() {
+    window.location.href = "/login";
+}
+

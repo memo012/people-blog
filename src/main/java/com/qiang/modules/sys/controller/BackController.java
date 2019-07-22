@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
  * Describe: 所有页面跳转
  */
 @Controller
-public class BackController {
+public class    BackController {
 
 
     /**

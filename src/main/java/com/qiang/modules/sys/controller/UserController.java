@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -89,6 +90,20 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         if(subject != null){
             subject.logout();
+        }
+        return BlogJSONResult.ok();
+    }
+
+    /**
+     * 该用户是否过期
+     * @param request
+     * @return
+     */
+    @GetMapping("/isLogin")
+    public BlogJSONResult isLogin(HttpServletRequest request){
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user == null){
+            return BlogJSONResult.errorMsg("用户已过期");
         }
         return BlogJSONResult.ok();
     }
