@@ -1,5 +1,8 @@
 var articleId = ""; // 博客id
-var name = ""; //  发布博客者名称
+var newReports = ""; //  评论内容
+var newComId = ""; // 评论id
+var newComName = ""; // 被评论者的姓名
+var noticeBox = $(".notice-box");
 
 /**
  * 渲染文章详情
@@ -45,13 +48,11 @@ $.ajax({
         articleId: articleId
     },
     success: function (data) {
-        name = data.data.name;
         //放入数据
         $("#article-like-span").html(data.data.like);
         putInArticleDetail(data.data);
     },
     error: function () {
-        alert("出错啦...");
     }
 });
 
@@ -78,7 +79,6 @@ $(function () {
                 });
             },
             error: function () {
-                alert("出错啦...");
             }
         });
     });
@@ -108,7 +108,6 @@ commentBn.click(function () {
             putInComment(data.data);
         },
         error: function () {
-            alert("出错啦...");
         }
     });
 });
@@ -122,12 +121,16 @@ function putInComment(data) {
     var comment = $(".comment");
     var length = data.length;
     $.each(data, function (index, obj) {
-        var center = (
-            '<div class="am-g">' +
+        var amG = $(
+            '<div class="am-g"></div>'
+        );
+        var visitorCommentImg = $(
             '<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
             '<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg">' +
-            '</div>' +
-            '<div class="am-u-sm-10 am-u-lg-11 cn">' +
+            '</div>'
+        );
+        var cn = $('<div class="am-u-sm-10 am-u-lg-11 cn"></div>');
+        var news = $(
             '<div class="visitorInfo">' +
             '<span class="visitorName">' + obj['authorName'] + '</span>&nbsp;&nbsp;' +
             '<span class="visitorFloor">#' + (length--) + '楼</span>' +
@@ -138,24 +141,19 @@ function putInComment(data) {
             '<a>' +
             '<i class="like am-icon-thumbs-o-up">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>&nbsp;&nbsp;' +
             '</a>' +
-            '<a>' +
-            '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i></a>' +
-            '</div>' +
-            '<div class="sub-comment">' +
-            '<div class="sub-comment-list">' +
-            '<div class="visitorReplies">' +
-
-            '</div>' +
-            '<div class="more-comment">' +
-            '<a class="moreComment"><i class="moreComment am-icon-edit"> 添加新评论</i></a>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<hr>'
+            '<a class="reply1">' +
+            '<i class="am-icon-comment-o">&nbsp;&nbsp;回复</i></a>' +
+            '<a class="commentId" hidden>' + obj['id'] + '</a>' +
+            '</div>'
         );
-
+        var reLen = obj['reportComments'].length;// 回复的数量
+        var subCommentList = $('<div class="sub-comment-list"></div>');
+        var subComment = $('<div class="sub-comment"></div>');
+        var newReport = $(
+            '<div class="more-comment">' +
+            '<a class="moreComment"><i class="am-icon-edit"> 添加新评论</i></a>' +
+            '</div>'
+        );
         var repor = $(
             '<div class="reply-sub-comment-list am-animation-slide-bottom">' +
             '<div class="replyWord">' +
@@ -168,38 +166,50 @@ function putInComment(data) {
             '</div>' +
             '</div>'
         );
-        $(".sub-comment").append(repor);
-        var author = obj['authorName'];
-        comment.append(center);
-        var reLen = obj['reportComments'].length;// 回复的数量
+        comment.append(amG);
+        amG.append(visitorCommentImg);
+        amG.append(cn);
+        amG.append('<hr/>');
+        cn.append(news);
+        cn.append(subComment);
+        subComment.append(subCommentList);
+        subComment.append(repor);
         if (reLen > 0) {
-            var report = $(".visitorReplies");
-            $.each(obj['reportComments'], function (ind, obj) {
+            var report1 = $('<div class="visitorReplies"></div>');
+            subCommentList.append(report1);
+            var newMessage = obj['reportComments'];
+            newMessage = newMessage.sort(
+                function (a, b) {
+                    return (b.rid - a.rid)
+                }
+            );
+            $.each(newMessage, function (ind, obj) {
                 var cent = $(
                     '<div class="visitorReply">' +
                     '<div class="visitorReplyWords">' +
                     '<a class="answerer">' + obj['repName'] + '</a>' +
                     '：' +
-                    '<a class="respondent">@' + obj ['author'] + '</a>' + obj['repmess'] +
+                    '<a class="respondent">@' + obj['comName'] + '</a>&nbsp;&nbsp;' + obj['repMess'] +
                     '</div>' +
                     '<div class="visitorReplyTime">' +
                     '<span class="visitorReplyTimeTime">' + obj['rcreateTime'] + '</span>&nbsp;&nbsp;' +
                     '<a>' +
-                    '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
+                    '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                     '</a>' +
+                    '<a class="commentId" style="display: none">' + obj['commentId'] + '</a>' +
                     '</div>' +
                     '<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed">' +
                     '</div>'
                 );
-                report.eq(index).append(cent);
+                report1.append(cent);
             })
         }
+        subCommentList.append(newReport);
     })
 
     /**
      * 添加评论
      */
-
     $(".moreComment").click(function () {
         var $this = $(this);
         $.ajax({
@@ -212,33 +222,37 @@ function putInComment(data) {
                 if (data.status == 500) {
                     toLogin();
                 } else {
-                    $this.parent().parent().next().css("display", "block");
-                    $this.parent().parent().next().find($('.replyWordTextarea')).focus();
+                    $this.parent().parent().parent().find($('.reply-sub-comment-list')).css("display", "block");
+                    $this.parent().parent().parent().find($('.reply-sub-comment-list')).find($('.replyWordTextarea')).focus();
+                    newComId = $this.parent().parent().parent().parent().find($('.tool-group')).find($('.commentId')).text();
+                    newComName = $this.parent().parent().parent().parent().find($('.visitorInfo')).find($('.visitorName')).text();
                 }
             },
             error: function () {
             }
         });
     });
-
     /**
      * 回复
      */
-    $(".replyReply").click(function () {
-        console.log(123);
+    $(".reply1").click(function () {
         var $this = $(this);
         $.ajax({
-            type: 'get',
-            url: '/isLogin',
-            dataType: 'json',
+            type: "GET",
+            url: "/isLogin",
+            // contentType: "application/x-www-form-urlencoded",
+            contentType: "application/json",
+            dataType: "json",
             async: false,
             data: {},
             success: function (data) {
                 if (data.status == 500) {
                     toLogin();
                 } else {
-                    $this.parent().parent().next().css("display", "block");
-                    $this.parent().parent().next().find($('.replyWordTextarea')).focus();
+                    $this.parent().parent().find($('.sub-comment')).find($('.reply-sub-comment-list')).css("display", "block");
+                    $this.parent().parent().find($('.reply-sub-comment-list')).find($('.replyWordTextarea')).focus();
+                    newComName = $this.parent().parent().find($('.visitorInfo')).find($('.visitorName')).text();
+                    newComId = $this.parent().parent().find($('.tool-group')).find($('.commentId')).text();
                 }
             },
             error: function () {
@@ -252,6 +266,51 @@ function putInComment(data) {
     $(".quitReplyWordBtn").click(function () {
         var $this = $(this);
         $this.parent().parent().parent().css("display", "none");
+    });
+
+    /**
+     * 发送评论
+     */
+    $(".sendReplyWordBtn").click(function () {
+        var $this = $(this);
+        newReports = $this.parent().find($('.replyWordTextarea')).val();
+
+        console.log(newReports);
+        if (newReports.trim() == "") {
+            $(".notice-box-text").show();
+        } else {
+            var data = {
+                repMess: newReports,
+                commentId: newComId,
+                comName: newComName,
+                blogId: articleId
+            };
+            $.ajax({
+                type: "POST",
+                url: "/InsRepComment",
+                // contentType: "application/x-www-form-urlencoded",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    $this.parent().parent().parent().css("display", "none");
+                    if(data.status == 502){
+                        toLogin();
+                    }else if(data.status == 500){
+                        $(".notice-box-comment").show();
+                    }else if(data.status == 200){
+                        putInComment(data.data);
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        // 定时关闭错误提示框
+        var closeNoticeBox = setTimeout(function () {
+            noticeBox.hide();
+        }, 3000);
+
     });
 }
 
@@ -269,6 +328,7 @@ $.ajax({
     },
     success: function (data) {
         if (data.data.length > 0) {
+            console.log(data);
             putInComment(data.data);
         } else {
             putInNotComment();

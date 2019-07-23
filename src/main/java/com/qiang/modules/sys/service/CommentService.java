@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.service;
 
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.ReportComment;
 
 import java.util.List;
 
@@ -16,14 +17,21 @@ public interface CommentService {
     /**
      * 新增评论
      * @param comment
-     * @return
+     * @return 全部评论消息
      */
     List<Comment> insComment(Comment comment);
 
     /**
      * 评论查询
-     * @return
+     * @return 全部评论消息
      */
     List<Comment> getAllComment(long blogId);
+
+    /**
+     *  新增回复评论
+     * @param reportComment
+     * @return 全部评论消息
+     */
+    List<Comment> insRepComment(ReportComment reportComment);
 
 }

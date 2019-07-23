@@ -4,6 +4,7 @@ import com.qiang.common.utils.TimeUtil;
 import com.qiang.modules.sys.mapper.CommentMapper;
 import com.qiang.modules.sys.mapper.UsersMapper;
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.CommentService;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +31,22 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Comment> insRepComment(ReportComment reportComment) {
+        TimeUtil timeUtil = new TimeUtil();
+        long id = timeUtil.getLongTime();
+        reportComment.setRid(id);
+        reportComment.setRcreateTime(timeUtil.getParseDateForSix());
+        reportComment.setRisRead(1);
+        List<Comment> list = null;
+        int result = commentMapper.insRepComment(reportComment);
+        if(result > 0){
+            list = commentMapper.findByBlogIdAndPid(reportComment.getBlogId());
+        }
+        return list;
+    }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<Comment> getAllComment(long blogId) {
@@ -47,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> byBlogId = null;
         int result = commentMapper.insComment(comment);
         long blogId = comment.getBlogId();
-        if(result > 0){
+        if (result > 0) {
             // 查询评论
             byBlogId = commentMapper.findByBlogIdAndPid(blogId);
         }

@@ -2,6 +2,7 @@ package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.BlogJSONResult;
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,23 @@ public class CommentController {
             return BlogJSONResult.ok(result);
         }
         return BlogJSONResult.errorMsg("新增评论失败");
+    }
+
+    @PostMapping("/InsRepComment")
+    public BlogJSONResult InsRepComment(@RequestBody ReportComment reportComment, HttpServletRequest request){
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user == null){
+            return BlogJSONResult.errorTokenMsg("用户已过期");
+        }
+        reportComment.setRepName(user.getUsername());
+        reportComment.setReportedId(user.getId());
+        List<Comment> allComment = commentService.insRepComment(reportComment);
+        if(allComment != null){
+            return BlogJSONResult.ok(allComment);
+        }else{
+            return BlogJSONResult.errorMsg("无果");
+        }
+
     }
 
     /**

@@ -22,7 +22,7 @@ public class ReportComment {
     /**
      * 内容
      */
-    private String Repmess;
+    private String repMess;
 
     /**
      *  回复者id
@@ -44,6 +44,32 @@ public class ReportComment {
      */
     private String repName;
 
+    /**
+     * 被评论者名字
+     */
+    private String comName;
+
+    /**
+     * 博客id
+     */
+    private Long blogId;
+
+    public Long getBlogId() {
+        return blogId;
+    }
+
+    public void setBlogId(Long blogId) {
+        this.blogId = blogId;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
+    }
+
     public String getRepName() {
         return repName;
     }
@@ -60,12 +86,12 @@ public class ReportComment {
         this.commentId = commentId;
     }
 
-    public String getRepmess() {
-        return Repmess;
+    public String getRepMess() {
+        return repMess;
     }
 
-    public void setRepmess(String repmess) {
-        Repmess = repmess;
+    public void setRepMess(String repMess) {
+        this.repMess = repMess;
     }
 
     public String getReportedId() {

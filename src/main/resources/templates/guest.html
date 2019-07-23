@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>强子的博客~~</title>
@@ -86,7 +87,7 @@
                         <hr>
 
 
-                        <div class="qz-comment">
+                        <div class="qz-comment" shiro:notAuthenticated="">
                             <div class="comment-top">
                                 <div class="comment-top-input">
                                     <div class="goToLogin">
@@ -101,8 +102,7 @@
 
                             </div>
                         </div>
-
-                        <div class="qz-comment">
+                        <div class="qz-comment" shiro:authenticated="">
                         <textarea class="">
                             客官可以留言提出意见哦(⊙o⊙)？
                         </textarea>
@@ -110,8 +110,10 @@
                                 <button id="commentBn" type="button" class="am-btn am-btn-secondary">留言</button>
                             </div>
                         </div>
+
+
                         <div class="article-comment-title">
-                            <span class="article-comment-word">评论</span>
+                            <span class="article-comment-word">留言</span>
                             <div class="article-comment-line"></div>
                         </div>
 

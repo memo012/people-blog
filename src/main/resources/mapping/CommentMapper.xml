@@ -16,11 +16,12 @@
         <collection property="reportComments" ofType="ReportComment">
             <id column="rid" property="rid"/>
             <result column="commentId" property="commentId"/>
-            <result column="Repmess" property="Repmess"/>
+            <result column="repMess" property="repMess"/>
             <result column="reportedId" property="reportedId"/>
             <result column="rcreateTime" property="rcreateTime"/>
             <result column="risRead" property="risRead"/>
             <result column="repName" property="repName"/>
+            <result column="comName" property="comName"/>
         </collection>
     </resultMap>
 
@@ -35,7 +36,13 @@
       from comment c
       LEFT JOIN reportComment r on c.id = r.commentId
       where c.blogId = #{arg0}
-      order by c.id desc
+      order by c.id desc, r.rid desc
     </select>
+
+    <insert id="insRepComment" parameterType="ReportComment">
+        insert  into
+        reportcomment
+        values (#{rid}, #{commentId}, #{repMess}, #{reportedId}, #{rcreateTime}, #{risRead}, #{repName}, #{comName})
+    </insert>
 
 </mapper>

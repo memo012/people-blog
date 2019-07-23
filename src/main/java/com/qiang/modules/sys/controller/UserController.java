@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.BlogJSONResult;
+import com.qiang.modules.sys.pojo.BlogMessage;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -70,6 +71,7 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(phone, password);
 //        token.setRememberMe(true);
         Subject subject = SecurityUtils.getSubject();
+        BlogMessage v = new BlogMessage();
         try{
             subject.login(token);
             Users user = (Users)subject.getPrincipal();

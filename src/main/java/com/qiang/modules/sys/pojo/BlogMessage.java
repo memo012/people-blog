@@ -1,5 +1,6 @@
 package com.qiang.modules.sys.pojo;
 
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem

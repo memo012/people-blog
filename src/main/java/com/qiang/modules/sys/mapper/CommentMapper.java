@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.mapper;
 
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.ReportComment;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface CommentMapper {
     int insComment(Comment comment);
 
     List<Comment> findByBlogIdAndPid(long blogId);
+
+    int insRepComment(ReportComment reportComment);
 
 
 }
