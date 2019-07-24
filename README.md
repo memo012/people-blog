@@ -35,6 +35,8 @@
 ![image](https://github.com/memo012/people-blog/blob/master/images/arthiv.png)
 
 ## 更新记录
+### 2019/7/24
+ElasticSearch实现搜索
 ### 2019/7/21
 shiro实现登录权限管理
 ### 2019/7/13
