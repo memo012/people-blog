@@ -1,93 +1,10 @@
-var articleId = ""; // 博客id
 var newReports = ""; //  评论内容
-var newComId = ""; // 评论id
+var newComId = ""; // 留言id
 var newComName = ""; // 被评论者的姓名
 var noticeBox = $(".notice-box");
 
 /**
- * 渲染文章详情
- * @param data
- */
-function putInArticleDetail(data) {
-    $(".qz-article-top").html('');
-    var center = $(
-        '<div class="qz-article-top">' +
-        '<div class="article-top">' + data.title + '</div>' +
-        '<div class="qz-tt article-info">' +
-        '<span class="am-badge am-badge-success qz-mark">&nbsp;' + data.selectType + '</span>&nbsp;&nbsp;' +
-        '<span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;' + data.createTime + '</span>&nbsp;&nbsp;' +
-        '<span style="font-size: 14px;"><i class="am-icon-user">&nbsp;' + data.name + '</i></span>&nbsp;&nbsp;' +
-        '<span style="font-size: 14px; color: #610024;"><i class="am-icon-eye">&nbsp;&nbsp;' + data.look + '</i></span>' +
-        '</div>' +
-        '</div>'
-    );
-    $(".qz-article-top").append(center);
-    $("#wordsView").html(data.text);
-}
-
-
-/**
- * 从响应头中获取文章id
- */
-$.ajax({
-    type: 'HEAD', // 获取头信息，type=HEAD即可
-    url: window.location.href,
-    async: false,
-    success: function (data, status, xhr) {
-        articleId = xhr.getResponseHeader("articleId");
-    }
-});
-
-$.ajax({
-    type: "GET",
-    url: "/getArticleDetail",
-    // contentType: "application/x-www-form-urlencoded",
-    contentType: "application/json",
-    dataType: "json",
-    data: {
-        articleId: articleId
-    },
-    success: function (data) {
-        //放入数据
-        $("#article-like-span").html(data.data.like);
-        putInArticleDetail(data.data);
-    },
-    error: function () {
-    }
-});
-
-/**
- * 点赞
- */
-$(function () {
-    $("#article-like").click(function () {
-        $.ajax({
-            type: "GET",
-            url: "/getArticleLike",
-            // contentType: "application/x-www-form-urlencoded",
-            contentType: "application/json",
-            dataType: "json",
-            data: {
-                articleId: articleId
-            },
-            success: function (data) {
-                //放入数据
-                $("#article-like-span").html(data.data);
-                $(".article-btn").css({
-                    "background-color": "#EA6F5A",
-                    "color": "white"
-                });
-            },
-            error: function () {
-            }
-        });
-    });
-
-});
-
-
-/**
- *  发表评论
+ *  发表留言
  */
 var commentBn = $("#commentBn");
 
@@ -108,12 +25,11 @@ commentBn.click(function () {
                     $(".notice-box-text").show();
                 } else {
                     var data = {
-                        message: message1,
-                        blogId: articleId
+                        message: message1
                     };
                     $.ajax({
                         type: "POST",
-                        url: "/insComment",
+                        url: "insGuest",
                         // contentType: "application/x-www-form-urlencoded",
                         contentType: "application/json",
                         dataType: "json",
@@ -125,29 +41,26 @@ commentBn.click(function () {
                         error: function () {
                         }
                     });
-
-                    // 定时关闭错误提示框
-                    var closeNoticeBox = setTimeout(function () {
-                        noticeBox.hide();
-                    }, 3000);
-
                 }
+
+                // 定时关闭错误提示框
+                var closeNoticeBox = setTimeout(function () {
+                    noticeBox.hide();
+                }, 3000);
 
             }
         },
         error: function () {
-
         }
     })
-
 });
 
 /**
  * 填充评论列表
  */
 function putInComment(data) {
-    $(".comment").empty();
-    var comment = $(".comment");
+    $(".visitorComment").empty();
+    var comment = $(".visitorComment");
     var length = data.length;
     $.each(data, function (index, obj) {
         var amG = $(
@@ -175,12 +88,12 @@ function putInComment(data) {
             '<a class="commentId" style="display:none;">' + obj['id'] + '</a>' +
             '</div>'
         );
-        var reLen = obj['reportComments'].length;// 回复的数量
+        var reLen = obj['reportCommentSet'].length;// 回复的数量
         var subCommentList = $('<div class="sub-comment-list"></div>');
         var subComment = $('<div class="sub-comment"></div>');
         var newReport = $(
             '<div class="more-comment">' +
-            '<a class="moreComment"><i class="am-icon-edit"> 添加新评论</i></a>' +
+            '<a class="moreComment"><i class="am-icon-edit"> 添加新留言</i></a>' +
             '</div>'
         );
         var repor = $(
@@ -206,7 +119,7 @@ function putInComment(data) {
         if (reLen > 0) {
             var report1 = $('<div class="visitorReplies"></div>');
             subCommentList.append(report1);
-            var newMessage = obj['reportComments'];
+            var newMessage = obj['reportCommentSet'];
             newMessage = newMessage.sort(
                 function (a, b) {
                     return (a.rid - b.rid)
@@ -218,14 +131,14 @@ function putInComment(data) {
                     '<div class="visitorReplyWords">' +
                     '<a class="answerer">' + obj['repName'] + '</a>' +
                     '：' +
-                    '<a class="respondent">@' + obj['comName'] + '</a>&nbsp;&nbsp;' + obj['repMess'] +
+                    '<a class="respondent">@' + obj['guestName'] + '</a>&nbsp;&nbsp;' + obj['repMess'] +
                     '</div>' +
                     '<div class="visitorReplyTime">' +
                     '<span class="visitorReplyTimeTime">' + obj['rcreateTime'] + '</span>&nbsp;&nbsp;' +
                     '<a class="reply">' +
                     '<i class="am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                     '</a>' +
-                    '<a class="commentId" style="display: none">' + obj['commentId'] + '</a>' +
+                    '<a class="commentId" style="display: none">' + obj['guestId'] + '</a>' +
                     '</div>' +
                     '<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed">' +
                     '</div>'
@@ -237,7 +150,7 @@ function putInComment(data) {
     })
 
     /**
-     * 添加评论
+     * 添加留言
      */
     $(".moreComment").click(function () {
         var $this = $(this);
@@ -304,19 +217,17 @@ function putInComment(data) {
         var $this = $(this);
         newReports = $this.parent().find($('.replyWordTextarea')).val();
 
-        console.log(newReports);
         if (newReports.trim() == "") {
             $(".notice-box-text").show();
         } else {
             var data = {
                 repMess: newReports,
-                commentId: newComId,
-                comName: newComName,
-                blogId: articleId
+                guestId: newComId,
+                guestName: newComName
             };
             $.ajax({
                 type: "POST",
-                url: "/InsRepComment",
+                url: "/insRepGuest",
                 // contentType: "application/x-www-form-urlencoded",
                 contentType: "application/json",
                 dataType: "json",
@@ -335,7 +246,10 @@ function putInComment(data) {
                 }
             });
         }
-
+        // 定时关闭错误提示框
+        var closeNoticeBox = setTimeout(function () {
+            noticeBox.hide();
+        }, 3000);
 
     });
 
@@ -386,18 +300,21 @@ function putInComment(data) {
                     toLogin();
                 } else {
                     var data = {
-                        blogId: articleId,
-                        commentId: newComId
+                        guestId: newComId
                     };
                     $.ajax({
                         type: "POST",
-                        url: "/updLikes",
+                        url: "/updGuestLikes",
                         contentType: "application/json",
                         dataType: "json",
                         async: false,
                         data: JSON.stringify(data),
                         success: function (data) {
-                            putInComment(data.data);
+                            if (data.status == 502) {
+                                toLogin();
+                            } else {
+                                putInComment(data.data);
+                            }
                         },
                         error: function () {
                         }
@@ -411,17 +328,15 @@ function putInComment(data) {
 }
 
 /**
- * 评论查询
+ * 留言查询
  */
 $.ajax({
     type: "GET",
-    url: "/getComment",
+    url: "getAllGuest",
     // contentType: "application/x-www-form-urlencoded",
     contentType: "application/json",
     dataType: "json",
-    data: {
-        blogId: articleId
-    },
+    data:{},
     success: function (data) {
         if (data.data.length > 0) {
             putInComment(data.data);
@@ -434,18 +349,18 @@ $.ajax({
 });
 
 /**
- * 填充不存在的评论
+ * 填充不存在的留言
  */
 function putInNotComment() {
-    $(".comment").empty();
+    $(".visitorComment").empty();
     var center = $(
         '<div class="am-g">' +
         '<div class="comment-com am-kai">' +
-        '暂无评论，抢个沙发吧' +
+        '暂无留言，抢个沙发吧' +
         '</div>' +
         '</div>'
     );
-    $(".comment").append(center);
+    $(".visitorComment").append(center);
 }
 
 /**

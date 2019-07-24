@@ -1,4 +1,3 @@
-
 /**
  * 博客渲染
  * @param data
@@ -71,7 +70,7 @@ function putPageHelper(data, curnum) {
  * 分页查询博客文章
  * @param currentPage
  */
-function ajaxFirst(currentPage, flag) {
+function ajaxFirst(currentPage) {
     var jsonStr = {pageSize: 5, pageNum: currentPage};
     $.ajax({
         type: "GET",
@@ -84,14 +83,9 @@ function ajaxFirst(currentPage, flag) {
             //放入数据
             putInArticle(data.data.rows);
             scrollTo(0, 0);//回到顶部
-            $("#page-helper").show();
-            $(".left-page").hide();
-            $(".right-page").hide();
 
             // 分页查询
-            if(flag == 0){
-                putPageHelper(data, currentPage);
-            }
+            putPageHelper(data, currentPage);
 
         },
         error: function () {
@@ -99,5 +93,5 @@ function ajaxFirst(currentPage, flag) {
         }
     });
 }
-var flag = 0;
-ajaxFirst(1, flag);
+
+ajaxFirst(1);

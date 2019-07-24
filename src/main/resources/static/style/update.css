@@ -8,6 +8,9 @@
     color: rgba(7, 38, 41, 0.5);
 
 }
+.qz-session-content .qz-center{
+    border-radius: 0%;
+}
 .qz-log{
     margin-top: 8%;
     font-size: 25px;

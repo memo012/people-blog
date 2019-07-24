@@ -4,6 +4,7 @@ import com.qiang.common.utils.TimeUtil;
 import com.qiang.modules.sys.mapper.CommentMapper;
 import com.qiang.modules.sys.mapper.UsersMapper;
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.CommentLikes;
 import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.CommentService;
@@ -30,6 +31,49 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int insCommLikes(CommentLikes commentLikes) {
+        TimeUtil timeUtil = new TimeUtil();
+        long id = timeUtil.getLongTime();
+        commentLikes.setId(id);
+        return commentMapper.insCommIsLikes(commentLikes);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Comment> updDecCommLikes(Long blogId, Long commentId) {
+        int i = commentMapper.updDesCommIsLikes(blogId, commentId);
+        List<Comment> allComment = null;
+        if(i > 0){
+            allComment = getAllComment(blogId);
+        }
+        return allComment;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int delCommLikes(CommentLikes commentLikes) {
+        return commentMapper.delCommLikes(commentLikes);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Comment> updInsCommLikes(Long blogId, Long commentId) {
+        int i = commentMapper.updInsCommIsLikes(blogId, commentId);
+        List<Comment> allComment = null;
+        if(i > 0){
+            allComment = getAllComment(blogId);
+        }
+        return allComment;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public boolean isCommLikes(CommentLikes commentLikes) {
+        return commentMapper.findCommIsLikes(commentLikes) == 1 ? true : false;
+    }
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override

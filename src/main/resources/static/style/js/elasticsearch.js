@@ -1,3 +1,6 @@
+var message = "";
+var EspageNum = "";
+var pageSize = 2;
 /**
  * 博客渲染
  * @param data
@@ -52,28 +55,24 @@ function putInAllArticle(data) {
     })
 };
 
-
-/**
- * 搜索
- */
-var $word = "";
-var EspageNum = "";
-$(".es").keyup(function (event) {
-    if (event.which == "13") {
-        $word = $(".es").val().trim();
-        if ($word.trim() == undefined || $word.trim().length == 0 || $word.trim() == "") {
-            ajaxFirst(1, 0);
-            return;
-        }
-        EspageNum = 1;
-        f(EspageNum, $word);
+$.ajax({
+    type: 'HEAD', // 获取头信息，type=HEAD即可
+    url: window.location.href,
+    async: false,
+    success: function (data, status, xhr) {
+        message = xhr.getResponseHeader("message");
     }
 });
 
-function f(pageNum, word) {
-    $word = word;
-    EspageNum = pageNum;
-    var data1 = {pageSize: 2, pageNum: EspageNum, wordKey: $word};
+$(function () {
+    EspageNum = 1;
+    f(EspageNum);
+})
+
+function f(EspaNum) {
+    console.log(EspageNum);
+    EspageNum = EspaNum;
+    var data1 = {pageSize: pageSize, pageNum: EspageNum, wordKey: message};
     $.ajax({
         type: "GET",
         url: "/getArticleByEs",
@@ -81,17 +80,30 @@ function f(pageNum, word) {
         // dataType: "json",
         data: data1,
         success: function (data) {
-            //放入数据
+            // 放入数据
             console.log(data);
             putInAllArticle(data.data);
+            var len = data.data.length;
+            console.log(len);
             scrollTo(0, 0);//回到顶部
-            $("#page-helper").hide();
             if (EspageNum == 1) {
-                if (data.data.length != 0) {
+                if (len != 0) {
+                    if(data.data.length < pageSize){
+                        $(".left-page").hide();
+                        $(".right-page").hide();
+                    }else{
+                        $(".left-page").hide();
+                        $(".right-page").show();
+                    }
+                }else{
                     $(".left-page").hide();
-                    $(".right-page").show();
+                    $(".right-page").hide();
                 }
-            } else if (data.data.length < 2) {
+            } else if(len == 0){
+                console.log("dasfi");
+                $(".left-page").show();
+                $(".right-page").hide();
+            }else if (len < pageSize) {
                 $(".right-page").hide();
                 $(".left-page").show();
             } else {
@@ -100,14 +112,13 @@ function f(pageNum, word) {
             }
         },
         error: function () {
-            alert("出错啦...");
         }
     })
 }
 
 $(".right-page").click(function () {
-    f(EspageNum + 1, $word);
+    f(EspageNum + 1, message);
 });
 $(".left-page").click(function () {
-    f(EspageNum - 1, $word);
+    f(EspageNum - 1, message);
 });

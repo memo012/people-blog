@@ -1,6 +1,10 @@
 var qzLogin = $(".qz-login");
 var noticeBox = $(".notice-box");
 qzLogin.click(function () {
+    log();
+});
+
+function log(){
     var phone = $("#username").val().trim();
     var pass = $("#password").val();
     var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -37,6 +41,14 @@ qzLogin.click(function () {
     var closeNoticeBox = setTimeout(function () {
         noticeBox.hide();
     }, 3000);
+}
 
-
+/**
+ * enter 登录
+ */
+$(".pass").keyup(function (event) {
+    console.log("dd");
+    if (event.which == "13") {
+        log();
+    }
 });

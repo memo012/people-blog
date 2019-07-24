@@ -1,7 +1,9 @@
 package com.qiang;
 
 import com.qiang.modules.sys.mapper.CommentMapper;
+import com.qiang.modules.sys.mapper.GuestMapper;
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.Guest;
 import com.qiang.modules.sys.pojo.ReportComment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,19 +21,14 @@ public class BlogApplicationTests {
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private GuestMapper guestMapper;
     @Test
     public void contextLoads() {
 
-        List<Comment> byBlogIdAndPid = commentMapper.findByBlogIdAndPid(1563105008L);
-        for (Comment c:
-             byBlogIdAndPid) {
-            System.out.println(c.getMessage());
-            Set<ReportComment> reportComments = c.getReportComments();
-            for (ReportComment r:
-                 reportComments) {
-                System.out.println(r.getRepName());
-            }
-        }
+        List<Guest> allGuest = guestMapper.getAllGuest();
+        allGuest.forEach(System.out::println);
+
     }
 
 }

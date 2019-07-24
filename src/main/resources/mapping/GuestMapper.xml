@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiang.modules.sys.mapper.GuestMapper">
+
+    <resultMap id="allGuest" type="Guest">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="message" property="message"/>
+        <result column="createTime" property="createTime"/>
+        <result column="likes" property="likes"/>
+        <result column="isRead" property="isRead"/>
+        <result column="authorName" property="authorName"/>
+        <collection property="reportCommentSet" ofType="RepGuest">
+            <id column="rid" property="rid"/>
+            <result column="guestId" property="guestId"/>
+            <result column="repMess" property="repMess"/>
+            <result column="rguestId" property="rguestId"/>
+            <result column="rcreateTime" property="rcreateTime"/>
+            <result column="risRead" property="risRead"/>
+            <result column="repName" property="repName"/>
+            <result column="guestName" property="guestName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllGuest" resultMap="allGuest">
+      SELECT g.*, r.*
+      from guest g
+      LEFT JOIN repguest r on g.id = r.guestId
+      order by g.id desc
+    </select>
+
+    <insert id="insGuest" parameterType="Guest">
+        insert into
+        guest
+        values (#{id}, #{userId}, #{message}, #{createTime}, #{likes}, #{isRead}, #{authorName})
+    </insert>
+
+    <insert id="insRepGuest" parameterType="RepGuest">
+        insert into
+        repguest
+        values (#{rid}, #{guestId}, #{repMess}, #{rguestId}, #{rcreateTime}, #{risRead}, #{repName}, #{guestName})
+    </insert>
+
+    <insert id="insIsLikes" parameterType="GuestLikes">
+        insert into
+        guestlikes
+        values(#{id}, #{guestId}, #{likeName})
+    </insert>
+
+</mapper>

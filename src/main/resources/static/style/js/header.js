@@ -12,3 +12,16 @@ $(".logou").click(function () {
         }
     })
 });
+
+var $word = "";
+$(".es").keyup(function (event) {
+    if (event.which == "13") {
+        $word = $(".es").val().trim();
+        if ($word != undefined && $word.length != 0 && $word != "") {
+            window.location.href="/es/"+$word;
+        }
+    }
+});
+
+
+

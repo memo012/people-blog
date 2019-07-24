@@ -2,6 +2,7 @@ package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.BlogJSONResult;
 import com.qiang.modules.sys.pojo.Comment;
+import com.qiang.modules.sys.pojo.CommentLikes;
 import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.CommentService;
@@ -47,6 +48,12 @@ public class CommentController {
         return BlogJSONResult.errorMsg("新增评论失败");
     }
 
+    /**
+     * 新增回复评论
+     * @param reportComment
+     * @param request
+     * @return
+     */
     @PostMapping("/InsRepComment")
     public BlogJSONResult InsRepComment(@RequestBody ReportComment reportComment, HttpServletRequest request){
         Users user = (Users) request.getSession().getAttribute("user");
@@ -75,6 +82,42 @@ public class CommentController {
             return BlogJSONResult.ok(allComment);
         }else{
             return BlogJSONResult.errorMsg("无果");
+        }
+    }
+
+    /**
+     * 点赞更新
+     * @param commentLikes
+     * @param request
+     * @return
+     */
+    @PostMapping("/updLikes")
+    public BlogJSONResult updLikes(@RequestBody CommentLikes commentLikes,
+                                   HttpServletRequest request){
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user == null){
+            return BlogJSONResult.errorTokenMsg("用户已过期");
+        }
+        commentLikes.setLikeName(user.getUsername());
+        boolean commLikes = commentService.isCommLikes(commentLikes);
+        if(commLikes){
+            // 已点赞
+            List<Comment> comments = commentService.updDecCommLikes(commentLikes.getBlogId(), commentLikes.getCommentId());
+            if(comments != null){
+                commentService.delCommLikes(commentLikes);
+                return BlogJSONResult.ok(comments);
+            }else{
+                return BlogJSONResult.errorMsg("点赞失败");
+            }
+        }else{
+            // 未点赞
+            int i = commentService.insCommLikes(commentLikes);
+            if(i != 0){
+                List<Comment> comments = commentService.updInsCommLikes(commentLikes.getBlogId(), commentLikes.getCommentId());
+                return BlogJSONResult.ok(comments);
+            }else{
+                return BlogJSONResult.errorMsg("点赞失败");
+            }
         }
     }
 

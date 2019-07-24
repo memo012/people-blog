@@ -45,4 +45,10 @@
         values (#{rid}, #{commentId}, #{repMess}, #{reportedId}, #{rcreateTime}, #{risRead}, #{repName}, #{comName})
     </insert>
 
+    <insert id="insCommIsLikes" parameterType="CommentLikes">
+        insert into
+        commentlikes
+        values (#{id}, #{blogId}, #{commentId}, #{likeName})
+    </insert>
+
 </mapper>

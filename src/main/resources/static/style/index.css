@@ -206,6 +206,7 @@ a.blog-tag:hover{
 /*分页*/
 .qz-pagehelder{
     margin-top: 6%;
+    /*display: none;*/
 }
 .qz-pagehelder > div{
     display: inline-block;

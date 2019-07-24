@@ -98,8 +98,10 @@ public class ArticleController {
     public BlogJSONResult getArticleByEs(@RequestParam(value = "pageSize") Integer pageSize,
                                          @RequestParam(value = "pageNum") Integer pageNum,
                                          @RequestParam(value = "wordKey") String wordKey){
+
+        String s = TransCodingUtil.unicodeToString(wordKey);
         List<EsBlogMessage> list = null;
-        Page<EsBlogMessage> allBlog = esService.findAllBlog(pageNum, pageSize, wordKey);
+        Page<EsBlogMessage> allBlog = esService.findAllBlog(pageNum, pageSize, s);
         list = allBlog.getContent();
         return BlogJSONResult.ok(list);
     }

@@ -6,6 +6,9 @@
 .qz-container{
 
 }
+.qz-session-content .qz-center{
+    border-radius: 0%;
+}
 .qz-time dl{
     position: relative;
     padding: 20px 0 20px 0;

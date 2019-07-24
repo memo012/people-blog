@@ -37,6 +37,18 @@ public class    BackController {
     }
 
     /**
+     * 搜索页面
+     * @return
+     */
+    @GetMapping("/es/{message}")
+    public String elasticsearch(@PathVariable("message") String message, HttpServletResponse response){
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setHeader("message", TransCodingUtil.stringToUnicode(message));
+        return "elasticsearch";
+    }
+
+    /**
      * 注册页面
      * @return
      */
