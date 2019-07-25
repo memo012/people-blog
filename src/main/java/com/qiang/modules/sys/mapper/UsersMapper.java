@@ -17,12 +17,17 @@ public interface UsersMapper {
 
     Users findByPhone(String phone);
 
-    @Insert("insert into user values(#{id}, #{username}, #{password}, #{phone}, #{sex}, #{lastTime}, #{roleId}, #{name})")
     int insUsers(Users users);
 
     @Select("select count(*) from user where phone = #{arg0} and password = #{arg1}")
     int findByPhonePass(String phone, String password);
 
-    @Select("select * from user where name = #{arg0}")
+    @Select("select * from user where username = #{arg0}")
     Users findByName(String name);
+
+    @Select("select * from user where username = #{arg0}")
+    Users findUserMess(String username);
+
+
+    int updUserMess(Users users);
 }

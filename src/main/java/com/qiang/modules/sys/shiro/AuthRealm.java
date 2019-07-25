@@ -5,6 +5,7 @@ import com.qiang.modules.sys.pojo.Role;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -32,7 +33,9 @@ public class AuthRealm extends AuthorizingRealm {
     // 用于授权的方法
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Users users = (Users)principalCollection.fromRealm(this.getClass().getName()).iterator().next();
+        //获取用户
+        Users users = (Users) SecurityUtils.getSubject().getPrincipal();
+        System.out.println(users.getRoles());
         List<String> list = new ArrayList<>();
         List<String> roleNameList = new ArrayList<>();
         Set<Role> roles = users.getRoles();

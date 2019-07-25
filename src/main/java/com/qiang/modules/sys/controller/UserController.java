@@ -58,6 +58,20 @@ public class UserController {
     }
 
     /**
+     * 用户检测
+     * @param username
+     * @return
+     */
+    @GetMapping("usernameCheck")
+    public BlogJSONResult usernameCheck(@RequestParam("username") String username){
+        Users result = userService.findByName(username);
+        if(result == null){
+            return BlogJSONResult.ok();
+        }
+        return BlogJSONResult.errorMsg("该用户已存在");
+    }
+
+    /**
      * 用户登录
      * @param phone 手机号
      * @param password 密码
@@ -71,7 +85,6 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(phone, password);
 //        token.setRememberMe(true);
         Subject subject = SecurityUtils.getSubject();
-        BlogMessage v = new BlogMessage();
         try{
             subject.login(token);
             Users user = (Users)subject.getPrincipal();
@@ -109,4 +122,32 @@ public class UserController {
         }
         return BlogJSONResult.ok();
     }
+
+    /**
+     * 获取个人信息
+     * @param username
+     * @return
+     */
+    @GetMapping("getUserMess")
+    public BlogJSONResult getUserMess(@RequestParam("username") String username){
+        Users userMess = userService.findUserMess(username);
+        return BlogJSONResult.ok(userMess);
+    }
+
+    /**
+     * 新增个人信息
+     * @param users
+     * @return
+     */
+    @PostMapping("/insUserMess")
+    public BlogJSONResult insUserMess(@RequestBody Users users){
+        Users users1 = userService.insUserMess(users);
+        if(users1 != null){
+            return BlogJSONResult.ok(users1);
+        }else{
+            return BlogJSONResult.errorMsg("修改失败");
+        }
+    }
+
+
 }

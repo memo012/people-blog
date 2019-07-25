@@ -10,6 +10,8 @@ function log(){
     var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
     if(phone.length == 0 || phone.length != 11 || !myreg.test(phone) || pass.length < 6 || pass.length > 18){
         $(".notice-box-res").show();
+    } else if(pass.length < 6 || pass.length > 18){
+        $(".notice-box-password-num").show();
     }else{
         var str = {phone: phone, password: pass};
         $.ajax({
@@ -31,7 +33,6 @@ function log(){
                 }
             },
             error: function () {
-                alert("出错啦...");
             }
         });
     }
@@ -47,7 +48,6 @@ function log(){
  * enter 登录
  */
 $(".pass").keyup(function (event) {
-    console.log("dd");
     if (event.which == "13") {
         log();
     }

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>强子的博客~~</title>
     <link rel="alternate icon" type="image/png" href="/myPicture.jpg">
-    <link rel="stylesheet" href="assets/css/amazeui.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.css" th:href="@{/assets/css/amazeui.css}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="stylesheet" href="style/index.css"/>
-    <link rel="stylesheet" href="style/user.css"/>
+    <link rel="stylesheet" href="assets/css/admin.css" th:href="@{/assets/css/admin.css}">
+    <link rel="stylesheet" href="style/index.css" th:href="@{/style/index.css}"/>
+    <link rel="stylesheet" href="style/user.css" th:href="@{/style/user.css}"/>
+    <link rel="stylesheet" href="style/tig.css" th:href="@{/style/tig.css}"/>
     <style type="text/css">
         .qz-ul-a .active {
             background: rgba(1, 89, 90, 0.5);
@@ -23,6 +25,8 @@
 
 <!--首页-->
 <div th:replace="header :: header"></div>
+
+<span class="username" style="display: none;"><shiro:principal property="username"/></span>
 
 <!--页面主体内容-->
 <div class="am-cf admin-main">
@@ -64,34 +68,31 @@
             <div class="am-g">
                 <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8"></div>
                 <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
-                    <form class="am-form am-form-horizontal">
+                    <div class="am-form am-form-horizontal message">
                         <div class="am-form-group">
                             <label for="user-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
                             <div class="am-u-sm-9">
-                                <input type="text" id="user-name" placeholder="敢不敢填真实姓名">
-                                <small>输入你的名字，让我们记住你。</small>
+                                <input type="text" id="user-name" placeholder="真实姓名" value="">
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
                             <div class="am-u-sm-9">
-                                <input type="tel" id="user-phone" placeholder="输入你的电话号码 / Telephone">
+                                <input type="tel" id="user-phone" placeholder="输入你的电话号码 / Telephone" disabled>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="user-QQ" class="am-u-sm-3 am-form-label">QQ</label>
                             <div class="am-u-sm-9">
-                                <input type="number" pattern="[0-9]*" id="user-QQ" placeholder="输入你的QQ号码">
+                                <input type="text" pattern="[0-9]*" id="user-QQ" placeholder="输入你的QQ号码" value="">
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="user-email" class="am-u-sm-3 am-form-label">电子邮件 / Email</label>
                             <div class="am-u-sm-9">
-                                <input type="email" id="user-email" placeholder="输入你的电子邮件 / Email">
-                                <small>邮箱你懂得...</small>
+                                <input type="text" id="user-email" placeholder="输入你的电子邮件 / Email" value="">
                             </div>
                         </div>
-
                         <div class="am-form-group">
                             <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
                             <div class="am-u-sm-9">
@@ -101,10 +102,10 @@
                         </div>
                         <div class="am-form-group" style="padding-bottom: 40px">
                             <div class="am-u-sm-9 am-u-sm-push-3">
-                                <button type="button" class="am-btn am-btn-primary">保存修改</button>
+                                <button type="button" class="am-btn am-btn-primary savebtn">保存修改</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,7 +191,26 @@
         </div>
 
     </div>
-
+    <div class="notice notice-box-suc">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 客官,修改成功</span>
+    </div>
+    <div class="notice notice-box notice-box1">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 客官,修改失败</span>
+    </div>
+    <div class="notice notice-box notice-name-len">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 客官,名字格式不对</span>
+    </div>
+    <div class="notice notice-box notice-email">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 客官,邮箱格式不对</span>
+    </div>
+    <div class="notice notice-box notice-qq">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 客官,QQ格式不对</span>
+    </div>
 </div>
 
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
@@ -201,9 +221,9 @@
 
 </body>
 
-<script src="assets/js/jquery-1.12.4.min.js"></script>
-<script src="assets/js/amazeui.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="style/js/user.js"></script>
+<script src="assets/js/jquery-1.12.4.min.js" th:src="@{/assets/js/jquery-1.12.4.min.js}"></script>
+<script src="assets/js/amazeui.js" th:src="@{/assets/js/amazeui.js}"></script>
+<script src="assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+<script src="style/js/user.js" th:src="@{/style/js/user.js}"></script>
 <script src="style/js/header.js" th:src="@{/style/js/header.js}"></script>
 </html>

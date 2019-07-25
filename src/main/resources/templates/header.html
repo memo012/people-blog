@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-
 <body>
 <div th:fragment="header">
     <header class="am-topbar">
@@ -84,7 +83,7 @@
                     </button>
                     <ul class="am-dropdown-content">
                         <li><a href="/user">个人主页</a></li>
-                        <li><a href="/#">网站后台管理</a></li>
+                        <li><a href="/user" shiro:hasRole="admin">网站后台管理</a></li>
                         <li><a href="/#" class="news">消息<span class="newsNum am-badge am-badge-danger"></span></a></li>
                         <li><a class="feedbackClick">反馈</a></li>
                         <hr style="margin: 10px 0 5px 0;">

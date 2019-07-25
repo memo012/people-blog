@@ -34,6 +34,8 @@ registerBtn.click(function () {
         $(".notice-box-name").show();
     }else if(username1.length > 16){
         $(".notice-box-user-length").show();
+    }else if(nameLen(username1)){
+        $(".notice-box-user-exit").show();
     } else if (password1.length == 0 || passwordSure1.length == 0) {
         $(".notice-box-password").show();
     } else if (password1.length < 6 || password1.length > 18) {
@@ -96,6 +98,34 @@ function checkPhone(data) {
         type: "GET",
         async:false,
         url: "phoneCheck",
+        // contentType: "application/x-www-form-urlencoded",
+        contentType: "application/json",
+        dataType: "json",
+        data: str,
+        success: function (data) {
+            //放入数据
+            if(data.status == 200){
+                mes = false;
+            }
+        },
+        error: function (res) {
+            alert("客官，慢点按(⊙o⊙)？");
+        }
+    });
+    return mes;
+}
+
+/**
+ * 该用户是否存在
+ * @param data
+ */
+function nameLen(data) {
+    var str = {username: data};
+    var mes = true;
+    $.ajax({
+        type: "GET",
+        async:false,
+        url: "usernameCheck",
         // contentType: "application/x-www-form-urlencoded",
         contentType: "application/json",
         dataType: "json",

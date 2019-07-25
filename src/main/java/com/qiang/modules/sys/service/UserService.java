@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.service;
 
 import com.qiang.modules.sys.pojo.Users;
+import org.apache.catalina.User;
 
 /**
  * @Author: qiang
@@ -39,5 +40,19 @@ public interface UserService {
      * @return
      */
     Users findByName(String name);
+
+    /**
+     * 个人信息
+     * @param username
+     * @return
+     */
+    Users findUserMess(String username);
+
+    /**
+     * 新增个人信息
+     * @param users
+     * @return
+     */
+    Users insUserMess(Users users);
 
 }

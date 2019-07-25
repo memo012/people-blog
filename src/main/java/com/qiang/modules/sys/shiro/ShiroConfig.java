@@ -54,11 +54,12 @@ public class ShiroConfig {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
         bean.setLoginUrl("login");
-//        bean.setUnauthorizedUrl("/unauthorized");
+        bean.setSuccessUrl("/");
+        bean.setUnauthorizedUrl("/");
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/", "anon");    // authc --    认证(登录)才能使用
         filterChainDefinitionMap.put("/user", "authc");
-//        filterChainDefinitionMap.put("/admin", "roles[admin]"); // 角色为admin的可以访问admin页面
+        filterChainDefinitionMap.put("/admin", "roles[admin]"); // 角色为admin的可以访问admin页面
 //        filterChainDefinitionMap.put("/edit", "perms[edit]");  // 权限为edit的可以执行edit的相关功能
         filterChainDefinitionMap.put("/druid/**", "anon");  // anon -- 匿名访问
         filterChainDefinitionMap.put("/**", "anon");

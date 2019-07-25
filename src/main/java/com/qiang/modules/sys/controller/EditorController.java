@@ -30,6 +30,12 @@ public class EditorController {
     @Autowired
     private BlogService blogService;
 
+    /**
+     * 发布博客
+     * @param blogMessage
+     * @param request
+     * @return
+     */
     @PostMapping("publishEditor")
     public BlogJSONResult publishEditor(@RequestBody BlogMessageVO blogMessage
             , HttpServletRequest request) {

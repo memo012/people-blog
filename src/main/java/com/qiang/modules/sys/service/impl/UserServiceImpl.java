@@ -27,10 +27,20 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
+    public Users insUserMess(Users users) {
+        int i = usersMapper.updUserMess(users);
+        Users u = null;
+        if(i > 0){
+            u = findUserMess(users.getUsername());
+        }
+        return u;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
     public int insUsers(Users users) {
         String id = UUID.randomUUID().toString();
         users.setId(id);
-        users.setName("");
         users.setRoleId(2);
         Object o = ShiroMD5.MD5(users.getPhone(), users.getPassword());
         users.setPassword(String.valueOf(o));
@@ -49,6 +59,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findByName(String name) {
         return usersMapper.findByName(name);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public Users findUserMess(String username) {
+        return usersMapper.findUserMess(username);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

@@ -13,6 +13,10 @@
         <result property="lastTime" column="lastTime"/>
         <result property="name" column="name"/>
         <result property="roleId" column="roleId"/>
+        <result property="realname" column="realname"/>
+        <result property="qq" column="qq"/>
+        <result property="email" column="email"/>
+        <result property="intro" column="intro"/>
         <collection property="roles" ofType="Role">
             <id property="rid" column="rid"/>
             <result property="rname" column="rname"/>
@@ -32,5 +36,17 @@
       INNER JOIN permission p on p.pid = pr.pid
       where u.phone = #{arg0}
     </select>
+
+    <update id="updUserMess" parameterType="Users">
+        update  user
+         set realname = #{realname}, qq = #{qq}, email = #{email}, intro = #{intro}
+         where username = #{username}
+    </update>
+
+    <insert id="insUsers" parameterType="Users">
+        insert into
+         user
+          values(#{id}, #{username}, #{password}, #{phone}, #{sex}, #{lastTime}, #{roleId}, #{realname}, #{qq}, #{email}, #{intro})
+    </insert>
 
 </mapper>

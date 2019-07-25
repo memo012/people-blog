@@ -89,7 +89,6 @@ function ajaxFirst(currentPage) {
 
         },
         error: function () {
-            alert("出错啦...");
         }
     });
 }
