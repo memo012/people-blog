@@ -15,6 +15,8 @@ import java.util.Set;
 @Data
 public class Users implements Serializable {
 
+
+    private static final long serialVersionUID = 2091272315817336009L;
     /**
      * 标识符id
      */

@@ -48,7 +48,26 @@
     <insert id="insCommIsLikes" parameterType="CommentLikes">
         insert into
         commentlikes
-        values (#{id}, #{blogId}, #{commentId}, #{likeName})
+        values (#{id}, #{blogId}, #{commentId}, #{likeName}, #{likeTime}, #{isRead})
     </insert>
+
+    <select id="getUserRepMessNotRead" parameterType="String" resultType="ReportCommentVO">
+        select r.*, b.id as blogId, b.title title
+        from reportcomment r
+        INNER JOIN comment c on r.commentId = c.id
+        INNER JOIN blog b on c.blogId = b.id
+        where r.comName = #{arg0} order by r.rid desc
+    </select>
+
+    <update id="updComIsRead" parameterType="java.util.List">
+        update reportcomment r
+        set r.risRead = 0
+        where rid in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+
 
 </mapper>

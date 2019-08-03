@@ -1,6 +1,8 @@
 package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.BlogJSONResult;
+import com.qiang.common.utils.Constant;
+import com.qiang.common.utils.RedisOperator;
 import com.qiang.modules.sys.pojo.Label;
 import com.qiang.modules.sys.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class LabelController {
 
     @Autowired
     private LabelService labelService;
+
+
 
     /**
      * 标签云

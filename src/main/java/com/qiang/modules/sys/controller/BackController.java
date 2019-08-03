@@ -1,12 +1,16 @@
 package com.qiang.modules.sys.controller;
 
+import com.qiang.common.utils.Constant;
+import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.TransCodingUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.soap.Addressing;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -15,7 +19,10 @@ import java.io.UnsupportedEncodingException;
  * Describe: 所有页面跳转
  */
 @Controller
-public class    BackController {
+public class BackController {
+
+    @Autowired
+    private RedisOperator redisOperator;
 
 
     /**
@@ -24,7 +31,28 @@ public class    BackController {
      */
     @GetMapping("/")
     public String index(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "/index";
+    }
+
+    /**
+     * 关于我
+     * @return
+     */
+    @GetMapping("/aboutme")
+    public String aboutme(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        return "/aboutme";
+    }
+
+
+    /**
+     * 后台管理界面
+     * @return
+     */
+    @GetMapping("SuperAdmin")
+    public String SuperAdmin(){
+        return "/SuperAdmin";
     }
 
     /**
@@ -33,6 +61,7 @@ public class    BackController {
      */
     @GetMapping("login")
     public String login(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "login";
     }
 
@@ -42,6 +71,7 @@ public class    BackController {
      */
     @GetMapping("/es/{message}")
     public String elasticsearch(@PathVariable("message") String message, HttpServletResponse response){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setHeader("message", TransCodingUtil.stringToUnicode(message));
@@ -54,6 +84,7 @@ public class    BackController {
      */
     @GetMapping("register")
     public String register(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "register";
     }
 
@@ -63,6 +94,7 @@ public class    BackController {
      */
     @GetMapping("editor")
     public String editor(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "/editor";
     }
 
@@ -72,6 +104,7 @@ public class    BackController {
      */
     @GetMapping("/archive")
     public String archive(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "/archive";
     }
 
@@ -81,6 +114,7 @@ public class    BackController {
      */
     @GetMapping("/update")
     public String update(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "/update";
     }
 
@@ -93,6 +127,7 @@ public class    BackController {
     @GetMapping("/article/{articleId}")
     public String show(@PathVariable("articleId") long articleId
                         , HttpServletResponse response){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         //将文章id存入响应头
@@ -146,6 +181,7 @@ public class    BackController {
     @GetMapping("categories")
     public String categories(HttpServletRequest request
                                 ,HttpServletResponse response){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -164,6 +200,7 @@ public class    BackController {
      */
     @GetMapping("/guest")
     public String guest(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "guest";
     }
 
@@ -173,6 +210,7 @@ public class    BackController {
      */
     @GetMapping("/user")
     public String user(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "user";
     }
 

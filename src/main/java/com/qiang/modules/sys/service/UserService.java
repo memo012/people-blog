@@ -1,7 +1,10 @@
 package com.qiang.modules.sys.service;
 
-import com.qiang.modules.sys.pojo.Users;
+import com.qiang.modules.sys.pojo.*;
+import com.qiang.modules.sys.pojo.VO.ReportCommentVO;
 import org.apache.catalina.User;
+
+import java.util.List;
 
 /**
  * @Author: qiang
@@ -54,5 +57,91 @@ public interface UserService {
      * @return
      */
     Users insUserMess(Users users);
+
+    /**
+     * 我的点赞
+     * @param username
+     * @return
+     */
+    List<CommentLikes> findLikes(String username);
+
+    /**
+     * 全部消息已读
+     * @param username
+     * @return
+     */
+    List<CommentLikes> updComIsRead(String username);
+
+    /**
+     * 我的留言（管理员）
+     * @return
+     */
+    List<Guest> findAllGuest();
+
+    /**
+     * 我的留言（用户）
+     * @param username
+     * @return
+     */
+    List<RepGuest> findNotRepReadGuest(String username);
+
+    /**
+     * 全部消息已读（留言 --- 用户）
+     * @param username
+     * @return
+     */
+    List<RepGuest> updNotGuest(String username);
+
+    /**
+     * 部分留言消息已读（管理员）
+     * @param id
+     * @return
+     */
+    int updOneNotGuestMana(Long id);
+
+    /**
+     * 部分留言消息已读（用户）
+     * @param id
+     * @return
+     */
+    int updOneNotGuestUser(Long id);
+
+    /**
+     * 我的博客评论
+     * @return
+     */
+    List<Comment> findAllComment();
+
+    /**
+     * 我的博客评论部分消息已读
+     * @param id
+     * @return
+     */
+    int updOneBlogNotComm(Long id);
+
+
+    /**
+     * 我的点赞评论部分消息已读
+     * @param id
+     * @return
+     */
+    int updOneBlogNotLikes(Long id);
+
+    /**
+     *  反馈（管理员）
+     * @param username
+     * @return
+     */
+    int findMessageNotRead(String username);
+
+    /**
+     *  消息（未读）
+     * @param username
+     * @return
+     */
+    int findMessageNotReadUser(String username);
+
+
+
 
 }

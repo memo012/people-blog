@@ -5,16 +5,23 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import java.util.LinkedHashMap;
 
@@ -28,91 +35,20 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfig {
 
-    @Value("${qiang.shiro.redis.cacheLive}")
-    private long cacheLive;
+    @Value("${qiang.shiro-redis.host}")
+    private String shiroRedisHost;
 
-    @Value("${qiang.shiro.redis.cachePrefix}")
-    private String cachePrefix;
+    @Value("${qiang.shiro-redis.port}")
+    private Integer shiroRedisPort;
 
 
     /**
-     * 自定义shiro cache管理
-     *
-     * @return
+     * 密码校验规则HashedCredentialsMatcher
+     * 这个类是为了对密码进行编码的 ,
+     * 防止密码在数据库里明码保存 , 当然在登陆认证的时候 ,
+     * 这个类也负责对form里输入的密码进行编码
+     * 处理认证匹配处理器：如果自定义需要实现继承HashedCredentialsMatcher
      */
-    @Bean(name = "redisCacheManager")
-    public RedisCacheManager redisCacheManager(@Qualifier("redisTemplate") RedisTemplate redisTemplate) {
-        RedisCacheManager redisCacheManager = new RedisCacheManager();
-        redisCacheManager.setCacheLive(cacheLive);
-        redisCacheManager.setCacheKeyPrefix(cachePrefix);
-        redisCacheManager.setRedisTemplate(redisTemplate);
-        return redisCacheManager;
-    }
-
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
-        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
-        bean.setSecurityManager(manager);
-        bean.setLoginUrl("login");
-        bean.setSuccessUrl("/");
-        bean.setUnauthorizedUrl("/");
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/", "anon");    // authc --    认证(登录)才能使用
-        filterChainDefinitionMap.put("/user", "authc");
-        filterChainDefinitionMap.put("/admin", "roles[admin]"); // 角色为admin的可以访问admin页面
-//        filterChainDefinitionMap.put("/edit", "perms[edit]");  // 权限为edit的可以执行edit的相关功能
-        filterChainDefinitionMap.put("/druid/**", "anon");  // anon -- 匿名访问
-        filterChainDefinitionMap.put("/**", "anon");
-//        filterChainDefinitionMap.put("/**", "user"); // user --  验证是否登录
-        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return bean;
-    }
-
-    @Bean("securityManager")
-    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm, @Qualifier("redisCacheManager") RedisCacheManager redisCacheManager
-            , @Qualifier("sessionManager") SessionManager sessionManager) {
-        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(authRealm);
-        // 自定义缓存实现 使用redis
-        manager.setCacheManager(redisCacheManager);
-        manager.setSessionManager(sessionManager);
-        return manager;
-    }
-
-    @Bean("sessionManager")
-    public SessionManager sessionManager(){
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdCookieEnabled(true);
-        return sessionManager;
-    }
-
-    @Bean("authRealm")
-    public AuthRealm authRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher matcher) {
-        AuthRealm authRealm = new AuthRealm();
-        authRealm.setCachingEnabled(true);
-        authRealm.setCredentialsMatcher(matcher);
-        return authRealm;
-    }
-
-    /**
-     * Shiro控制ThymeLeaf界面按钮级权限控制
-     * @return
-     */
-    @Bean(name = "shiroDialect")
-    public ShiroDialect shiroDialect() {
-        return new ShiroDialect();
-    }
-
-
-
-        /**
-         * 密码校验规则HashedCredentialsMatcher
-         * 这个类是为了对密码进行编码的 ,
-         * 防止密码在数据库里明码保存 , 当然在登陆认证的时候 ,
-         * 这个类也负责对form里输入的密码进行编码
-         * 处理认证匹配处理器：如果自定义需要实现继承HashedCredentialsMatcher
-         */
     @Bean("hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
@@ -123,6 +59,113 @@ public class ShiroConfig {
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
     }
+
+
+    /**
+     * 自定义realm
+     * @return
+     */
+    @Bean("authRealm")
+    public AuthRealm authRealm() {
+        AuthRealm authRealm = new AuthRealm();
+        authRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return authRealm;
+    }
+
+    /**
+     * 自定义sessionManager
+     * @return
+     */
+    @Bean("sessionManager")
+    public SessionManager sessionManager(){
+        CustomSessionManager customSessionManager = new CustomSessionManager();
+        // 超时时间 默认30分钟，会话超时，方法里面的是单位是毫秒
+        customSessionManager.setGlobalSessionTimeout(60 * 1000 * 30);
+        // 配置session持久化
+        customSessionManager.setSessionDAO(redisSessionDAO());
+        return customSessionManager;
+    }
+
+
+    @Bean("securityManager")
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+        // 如果前后端不分离，则注释掉即可
+        manager.setSessionManager(sessionManager());
+        // 设置自定义redisManager
+        manager.setCacheManager(redisCacheManager());
+        // 推荐放到最后
+        manager.setRealm(authRealm());
+        return manager;
+    }
+
+    /**
+     * 设置redisManager
+     * @return
+     */
+    public RedisManager getRedisManager(){
+        RedisManager redisManager = new RedisManager();
+        redisManager.setHost(shiroRedisHost);
+        redisManager.setPort(shiroRedisPort);
+        return redisManager;
+    }
+
+    /**
+     * 配置具体cache实现类
+     * @return
+     */
+    @Bean("redisCacheManager")
+    public RedisCacheManager redisCacheManager(){
+        RedisCacheManager redisCacheManager = new RedisCacheManager();
+        redisCacheManager.setRedisManager(getRedisManager());
+        // 设置过期时间，单位是秒
+        redisCacheManager.setExpire(60 * 30);
+        return redisCacheManager;
+    }
+
+    /**
+     * 自定义session持久化
+     * @return
+     */
+    public RedisSessionDAO redisSessionDAO(){
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setRedisManager(getRedisManager());
+        // 设置sessionId生成器
+        redisSessionDAO.setSessionIdGenerator(new CustomSessionIdGenerator());
+        return redisSessionDAO;
+    }
+
+    @Bean("shiroFilter")
+    public ShiroFilterFactoryBean shiroFilter() {
+        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+        bean.setSecurityManager(securityManager());
+        bean.setLoginUrl("login");
+        bean.setUnauthorizedUrl("/");
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/", "anon");    // authc --    认证(登录)才能使用
+        filterChainDefinitionMap.put("/user", "authc");
+        filterChainDefinitionMap.put("/editor", "roles[admin]");
+        filterChainDefinitionMap.put("/SuperAdmin", "roles[admin]");
+        filterChainDefinitionMap.put("/druid/**", "anon");  // anon -- 匿名访问
+        filterChainDefinitionMap.put("/**", "anon");
+        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return bean;
+    }
+
+
+
+    /**
+     * Shiro控制ThymeLeaf界面按钮级权限控制
+     *
+     * @return
+     */
+    @Bean(name = "shiroDialect")
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
+
+
+
 
 
     /**

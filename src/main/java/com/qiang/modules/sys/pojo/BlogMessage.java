@@ -1,6 +1,8 @@
 package com.qiang.modules.sys.pojo;
 
 
+import java.io.Serializable;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -8,7 +10,8 @@ package com.qiang.modules.sys.pojo;
  * @Description: 博客信息表
  * @Date: 2019/7/4 0004 11:13
  **/
-public class BlogMessage {
+public class BlogMessage implements Serializable {
+    private static final long serialVersionUID = 6202944650911776915L;
     /**
      * 标识符
      */

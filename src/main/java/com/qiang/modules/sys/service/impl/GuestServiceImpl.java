@@ -1,5 +1,7 @@
 package com.qiang.modules.sys.service.impl;
 
+import com.qiang.common.utils.Constant;
+import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.TimeUtil;
 import com.qiang.modules.sys.mapper.GuestMapper;
 import com.qiang.modules.sys.pojo.Guest;
@@ -26,10 +28,15 @@ public class GuestServiceImpl implements GuestService {
     @Autowired
     private GuestMapper guestMapper;
 
+    @Autowired
+    private RedisOperator redisOperator;
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<Guest> getAllGuest() {
-        return guestMapper.getAllGuest();
+        List<Guest> list = null;
+        list = guestMapper.getAllGuest();
+        return list;
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -90,6 +97,8 @@ public class GuestServiceImpl implements GuestService {
         if(i > 0){
             list = getAllGuest();
         }
+        // 存入缓存 增加留言（+1）
+        redisOperator.incr(Constant.BLOG_GUEST_COUNT, 1);
         return list;
     }
 
@@ -107,6 +116,8 @@ public class GuestServiceImpl implements GuestService {
         if(i > 0){
             list = getAllGuest();
         }
+        // 存入缓存 增加留言（+1）
+        redisOperator.incr(Constant.BLOG_GUEST_COUNT, 1);
         return list;
     }
 }

@@ -9,6 +9,7 @@ package com.qiang.common.utils;
  * 				500：表示错误，错误信息在msg字段中
  * 				501：bean验证错误，不管多少个错误都以map形式返回
  * 				502：拦截器拦截到用户token出错
+ * 			    503: 不具备角色功能
  * 				555：异常抛出信息
  */
 public class BlogJSONResult {
@@ -46,6 +47,10 @@ public class BlogJSONResult {
     
     public static BlogJSONResult errorTokenMsg(String msg) {
         return new BlogJSONResult(502, msg, null);
+    }
+
+    public static BlogJSONResult errorRolesMsg(String msg) {
+        return new BlogJSONResult(503, msg, null);
     }
     
     public static BlogJSONResult errorException(String msg) {

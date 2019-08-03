@@ -2,6 +2,7 @@ package com.qiang.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.qiang.common.utils.Constant;
 import com.qiang.common.utils.PagedResult;
 import com.qiang.common.utils.StringAndArray;
 import com.qiang.modules.sys.mapper.ArticleMapper;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: qiang
@@ -93,8 +96,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public PagedResult findAllBlog(Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
+    public PagedResult findAllBlog(Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
         List<BlogMessageVO> blog = articleMapper.findBlog();
         for (BlogMessageVO b:
              blog) {
@@ -103,7 +107,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         PageInfo<BlogMessageVO> pageList = new PageInfo<>(blog);
         PagedResult grid = new PagedResult();
-        grid.setPage(page);
+        grid.setPage(pageNum);
         grid.setTotal(pageList.getPages());
         grid.setRecords(pageList.getTotal());
         grid.setRows(blog);

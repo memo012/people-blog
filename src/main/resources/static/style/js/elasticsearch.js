@@ -32,7 +32,6 @@ function putInAllArticle(data) {
             '<span class="am-badge am-badge-success qz-mark">' + obj['selectType'] + '</span>&nbsp;&nbsp;' +
             '<span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;' + obj['createTime'] + '</span>&nbsp;&nbsp;' +
             '<span style="font-size: 14px;"><i class="am-icon-user">&nbsp;' + obj['name'] + '</i></span>&nbsp;&nbsp;' +
-            '<span style="font-size: 14px; color: #32043a;"><i class="am-icon-eye">&nbsp;' + obj['look'] + '</i></span>&nbsp;&nbsp;' +
             '</div>' +
             '</header>' +
             '<div class="article-entry" style="height: 130px;">' +

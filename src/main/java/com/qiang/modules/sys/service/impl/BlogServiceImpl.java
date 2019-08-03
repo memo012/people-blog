@@ -1,8 +1,12 @@
 package com.qiang.modules.sys.service.impl;
 
+import com.qiang.common.utils.Constant;
+import com.qiang.common.utils.RedisOperator;
+import com.qiang.common.utils.StringAndArray;
 import com.qiang.common.utils.TimeUtil;
 import com.qiang.modules.sys.mapper.BlogMapper;
 import com.qiang.modules.sys.pojo.BlogMessage;
+import com.qiang.modules.sys.pojo.VO.BlogMessageVO;
 import com.qiang.modules.sys.pojo.es.EsBlogMessage;
 import com.qiang.modules.sys.service.BlogService;
 import com.qiang.modules.sys.service.EsService;
@@ -27,34 +31,52 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private EsService esService;
 
+    @Autowired
+    private RedisOperator redisOperator;
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public BlogMessage findById(long id) {
-        blogMapper.updLooksById(id);
-        BlogMessage byId = blogMapper.findById(id);
+        BlogMessage byId = null;
+        if(redisOperator.hasHkey(Constant.BLOG_DETAIL, String.valueOf(id))){
+            byId = (BlogMessage)redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
+            long incr = redisOperator.incr(Constant.BLOG_DETAIL + id, 1L);
+            byId.setLook((int) incr);
+        }else{
+            blogMapper.updLooksById(id);
+            byId = blogMapper.findById(id);
+        }
         return byId;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void publishBlog(BlogMessage blogMessage) {
+    public void publishBlog(BlogMessageVO blogMessageVO) {
         long id = 0L;
-        BlogMessage blog = null;
+        BlogMessageVO blog = null;
         EsBlogMessage esBlogMessage = null;
-        if (blogMessage.getId() == 0) {
+        if (blogMessageVO.getId() == 0) {
             id = new TimeUtil().getLongTime();
-            blogMessage.setId(id);
-            blogMessage.setLike(0);
-            blogMessage.setLook(0);
+            blogMessageVO.setId(id);
+            blogMessageVO.setLike(0);
+            blogMessageVO.setLook(0);
             TimeUtil timeUtil = new TimeUtil();
-            blogMessage.setCreateTime(timeUtil.getFormatDateForThree());
-            blogMapper.publishBlog(blogMessage);
+            blogMessageVO.setCreateTime(timeUtil.getFormatDateForThree());
+            blogMessageVO.setTagValue(StringAndArray.stringToArray(blogMessageVO.getLabelValues()));
+            blogMessageVO.setArticleUrl("/article/" + blogMessageVO.getId());
+            blogMapper.publishBlog(blogMessageVO);
             blog = blogMapper.findById(id);
             esBlogMessage = new EsBlogMessage(blog);
         }else{
-            esBlogMessage = esService.findById(blogMessage.getId());
-            esBlogMessage.update(blogMessage);
+            esBlogMessage = esService.findById(blogMessageVO.getId());
+            esBlogMessage.update(blogMessageVO);
         }
         esService.saveBlog(esBlogMessage);
+        // 存入缓存中(首页分页查询)
+        redisOperator.lpush(Constant.PAGE_BLOG, blogMessageVO);
+        // 存入缓存（博客具体详情）
+        redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId()), blog);
+        // 文章浏览次数
+        redisOperator.set(Constant.BLOG_DETAIL+blogMessageVO.getId(), 0);
     }
 }

@@ -49,4 +49,30 @@
           values(#{id}, #{username}, #{password}, #{phone}, #{sex}, #{lastTime}, #{roleId}, #{realname}, #{qq}, #{email}, #{intro})
     </insert>
 
+    <select id="findLikes" parameterType="String" resultType="CommentLikes">
+        select cl.*, b.title
+        from comment c
+        INNER JOIN commentlikes cl on c.id = cl.commentId
+        INNER JOIN blog b on cl.blogId = b.id
+        where c.authorName = #{arg0}
+    </select>
+
+    <update id="updLikesIsRead" parameterType="java.util.List">
+        update commentlikes c
+        set c.isRead = 0
+        where id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updGuestIsRead" parameterType="java.util.List">
+        update repguest c
+        set c.risRead = 0
+        where rid in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

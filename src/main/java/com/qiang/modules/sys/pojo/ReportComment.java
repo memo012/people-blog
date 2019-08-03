@@ -1,5 +1,7 @@
 package com.qiang.modules.sys.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -7,15 +9,16 @@ package com.qiang.modules.sys.pojo;
  * @Description:
  * @Date: 2019/7/22 0022 18:15
  **/
-public class ReportComment {
+public class ReportComment implements Serializable {
 
+    private static final long serialVersionUID = -5264662268008848306L;
     /**
      * 标识符
      */
     private Long rid;
 
     /**
-     * 评论者id
+     * 评论文章id
      */
     private Long commentId;
 

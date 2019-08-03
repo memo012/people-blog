@@ -22,7 +22,28 @@ function putInArticleDetail(data) {
         '</div>'
     );
     $(".qz-article-top").append(center);
-    $("#wordsView").html(data.text);
+    $("#mdText").text(data.text);
+    var wordsView;
+    wordsView = editormd.markdownToHTML("wordsView", {
+        htmlDecode: "true", // you can filter tags decode
+        emoji: true,
+        taskList: true,
+        tex: true,
+        flowChart: true,
+        sequenceDiagram: true
+    });
+
+    //选中所有需放大的图片加上data-src属性
+    $("#wordsView img").each(function(index){
+        if(!$(this).hasClass("emoji")){
+            var a=$(this).attr('src');
+            $(this).attr("data-src",a);
+
+            $(this).addClass("enlargePicture");
+        }
+    });
+    //放大图片框架
+    lightGallery(document.getElementById('wordsView'));
 }
 
 
@@ -50,7 +71,11 @@ $.ajax({
     success: function (data) {
         //放入数据
         $("#article-like-span").html(data.data.like);
-        putInArticleDetail(data.data);
+        if(data.status == 200){
+            putInArticleDetail(data.data);
+        }else if(data.status == 500){
+        }
+
     },
     error: function () {
     }
@@ -120,7 +145,8 @@ commentBn.click(function () {
                         data: JSON.stringify(data),
                         success: function (data) {
                             $this.parent().parent().find($("#desc")).val("");
-                            putInComment(data.data);
+                            console.log();
+                            putInComment(data.data[0]);
                         },
                         error: function () {
                         }
@@ -155,7 +181,7 @@ function putInComment(data) {
         );
         var visitorCommentImg = $(
             '<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
-            '<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg">' +
+            '<img src="style/images/wutouxiang.png">' +
             '</div>'
         );
         var cn = $('<div class="am-u-sm-10 am-u-lg-11 cn"></div>');
@@ -303,8 +329,6 @@ function putInComment(data) {
     $(".sendReplyWordBtn").click(function () {
         var $this = $(this);
         newReports = $this.parent().find($('.replyWordTextarea')).val();
-
-        console.log(newReports);
         if (newReports.trim() == "") {
             $(".notice-box-text").show();
         } else {
@@ -328,7 +352,7 @@ function putInComment(data) {
                     } else if (data.status == 500) {
                         $(".notice-box-comment").show();
                     } else if (data.status == 200) {
-                        putInComment(data.data);
+                        putInComment(data.data[0]);
                     }
                 },
                 error: function () {
@@ -397,7 +421,7 @@ function putInComment(data) {
                         async: false,
                         data: JSON.stringify(data),
                         success: function (data) {
-                            putInComment(data.data);
+                            putInComment(data.data[0]);
                         },
                         error: function () {
                         }
@@ -423,8 +447,9 @@ $.ajax({
         blogId: articleId
     },
     success: function (data) {
-        if (data.data.length > 0) {
-            putInComment(data.data);
+        console.log(data);
+        if (data.data[0] != "") {
+            putInComment(data.data[0]);
         } else {
             putInNotComment();
         }

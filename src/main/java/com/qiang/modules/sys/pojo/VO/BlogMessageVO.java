@@ -35,4 +35,5 @@ public class BlogMessageVO extends BlogMessage {
     public void setArticleUrl(String articleUrl) {
         this.articleUrl = articleUrl;
     }
+
 }

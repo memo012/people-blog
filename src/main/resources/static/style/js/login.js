@@ -4,6 +4,7 @@ qzLogin.click(function () {
     log();
 });
 
+
 function log(){
     var phone = $("#username").val().trim();
     var pass = $("#password").val();

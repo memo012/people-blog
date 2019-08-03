@@ -1,5 +1,6 @@
 package com.qiang.modules.sys.pojo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,8 +10,9 @@ import java.util.Set;
  * @Description: 角色表
  * @Date: 2019/7/11 0011 20:13
  **/
-public class Role {
+public class Role implements Serializable {
 
+    private static final long serialVersionUID = 2147116123095650916L;
     /**
      * 标识符
      */

@@ -5,12 +5,12 @@ import com.qiang.modules.sys.pojo.Comment;
 import com.qiang.modules.sys.pojo.CommentLikes;
 import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.Users;
+import com.qiang.modules.sys.pojo.VO.ReportCommentVO;
 import com.qiang.modules.sys.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -119,6 +119,42 @@ public class CommentController {
                 return BlogJSONResult.errorMsg("点赞失败");
             }
         }
+    }
+
+    /**
+     * 我的评论
+     * @param username
+     * @return
+     */
+    @GetMapping("getUserReport")
+    public BlogJSONResult getUserReport(@RequestParam("username") String username){
+        List<ReportCommentVO> messNotRead = commentService.getUserRepMessNotRead(username);
+        return BlogJSONResult.ok(messNotRead);
+    }
+
+    /**
+     * 全部消息已读
+     * @param username
+     * @return
+     */
+    @GetMapping("clearComNotRead")
+    public BlogJSONResult clearComNotRead(@RequestParam("username") String username){
+        List<ReportCommentVO> reportCommentVOS = commentService.updComIsRead(username);
+        if(reportCommentVOS != null){
+            return BlogJSONResult.ok(reportCommentVOS);
+        }
+        return BlogJSONResult.errorMsg("错误");
+    }
+
+    /**
+     * 部分评论消息已读
+     * @param id
+     * @return
+     */
+    @GetMapping("clearOneNotComm")
+    public BlogJSONResult clearOneNotComm(@RequestParam("id") Long id){
+        int i = commentService.updOneNotComm(id);
+        return BlogJSONResult.ok();
     }
 
 }

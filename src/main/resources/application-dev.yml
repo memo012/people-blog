@@ -22,3 +22,24 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+#############################
+######## elasticSearch配置
+#############################
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.233.137:9300
+
+
+qiang:
+  ######################################
+  ########### session cache config
+  ######################################
+  shiro-redis:
+    host: 192.168.233.137
+    port: 6379
+  ######## 文件路径
+  file-path: E:/vblog
+

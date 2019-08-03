@@ -35,7 +35,6 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取用户
         Users users = (Users) SecurityUtils.getSubject().getPrincipal();
-        System.out.println(users.getRoles());
         List<String> list = new ArrayList<>();
         List<String> roleNameList = new ArrayList<>();
         Set<Role> roles = users.getRoles();

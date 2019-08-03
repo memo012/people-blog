@@ -2,6 +2,8 @@ package com.qiang.modules.sys.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -10,8 +12,9 @@ import lombok.Data;
  * @Date: 2019/7/24 0024 19:51
  **/
 @Data
-public class GuestLikes {
+public class GuestLikes implements Serializable {
 
+    private static final long serialVersionUID = -4126217973825926180L;
     /**
      * 主键
      */

@@ -56,30 +56,6 @@
     color: #fff;
     background: #f9a477;
 }
-
-.qz-markerdown h1 {
-    font-weight: 900;
-}
-
-.qz-markerdown h2 {
-    font-weight: 800;
-}
-
-.qz-markerdown h3 {
-    font-weight: 700;
-}
-
-.qz-markerdown h4 {
-    font-weight: 600;
-}
-
-.qz-markerdown h5 {
-    font-weight: 500;
-}
-
-.qz-markerdown h6 {
-    font-weight: 200;
-}
 @media screen and (min-width: 768px) {
     .comment-top {
         border: 1px solid #4398ed;
@@ -110,7 +86,7 @@
     margin-top: 3px;
     position: relative;
 }
-textarea{
+.textareas{
     width: 500px;
 }
 .qz-comment-list{
@@ -143,7 +119,7 @@ textarea{
 .sub-comment{
 
 }
-textarea{
+.textareas{
     resize: none;
 }
 .quitReplyWordBtn{
@@ -193,4 +169,7 @@ textarea{
 .reply-sub-comment-list{
     display: none;
 }
+
+
+
 

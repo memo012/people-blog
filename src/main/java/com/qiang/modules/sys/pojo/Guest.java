@@ -2,6 +2,7 @@ package com.qiang.modules.sys.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -12,8 +13,9 @@ import java.util.Set;
  * @Date: 2019/7/24 0024 17:13
  **/
 @Data
-public class Guest {
+public class Guest implements Serializable {
 
+    private static final long serialVersionUID = -7136211463796574497L;
     /**
      * 主键
      */

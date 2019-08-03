@@ -1,5 +1,6 @@
 package com.qiang.modules.sys.pojo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,8 +10,9 @@ import java.util.Set;
  * @Description: 评论实体类
  * @Date: 2019/7/22 0022 14:58
  **/
-public class Comment {
+public class Comment implements Serializable {
 
+    private static final long serialVersionUID = -6530678643599384025L;
     /**
      * 标识符
      */

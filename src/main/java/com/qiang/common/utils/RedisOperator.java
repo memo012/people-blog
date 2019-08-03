@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -88,7 +87,7 @@ public class RedisOperator {
 	 * @param key
 	 * @param value
 	 */
-	public void set(String key, String value) {
+	public void set(String key, Integer value) {
 		redisTemplate.opsForValue().set(key, value);
 	}
 
@@ -110,8 +109,18 @@ public class RedisOperator {
 	 * @param key
 	 * @return value
 	 */
-	public String get(String key) {
-		return (String)redisTemplate.opsForValue().get(key);
+	public Object get(String key) {
+		return redisTemplate.opsForValue().get(key);
+	}
+
+	/**
+	 * 实现命令：SIZE key，返回key所存储的字符串值的长度
+	 *
+	 * @param key
+	 * @return value
+	 */
+	public Long size(String key) {
+		return redisTemplate.opsForValue().size(key);
 	}
 
 	// Hash（哈希表）
@@ -128,13 +137,23 @@ public class RedisOperator {
 
 	/**
 	 * 实现命令：HSET key field value，将哈希表 key中的域 field的值设为 value
-	 * 
+	 *
 	 * @param key
 	 * @param field
 	 * @param value
 	 */
-	public void hset(Object key, Object field, Object value) {
+	public void hset(String key, Object field, Object value) {
 		redisTemplate.opsForHash().put(key, field, value);
+	}
+
+
+	/**
+	 * 实现命令：HSET key，将哈希表 key中数据
+	 *
+	 * @param key
+	 */
+	public Long hsize(String key){
+		return 	redisTemplate.opsForHash().size(key);
 	}
 
 	/**
@@ -164,7 +183,7 @@ public class RedisOperator {
 	 * @param key
 	 * @return
 	 */
-	public Map<Object, Object> hgetall(String key) {
+	public Object hgetall(String key) {
 		return redisTemplate.opsForHash().entries(key);
 	}
 
@@ -177,9 +196,19 @@ public class RedisOperator {
 	 * @param value
 	 * @return 执行 LPUSH命令后，列表的长度。
 	 */
-	public long lpush(String key, String value) {
+	public long lpush(String key, Object value) {
 		return redisTemplate.opsForList().leftPush(key, value);
 	}
+
+    /**
+     * 截取集合元素长度，保留长度内的数据
+     * @param key
+     * @param start
+     * @param end
+     */
+	public void ltrim(String key, long start, long end){
+	    redisTemplate.opsForList().trim(key, start, end);
+    }
 
     /**
      *  实现命令：LPUSHALL key value 把多个value值存入到list集合中
@@ -188,7 +217,23 @@ public class RedisOperator {
      * @return 执行 LPUSHALL命令后，列表的长度。
      */
 	public long lpushAll(String key, Object... value){
+
 	    return redisTemplate.opsForList().leftPushAll(key, value);
+    }
+
+
+    /**
+     * 从存储在键中的列表中删除等于值的元素的第一个计数事件。
+     * count> 0：删除等于从左到右移动的值的第一个元素；
+     * count< 0：删除等于从右到左移动的值的第一个元素；
+     * count = 0：删除等于value的所有元素。
+     * @param key
+     * @param count
+     * @param value
+     * @return
+     */
+    public long lremove(String key, long count, Object value){
+        return redisTemplate.opsForList().remove(key, 0, value);
     }
 
 	/**
@@ -197,8 +242,8 @@ public class RedisOperator {
 	 * @param key
 	 * @return 列表key的头元素。
 	 */
-	public String lpop(String key) {
-		return (String)redisTemplate.opsForList().leftPop(key);
+	public Object lpop(String key) {
+		return redisTemplate.opsForList().leftPop(key);
 	}
 
 	/**
@@ -219,7 +264,7 @@ public class RedisOperator {
      * @param stop
      * @return 执行完命令后，返回List集合
      */
-	public List<String> range(String key, long start, long stop){
+	public Object range(String key, long start, long stop){
 	    return redisTemplate.opsForList().range(key, start, stop);
     }
 

@@ -1,17 +1,21 @@
 package com.qiang.modules.sys.controller;
 
-import com.qiang.common.utils.BlogJSONResult;
-import com.qiang.common.utils.BuildArticleTabloidUtil;
-import com.qiang.common.utils.StringAndArray;
+import com.qiang.common.utils.*;
+import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.pojo.VO.BlogMessageVO;
 import com.qiang.modules.sys.service.BlogService;
 import com.qiang.modules.sys.service.LabelService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: qiang
@@ -22,6 +26,9 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @RestController
 public class EditorController {
+
+    @Value("${qiang.file-path}")
+    private String fileSpace;
 
 
     @Autowired
@@ -39,7 +46,10 @@ public class EditorController {
     @PostMapping("publishEditor")
     public BlogJSONResult publishEditor(@RequestBody BlogMessageVO blogMessage
             , HttpServletRequest request) {
-
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user == null){
+            return BlogJSONResult.errorTokenMsg("用户已过期");
+        }
         // 生成文章摘要
         BuildArticleTabloidUtil buildArticleTabloidUtil = new BuildArticleTabloidUtil();
         String articleHtmlContent = buildArticleTabloidUtil.buildArticleTabloid(blogMessage.getArticleHtmlContent());
@@ -54,7 +64,7 @@ public class EditorController {
         labelService.insLabel(tagValue);
         String label = StringAndArray.arrayToString(tagValue);
         blogMessage.setLabelValues(label);
-        blogMessage.setName("强子");
+        blogMessage.setName(user.getUsername());
         blogMessage.setOriginalAuthor("");
 
         String id = request.getParameter("id");
@@ -65,5 +75,46 @@ public class EditorController {
         }
         blogService.publishBlog(blogMessage);
         return BlogJSONResult.ok(blogMessage);
+    }
+
+    @GetMapping("/isNotPermission")
+    public BlogJSONResult isNotPermission(){
+        Subject subject = SecurityUtils.getSubject();
+        if(!subject.hasRole("admin")){
+            return BlogJSONResult.errorRolesMsg("无角色功能");
+        }
+        return BlogJSONResult.ok();
+    }
+
+    /**
+     * 上传图片
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/uploadImage")
+    public Map<String,Object> uploadImage(@RequestParam(value = "editormd-image-file", required = true) MultipartFile file,
+                                          HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> map = new HashMap<>();
+        Users user = (Users) request.getSession().getAttribute("user");
+        String trueFileName = file.getOriginalFilename();
+        String suffix = trueFileName.substring(trueFileName.lastIndexOf("."));
+        String fileName = System.currentTimeMillis()+"_"+ CommonUtils.getRandomNumber(100, 999)+suffix;
+        //保存到数据库的相对路径
+        String uploadPathDB = "/" + user.getId() + "/face";
+        //文件上传的最终保存路径
+        String finalFacePath = fileSpace + uploadPathDB + "/" + fileName;
+        String fileRealPath = uploadPathDB + "/" + fileName;
+        try{
+            FileUtil.uploadFile(file.getInputStream(), finalFacePath);
+            map.put("url", fileRealPath);
+            map.put("success", 1);
+            map.put("message", "upload success!");
+        }catch (Exception e){
+        }
+
+        return map;
+
     }
 }

@@ -3,6 +3,7 @@ package com.qiang.modules.sys.service;
 import com.qiang.modules.sys.pojo.Comment;
 import com.qiang.modules.sys.pojo.CommentLikes;
 import com.qiang.modules.sys.pojo.ReportComment;
+import com.qiang.modules.sys.pojo.VO.ReportCommentVO;
 
 import java.util.List;
 
@@ -71,5 +72,26 @@ public interface CommentService {
      * @return
      */
     int delCommLikes(CommentLikes commentLikes);
+
+    /**
+     * 我的评论
+     * @param username
+     * @return
+     */
+    List<ReportCommentVO> getUserRepMessNotRead(String username);
+
+    /**
+     * 全部消息已读
+     * @param username
+     * @return
+     */
+    List<ReportCommentVO> updComIsRead(String username);
+
+    /**
+     * 部分消息已读
+     * @param id
+     * @return
+     */
+    int updOneNotComm(Long id);
 
 }

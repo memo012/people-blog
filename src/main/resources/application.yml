@@ -8,7 +8,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: 192.168.233.132
+    host: 192.168.233.137
     port: 6379
     password:
     pool:
@@ -24,6 +24,10 @@ spring:
 mybatis:
   type-aliases-package: com.qiang.modules.sys.pojo
   mapper-locations: classpath:mapping/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
 
 
 

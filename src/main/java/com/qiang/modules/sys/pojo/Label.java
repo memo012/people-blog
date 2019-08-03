@@ -1,5 +1,7 @@
 package com.qiang.modules.sys.pojo;
 
+import java.io.Serializable;
+
 /**
  * @Author: qiang
  * @ProjectName: adminsystem
@@ -7,8 +9,9 @@ package com.qiang.modules.sys.pojo;
  * @Description: 标签实体库
  * @Date: 2019/7/6 0006 11:45
  **/
-public class Label {
+public class Label implements Serializable {
 
+    private static final long serialVersionUID = -8912589778594195822L;
     private String id;
     private String labelName;
 

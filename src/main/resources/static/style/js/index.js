@@ -1,3 +1,5 @@
+
+
 /**
  * 博客渲染
  * @param data
@@ -17,7 +19,6 @@ function putInArticle(data) {
             '<span class="am-badge am-badge-success qz-mark">' + obj['selectType'] + '</span>&nbsp;&nbsp;' +
             '<span class=""><span class="am-icon-calendar"></span>&nbsp;&nbsp;' + obj['createTime'] + '</span>&nbsp;&nbsp;' +
             '<span style="font-size: 14px;"><i class="am-icon-user">&nbsp;' + obj['name'] + '</i></span>&nbsp;&nbsp;' +
-            '<span style="font-size: 14px; color: #32043a;"><i class="am-icon-eye">&nbsp;' + obj['look'] + '</i></span>&nbsp;&nbsp;' +
             '</div>' +
             '</header>' +
             '<div class="article-entry" style="height: 130px;">' +
@@ -45,13 +46,14 @@ function putInArticle(data) {
  * @param data
  */
 function putPageHelper(data, curnum) {
+    var count = data.data.records;
     //总页数大于页码总数
     layui.use('laypage', function () {
         var laypage = layui.laypage;
         //执行一个laypage实例
         laypage.render({
             elem: 'page-helper'
-            , count: data.data.records //数据总数
+            , count:  count//数据总数
             , limit: 5
             , curr: curnum
             , jump: function (obj, first) {
@@ -59,7 +61,6 @@ function putPageHelper(data, curnum) {
                     curnum = obj.curr;
                     ajaxFirst(curnum, 0);
                 }
-
             }
         });
     });
@@ -94,3 +95,85 @@ function ajaxFirst(currentPage) {
 }
 
 ajaxFirst(1);
+
+
+/**
+ * 广告上下滚动
+ */
+function getStyle(obj,name){
+    if(obj.currentStyle)
+    {
+        return obj.currentStyle[name];
+    }
+    else
+    {
+        return getComputedStyle(obj,false)[name];
+    }
+}
+function startMove(obj,json,doEnd){
+    clearInterval(obj.timer);
+    obj.timer=setInterval(function(){
+        var oStop=true;
+        for(var attr in json)
+        {
+            var cur=0;
+            if(attr=='opacity')
+            {
+                cur=Math.round(parseFloat(getStyle(obj,attr))*100);
+            }
+            else
+            {
+                cur=parseInt(parseInt(getStyle(obj,attr)));
+            }
+            var speed=(json[attr]-cur)/6;
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+            if(cur!=json[attr])
+            {
+                oStop=false;
+            }
+            if(attr=='opacity')
+            {
+                obj.style.filter='alpha(opacity:'+(speed+cur)+')';
+                obj.style.opacity=(speed+cur)/100;
+            }
+            else
+            {
+                obj.style[attr]=speed+cur+'px';
+            }
+        }
+        if(oStop)
+        {
+            clearInterval(obj.timer);
+            if(doEnd) doEnd();
+        }
+    },30);
+}
+window.onload=function(){
+    var oDiv=document.getElementsByClassName('roll')[0];
+    var oUl=oDiv.getElementsByTagName('ul')[0];
+    var aLi=oUl.getElementsByTagName('li');
+
+    var now=0;
+    for(var i=0;i<aLi.length;i++)
+    {
+        aLi[i].index=i;
+    }
+
+    function next(){
+        now++;
+        if(now==aLi.length)
+        {
+            now=0;
+        }
+        startMove(oUl,{top:-26*now})
+    }
+    //设置广播滚动时间
+    var timer=setInterval(next,3000);
+    oDiv.onmouseover=function(){
+        clearInterval(timer);
+    };
+    oDiv.onmouseout=function(){
+        timer=setInterval(next,3000);
+    }
+};
+
