@@ -14,7 +14,7 @@ public class ShiroMD5 {
 
     public static Object MD5(String username,String password){
         String hashAlgorithName = "MD5";
-        int hashIterations = 1;//加密次数
+        int hashIterations = 1024;//加密次数
         ByteSource credentialsSalt = ByteSource.Util.bytes(username);
         Object obj = new SimpleHash(hashAlgorithName, password, credentialsSalt, hashIterations);
         return obj;

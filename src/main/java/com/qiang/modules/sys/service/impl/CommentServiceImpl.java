@@ -74,9 +74,9 @@ public class CommentServiceImpl implements CommentService {
         int i = commentMapper.updDesCommIsLikes(blogId, commentId);
         List<Comment> allComment = null;
         if(i > 0){
-            redisOperator.lpop(Constant.BLOG_REPORT);
+            redisOperator.lpop(Constant.BLOG_REPORT+blogId);
             getAllComment(blogId);
-            allComment = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT, 0, -1);
+            allComment = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT+blogId, 0, -1);
         }
         return allComment;
     }
@@ -99,9 +99,9 @@ public class CommentServiceImpl implements CommentService {
         int i = commentMapper.updInsCommIsLikes(blogId, commentId);
         List<Comment> allComment = null;
         if(i > 0){
-            redisOperator.lpop(Constant.BLOG_REPORT);
+            redisOperator.lpop(Constant.BLOG_REPORT+blogId);
             getAllComment(blogId);
-            allComment = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT, 0, -1);
+            allComment = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT+blogId, 0, -1);
         }
         return allComment;
     }
@@ -124,8 +124,8 @@ public class CommentServiceImpl implements CommentService {
         int result = commentMapper.insRepComment(reportComment);
         if(result > 0){
             list = commentMapper.findByBlogIdAndPid(reportComment.getBlogId());
-            redisOperator.lpop(Constant.BLOG_REPORT);
-            redisOperator.lpush(Constant.BLOG_REPORT, list);
+            redisOperator.lpop(Constant.BLOG_REPORT+reportComment.getBlogId());
+            redisOperator.lpush(Constant.BLOG_REPORT+reportComment.getBlogId(), list);
             list = getAllComment(reportComment.getBlogId());
         }
         // 增加博客评论（缓存）
@@ -137,14 +137,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> getAllComment(long blogId) {
         List<Comment> list = null;
-        if(redisOperator.hasKey(Constant.BLOG_REPORT)){
-            list = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT, 0, -1);
+        if(redisOperator.hasKey(Constant.BLOG_REPORT+blogId)){
+            list = (List<Comment>)redisOperator.range(Constant.BLOG_REPORT+blogId, 0, -1);
         }else{
             list = commentMapper.findByBlogIdAndPid(blogId);
             if(list.size() > 0){
-                redisOperator.lpush(Constant.BLOG_REPORT, list);
+                redisOperator.lpush(Constant.BLOG_REPORT+blogId, list);
             }else{
-                redisOperator.lpush(Constant.BLOG_REPORT, "");
+                redisOperator.lpush(Constant.BLOG_REPORT+blogId, "");
             }
         }
         return list;
@@ -165,8 +165,8 @@ public class CommentServiceImpl implements CommentService {
         if (result > 0) {
             // 查询评论
             byBlogId = commentMapper.findByBlogIdAndPid(blogId);
-            redisOperator.lpop(Constant.BLOG_REPORT);
-            redisOperator.lpush(Constant.BLOG_REPORT, byBlogId);
+            redisOperator.lpop(Constant.BLOG_REPORT+blogId);
+            redisOperator.lpush(Constant.BLOG_REPORT+blogId, byBlogId);
             list = getAllComment(blogId);
         }
         // 增加博客评论（缓存）

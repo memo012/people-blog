@@ -35,4 +35,17 @@ public interface EsService {
      */
     Page<EsBlogMessage> findAllBlog(Integer page, Integer pageSize, String key);
 
+    /**
+     * 删除某个博文
+     * @param id
+     */
+    void removeEsBlog(Long id);
+
+
+    /**
+     * 删除博文(博文)
+     * @param id
+     */
+    void removeAllEsBlog();
+
 }

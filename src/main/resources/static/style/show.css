@@ -86,7 +86,7 @@
     margin-top: 3px;
     position: relative;
 }
-.textareas{
+textarea{
     width: 500px;
 }
 .qz-comment-list{
@@ -119,7 +119,7 @@
 .sub-comment{
 
 }
-.textareas{
+textarea{
     resize: none;
 }
 .quitReplyWordBtn{

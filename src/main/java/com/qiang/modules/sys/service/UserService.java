@@ -37,6 +37,15 @@ public interface UserService {
      */
     int findByPhonePass(String phone, String password);
 
+
+    /**
+     * 修改密码
+     * @param phone
+     * @param password
+     * @return
+     */
+    int updUserPwd(String phone, String password);
+
     /**
      *  通过用户查询
      * @param name

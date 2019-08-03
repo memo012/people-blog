@@ -81,6 +81,9 @@ public interface UsersMapper {
     @Select("select count(*) from repguest where risRead = 1 and guestName = #{arg0}")
     int findNotReadRepGuest(String username);
 
+    @Update("update user set password = #{arg1} where phone = #{arg0}")
+    int updUserPwd(String phone, String password);
+
 
 
 

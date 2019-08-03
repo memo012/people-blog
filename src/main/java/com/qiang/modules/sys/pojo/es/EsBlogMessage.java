@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @Description: ES文档类
  * @Date: 2019/7/13 0013 19:06
  **/
-@Document(indexName = "blog", type = "blog")
+@Document(indexName = "blog", type = "blog", shards = 1, replicas = 0, refreshInterval = "-1")
 public class EsBlogMessage implements Serializable {
 
     /**
@@ -276,7 +276,7 @@ public class EsBlogMessage implements Serializable {
         this.name = name;
     }
 
-    public EsBlogMessage(){}
+    protected EsBlogMessage(){} // JPA 的规范要求无参构造函数；设为 protected 防止直接使用
 
     public EsBlogMessage(BlogMessage blogMessage){
         this.id = blogMessage.getId();

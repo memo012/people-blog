@@ -36,6 +36,16 @@ public class BackController {
     }
 
     /**
+     * 寻找密码
+     * @return
+     */
+    @GetMapping("/findPwd")
+    public String findPwd(){
+        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        return "/findPwd";
+    }
+
+    /**
      * 关于我
      * @return
      */

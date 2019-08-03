@@ -64,6 +64,20 @@ public class UserController {
     }
 
     /**
+     * 修改密码
+     * @param password
+     * @return
+     */
+    @GetMapping("findUsersPwd")
+    public BlogJSONResult findUsersPwd(@RequestParam("phone") String phone, @RequestParam("password") String password){
+        int i = userService.updUserPwd(phone, password);
+        if(i > 0){
+            return BlogJSONResult.ok();
+        }
+        return BlogJSONResult.errorMsg("修改失败");
+    }
+
+    /**
      * 用户检测
      * @param username
      * @return

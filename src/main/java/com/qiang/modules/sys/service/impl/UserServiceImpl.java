@@ -135,6 +135,13 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
+    public int updUserPwd(String phone, String password) {
+        Object o = ShiroMD5.MD5(phone, password);
+        return usersMapper.updUserPwd(phone, String.valueOf(o));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
     public int insUsers(Users users) {
         String id = UUID.randomUUID().toString();
         users.setId(id);

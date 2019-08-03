@@ -12,6 +12,8 @@ $(function () {
 // 用户名称
 username = $(".username").text();
 
+var phoneNum = ""; // 手机号
+
 $(function () {
     $.ajax({
         type: "GET",
@@ -24,6 +26,7 @@ $(function () {
         },
         success: function (data) {
             //放入数据
+            phoneNum = data.data['phone'];
             putInMessage(data.data);
         },
         error: function () {
@@ -69,7 +72,7 @@ $(".savebtn").click(function () {
         return;
     }
     if (userqq.length != 0) {
-        if (!qqnum.test(userqq)) {
+        if (userqq.search(/^[1-9]\d{4,11}$/) == -1) {
             $(".notice-qq").show();
             close();
             return;
@@ -107,7 +110,6 @@ function updMessage() {
         success: function (data) {
             //放入数据
             if (data.status == 200) {
-                console.log(12);
                 $(".notice-box-suc").show();
                 putInMessage(data.data);
             } else if (data.status == 500) {
@@ -168,7 +170,6 @@ function MyComment() {
             username: username
         },
         success: function (data) {
-            console.log(data);
             //放入数据
             if (data.status == 200) {
                 if(data.data.length > 0){
@@ -222,7 +223,6 @@ function MyCommentBlog() {
         dataType: "json",
         data:null,
         success: function (data) {
-            console.log(data);
             //放入数据
             if (data.status == 200) {
                 if(data.data.length > 0){
@@ -330,7 +330,6 @@ function MyGuest() {
         contentType: "application/json",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             //放入数据
             if (data.status == 200) {
                 if (data.data.length > 0) {
@@ -692,7 +691,7 @@ function putNotReadBlogMess(data) {
  * 我的点赞渲染
  */
 function putNotReadLikes(data) {
-    console.log(data);
+
     $("#likesSet > .comment").empty();
     var ReadReport = $("#likesSet > .comment");
     var length = data.length;
@@ -1021,3 +1020,12 @@ function putNotReadUser(data) {
 function toLogin() {
     window.location.href = "/login";
 }
+
+
+/**
+ *
+ * 安全配置
+ */
+$(".securSet").click(function () {
+    $("#phone").attr("value", phoneNum);
+});

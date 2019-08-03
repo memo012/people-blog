@@ -145,7 +145,6 @@ commentBn.click(function () {
                         data: JSON.stringify(data),
                         success: function (data) {
                             $this.parent().parent().find($("#desc")).val("");
-                            console.log();
                             putInComment(data.data[0]);
                         },
                         error: function () {
@@ -213,7 +212,7 @@ function putInComment(data) {
             '<div class="reply-sub-comment-list am-animation-slide-bottom">' +
             '<div class="replyWord">' +
             '<div class="replyWordBtn">' +
-            '<textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>' +
+            '<textarea class="replyWordTextarea textareas" placeholder="写下你的评论..."></textarea>' +
             '<button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送' +
             '</button>' +
             ' <button type="button" class="quitReplyWordBtn am-btn">取消</button>' +
@@ -352,6 +351,7 @@ function putInComment(data) {
                     } else if (data.status == 500) {
                         $(".notice-box-comment").show();
                     } else if (data.status == 200) {
+                        console.log(data.data[0]);
                         putInComment(data.data[0]);
                     }
                 },
@@ -421,6 +421,7 @@ function putInComment(data) {
                         async: false,
                         data: JSON.stringify(data),
                         success: function (data) {
+                            console.log(data);
                             putInComment(data.data[0]);
                         },
                         error: function () {
@@ -447,8 +448,7 @@ $.ajax({
         blogId: articleId
     },
     success: function (data) {
-        console.log(data);
-        if (data.data[0] != "") {
+        if (data.data[0] != "" && data.data.length != 0) {
             putInComment(data.data[0]);
         } else {
             putInNotComment();

@@ -9,6 +9,7 @@ import com.qiang.modules.sys.pojo.Guest;
 import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.VO.ReportCommentVO;
 import com.qiang.modules.sys.service.CommentService;
+import com.qiang.modules.sys.service.EsService;
 import com.qiang.modules.sys.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,23 +28,10 @@ public class BlogApplicationTests {
     private RedisOperator redisOperator;
 
     @Autowired
-    private UserService userService;
+    private EsService esService;
     @Test
     public void contextLoads() {
-
-        BlogMessage blogMessage = new BlogMessage();
-        blogMessage.setId(1344444446L);
-        blogMessage.setLike(1);
-//        long lpush = redisOperator.lpush("redis:ff", blogMessage);
-
-        long lremove = redisOperator.lremove("redis:ff", 0, blogMessage);
-        System.out.println(lremove);
-
-//        List<BlogMessage> range =  (List<BlogMessage>)redisOperator.range("redis:ff", 0, 3);
-//        for (BlogMessage b:
-//             range) {
-//            System.out.println(b.getId());
-//        }
+        esService.removeAllEsBlog();
     }
 
 }

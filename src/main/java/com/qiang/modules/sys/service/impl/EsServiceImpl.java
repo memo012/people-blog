@@ -52,4 +52,16 @@ public class EsServiceImpl implements EsService {
     public EsBlogMessage findById(long id) {
         return esBlogRepository.findById(id);
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void removeAllEsBlog() {
+        esBlogRepository.deleteAll();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void removeEsBlog(Long id) {
+        esBlogRepository.delete(id);
+    }
 }
