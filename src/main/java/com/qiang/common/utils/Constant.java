@@ -47,7 +47,20 @@ public class Constant {
     public static final String BLOG_VISIT_COUNT = "redis:blog:visit:count";
 
 
+    /**
+     * 用户手机
+     */
+    public static final String USER_PHONE_EXIST = "redis:blog:user:phone";
 
+    /**
+     * 用户名
+     */
+    public static final String USER_NAME_EXIST = "redis:blog:user:name";
+
+    /**
+     * 验证码(注册)
+     */
+    public static final String USER_PHONE_CODE = "redis:blog:user:code";
 
 
 }

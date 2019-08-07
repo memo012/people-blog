@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: feise5328
-    url: jdbc:mysql://localhost/blog?useSSL=FALSE&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/vblog
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     #   数据源其他配置
@@ -24,21 +24,28 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
 
-#############################
-######## elasticSearch配置
-#############################
+  #############################
+  ######## elasticSearch配置
+  #############################
   data:
     elasticsearch:
       cluster-name: elasticsearch
-      cluster-nodes: 192.168.233.137:9300
+      cluster-nodes: 127.0.0.1:9300
 
-  #############################
-  ######## redis配置
-  #############################
+#################################
+#######thymeleaf
+########禁用缓存
+##################################
+  thymeleaf:
+    cache: false
+
+#############################
+######## redis配置
+#############################
   cache:
     type: redis
   redis:
-    host: 192.168.233.137
+    host: 127.0.0.1
     port: 6379
     password:
     pool:
@@ -47,22 +54,17 @@ spring:
       max-idle: 8       # 连接池中的最大空闲连接
       min-idle: 0       # 连接池中的最小空闲连接
 
-  #################################
-  #######thymeleaf
-  ########禁用缓存
-  ##################################
-  thymeleaf:
-    cache: false
-
 
 qiang:
   ######################################
   ########### session cache config
   ######################################
   shiro-redis:
-    host: 192.168.233.137
+    host: 127.0.0.1
     port: 6379
+  ######################################
   ######## 文件路径
+  ######################################
   file-path: E:/vblog
 
 
@@ -72,5 +74,5 @@ qiang:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-
+server:
+  port: 8081

@@ -32,7 +32,7 @@ public class BackController {
     @GetMapping("/")
     public String index(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/index";
+        return "index";
     }
 
     /**
@@ -42,7 +42,7 @@ public class BackController {
     @GetMapping("/findPwd")
     public String findPwd(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/findPwd";
+        return "findPwd";
     }
 
     /**
@@ -52,7 +52,7 @@ public class BackController {
     @GetMapping("/aboutme")
     public String aboutme(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/aboutme";
+        return "aboutme";
     }
 
 
@@ -62,7 +62,7 @@ public class BackController {
      */
     @GetMapping("SuperAdmin")
     public String SuperAdmin(){
-        return "/SuperAdmin";
+        return "SuperAdmin";
     }
 
     /**
@@ -85,7 +85,7 @@ public class BackController {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setHeader("message", TransCodingUtil.stringToUnicode(message));
-        return "elasticsearch";
+        return "/elasticsearch";
     }
 
     /**
@@ -105,7 +105,7 @@ public class BackController {
     @GetMapping("editor")
     public String editor(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/editor";
+        return "editor";
     }
 
     /**
@@ -115,7 +115,7 @@ public class BackController {
     @GetMapping("/archive")
     public String archive(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/archive";
+        return "archive";
     }
 
     /**
@@ -125,7 +125,7 @@ public class BackController {
     @GetMapping("/update")
     public String update(){
         redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
-        return "/update";
+        return "update";
     }
 
 

@@ -232,7 +232,6 @@ function putInBlogs(data) {
     $(".qz-delete").click(function () {
         var $this = $(this);
         var id = $this.parent().parent().parent().parent().find($(".id")).text();
-        console.log(id);
         $.ajax({
             type: "GET",
             url: "/delBlog",

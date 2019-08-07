@@ -82,7 +82,6 @@ function f(pageNum, word) {
         data: data1,
         success: function (data) {
             //放入数据
-            console.log(data);
             putInAllArticle(data.data);
             scrollTo(0, 0);//回到顶部
             $("#page-helper").hide();

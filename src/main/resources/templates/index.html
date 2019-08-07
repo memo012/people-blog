@@ -13,6 +13,7 @@
     <style type="text/css">
         .read-all {
             padding-top: 10%;
+
         }
         a:hover{
             cursor: pointer;
@@ -30,7 +31,7 @@
 
     <div th:replace="lunbo :: lunbo"></div>
 
-    <div class="layui-col-md9 qz-main">
+    <div class="layui-col-md9 qz-main" style="margin-top: -30px;">
         <div class="layui-row grid-demo layui-col-space15">
             <div class="layui-col-md4">
                 <div th:replace="left :: left"></div>
@@ -41,26 +42,6 @@
                 <div class="qz-session-content">
                     <div class="qz-session-center qiang">
                         <div class="qz-center">
-
-                            <header class="qz-article">
-                                <h1 itemprop="name">
-                                    <a class="qz-article-title" href="#" target="_blank"></a>
-                                </h1>
-                                <div class="qz-tt">
-                                    <span class="am-badge am-badge-success qz-mark"></span>&nbsp;&nbsp;
-                                </div>
-                            </header>
-                            <div class="article-entry" style="height: 130px;">
-                                <p></p>
-                            </div>
-                            <div class="read-all">
-                                <a href="#">阅读全文 <i class="am-icon-angle-double-right"></i></a>
-                            </div>
-                            <hr>
-                            <div class="article-tags">
-                                <i class="am-icon-tag"><a class="tag aa" href="#"></a></i>&nbsp;&nbsp;
-                                <i class="am-icon-tag"><a class="tag aa" href="#"> &nbsp;springboot</a></i>
-                            </div>
 
                         </div>
                     </div>
@@ -74,7 +55,7 @@
     </div>
 
     <!--个人信息-->
-    <div class="layui-col-md3">
+    <div class="layui-col-md3" style="margin-top: -10px;">
         <div th:replace="aside :: aside"></div>
     </div>
 </div>

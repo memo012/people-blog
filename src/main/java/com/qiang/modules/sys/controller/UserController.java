@@ -29,92 +29,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * 注册用户
-     * @param users
-     * @return
-     */
-    @PostMapping("register")
-    public BlogJSONResult register(@RequestBody Users users){
-        int result = userService.insUsers(users);
-        if(result > 0){
-            return BlogJSONResult.ok();
-        }
-        return BlogJSONResult.errorMsg("注册失败");
-    }
-
     @RequestMapping("admin")
     public String geAdim(){
         return "admin";
-    }
-
-
-    /**
-     * 手机号检测
-     * @param phone
-     * @return
-     */
-    @GetMapping("phoneCheck")
-    public BlogJSONResult phoneCheck(@RequestParam("phone") String phone){
-        Users result = userService.findByPhone(phone);
-        if(result == null){
-            return BlogJSONResult.ok();
-        }
-        return BlogJSONResult.errorMsg("该手机号已被注册");
-    }
-
-    /**
-     * 修改密码
-     * @param password
-     * @return
-     */
-    @GetMapping("findUsersPwd")
-    public BlogJSONResult findUsersPwd(@RequestParam("phone") String phone, @RequestParam("password") String password){
-        int i = userService.updUserPwd(phone, password);
-        if(i > 0){
-            return BlogJSONResult.ok();
-        }
-        return BlogJSONResult.errorMsg("修改失败");
-    }
-
-    /**
-     * 用户检测
-     * @param username
-     * @return
-     */
-    @GetMapping("usernameCheck")
-    public BlogJSONResult usernameCheck(@RequestParam("username") String username){
-        Users result = userService.findByName(username);
-        if(result == null){
-            return BlogJSONResult.ok();
-        }
-        return BlogJSONResult.errorMsg("该用户已存在");
-    }
-
-    /**
-     * 用户登录
-     * @param phone 手机号
-     * @param password 密码
-     * @param session
-     * @return
-     */
-    @GetMapping("loginUser")
-    public BlogJSONResult loginUser(@RequestParam("phone") String phone,
-                                    @RequestParam("password") String password,
-                                    HttpSession session){
-        UsernamePasswordToken token = new UsernamePasswordToken(phone, password);
-//        token.setRememberMe(true);
-        Subject subject = SecurityUtils.getSubject();
-        try{
-            subject.login(token);
-            Users user = (Users)subject.getPrincipal();
-            user.setPassword("");
-            System.out.println(user.getRoles());
-            session.setAttribute("user", user);
-            return BlogJSONResult.ok(user);
-        }catch (AuthenticationException e){
-            return BlogJSONResult.errorMsg("输入的用户名或密码错误");
-        }
     }
 
     /**
@@ -196,27 +113,7 @@ public class UserController {
     }
 
 
-    /**
-     * 我的留言（管理员）
-     * @return
-     */
-    @GetMapping("getNotAllGuest")
-    public BlogJSONResult getAllGuest(){
-        List<Guest> allGuest = userService.findAllGuest();
-        return BlogJSONResult.ok(allGuest);
 
-    }
-
-    /**
-     * 部分留言已读（管理员）
-     * @param id 留言id
-     * @return
-     */
-    @GetMapping("clearFirstNotGuestMana")
-    public BlogJSONResult clearFirstNotGuestMana(@RequestParam("id") Long id){
-        int i = userService.updOneNotGuestMana(id);
-        return BlogJSONResult.ok();
-    }
 
     /**
      * 我的留言（用户）
@@ -230,7 +127,7 @@ public class UserController {
 
 
     /**
-     * 部分留言已读（管理员）
+     * 部分留言已读（用户）
      * @param id 留言id
      * @return
      */
@@ -288,16 +185,6 @@ public class UserController {
         return BlogJSONResult.ok();
     }
 
-    /**
-     * 反馈(管理员)
-     * @param username
-     * @return
-     */
-    @GetMapping("messageNotReadMana")
-    public BlogJSONResult messageNotReadMana(@RequestParam("username") String username){
-        int messageNotRead = userService.findMessageNotRead(username);
-        return BlogJSONResult.ok(messageNotRead);
-    }
 
     /**
      * 消息通信(用户)

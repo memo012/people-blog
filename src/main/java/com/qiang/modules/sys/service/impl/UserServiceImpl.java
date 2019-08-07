@@ -1,5 +1,7 @@
 package com.qiang.modules.sys.service.impl;
 
+import com.qiang.common.utils.Constant;
+import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.TimeUtil;
 import com.qiang.modules.sys.mapper.UsersMapper;
 import com.qiang.modules.sys.pojo.*;
@@ -25,6 +27,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersMapper usersMapper;
+
+
+    @Autowired
+    private RedisOperator redisOperator;
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -150,6 +156,13 @@ public class UserServiceImpl implements UserService {
         users.setPassword(String.valueOf(o));
         String data = new TimeUtil().getFormatDateForThree();
         users.setLastTime(data);
+
+        // 手机号加入缓存
+        redisOperator.hset(Constant.USER_PHONE_EXIST, users.getPhone(), 1);
+
+        // 用户名加入缓存
+        redisOperator.hset(Constant.USER_NAME_EXIST, users.getUsername(), 1);
+
         return usersMapper.insUsers(users);
     }
 

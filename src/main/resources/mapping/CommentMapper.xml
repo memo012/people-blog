@@ -34,7 +34,7 @@
     <select id="findByBlogIdAndPid" resultMap="com" parameterType="Long">
       SELECT c.*, r.*
       from comment c
-      LEFT JOIN reportComment r on c.id = r.commentId
+      LEFT JOIN reportcomment r on c.id = r.commentId
       where c.blogId = #{arg0}
       order by c.id desc, r.rid desc
     </select>

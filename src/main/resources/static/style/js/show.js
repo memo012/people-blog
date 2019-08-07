@@ -180,7 +180,7 @@ function putInComment(data) {
         );
         var visitorCommentImg = $(
             '<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
-            '<img src="style/images/wutouxiang.png">' +
+            '<img src="style/images/default.jpg">' +
             '</div>'
         );
         var cn = $('<div class="am-u-sm-10 am-u-lg-11 cn"></div>');
@@ -351,7 +351,6 @@ function putInComment(data) {
                     } else if (data.status == 500) {
                         $(".notice-box-comment").show();
                     } else if (data.status == 200) {
-                        console.log(data.data[0]);
                         putInComment(data.data[0]);
                     }
                 },
@@ -421,7 +420,6 @@ function putInComment(data) {
                         async: false,
                         data: JSON.stringify(data),
                         success: function (data) {
-                            console.log(data);
                             putInComment(data.data[0]);
                         },
                         error: function () {

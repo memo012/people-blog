@@ -21,6 +21,6 @@ public class ShiroMD5 {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5("demo", "123"));
+        System.out.println(MD5("15383466854", "123456"));
     }
 }

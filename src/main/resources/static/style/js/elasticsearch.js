@@ -69,7 +69,6 @@ $(function () {
 })
 
 function f(EspaNum) {
-    console.log(EspageNum);
     EspageNum = EspaNum;
     var data1 = {pageSize: pageSize, pageNum: EspageNum, wordKey: message};
     $.ajax({
@@ -80,10 +79,8 @@ function f(EspaNum) {
         data: data1,
         success: function (data) {
             // 放入数据
-            console.log(data);
             putInAllArticle(data.data);
             var len = data.data.length;
-            console.log(len);
             scrollTo(0, 0);//回到顶部
             if (EspageNum == 1) {
                 if (len != 0) {
@@ -99,7 +96,6 @@ function f(EspaNum) {
                     $(".right-page").hide();
                 }
             } else if(len == 0){
-                console.log("dasfi");
                 $(".left-page").show();
                 $(".right-page").hide();
             }else if (len < pageSize) {

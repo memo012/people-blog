@@ -5,12 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.21.RELEASE</version>
+        <version>1.5.19.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qiang</groupId>
     <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <!--<packaging>war</packaging>-->
     <name>blog</name>
     <description>Demo project for Spring Boot</description>
 
@@ -33,9 +35,18 @@
     </properties>
 
     <dependencies>
+
+
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet-api</artifactId>-->
+            <!--<version>3.1.0</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -54,7 +65,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <!--<version>${mysql.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -66,14 +77,14 @@
             <version>${mybatis.version}</version>
         </dependency>
 
-        <!--引入druid数据源-->
+        <!--&lt;!&ndash;引入druid数据源&ndash;&gt;-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
         </dependency>
 
-        <!--工具类-->
+        <!--&lt;!&ndash;工具类&ndash;&gt;-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -91,19 +102,13 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.vaadin.external.google</groupId>
-            <artifactId>android-json</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
 
         <!--使用pegdown将markdown格式字符串转会为html字符串-->
-        <dependency>
-            <groupId>org.pegdown</groupId>
-            <artifactId>pegdown</artifactId>
-            <version>${pegdown.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.pegdown</groupId>-->
+            <!--<artifactId>pegdown</artifactId>-->
+            <!--<version>${pegdown.version}</version>-->
+        <!--</dependency>-->
 
         <!--shiro配置-->
         <dependency>
@@ -140,6 +145,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>1.5.13.RELEASE</version>
         </dependency>
 
         <!--lombok简化Java配置-->
@@ -148,6 +154,13 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- 腾讯云短信平台-->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+            <version>1.0.5</version>
         </dependency>
 
    </dependencies>

@@ -15,19 +15,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  **/
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
     @Bean
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter() {
+        // /E:/vblog/             /www/vblog/
         WebMvcConfigurerAdapter webMvcConfigurerAdapter = new WebMvcConfigurerAdapter() {
 
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/**")
                         .addResourceLocations("classpath:/static/")
-                        .addResourceLocations("file:/E:/vblog/");
+                        .addResourceLocations("file:E:/vblog/");
                 registry.addResourceHandler("/article/**")
                         .addResourceLocations("classpath:/static/");
                 registry.addResourceHandler("/categories/**")

@@ -32,56 +32,36 @@
                 <h1 class="am-topbar-brand am-kai" style="font-size: 19px">Welcome to 强子 创作室</h1>
             </div>
 
-            <div class="am-u-sm-12 am-u-md-4" shiro:notAuthenticated="">
-
-                <div class="am-topbar-right" style="display: inline-block">
-                    <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/register"
-                                                                                               style="color: white">注册</a>
+            <div class="am-topbar-right" shiro:authenticated="">
+                <div class="am-dropdown" data-am-dropdown>
+                    <button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"
+                            data-am-dropdown-toggle style="border-radius: 50%;">
+                        <span class="name"><shiro:principal property="username"/></span>
+                        <span class="am-icon-caret-down"></span>
                     </button>
+                    <ul class="am-dropdown-content tar">
+                        <li><a href="/user">个人主页</a></li>
+                        <li><a href="/SuperAdmin" shiro:hasRole="admin">网站后台管理</a></li>
+                        <li shiro:hasRole="user"><a class="feedbackClick">消息&nbsp;&nbsp;<span
+                                class="newsNum am-badge am-badge-danger"></span></a></li>
+                        <li shiro:hasRole="admin"><a class="feedbackClick">反馈&nbsp;&nbsp;<span id="mess"
+                                                                                               class="am-badge am-radius am-badge-danger"></span></a>
+                        </li>
+                        <hr style="margin: 10px 0 5px 0;">
+                        <li><a class="logou" style="cursor: pointer;">退出登录</a></li>
+                    </ul>
                 </div>
-                <div class="am-topbar-right" style="display: inline-block">
-                    <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/login"
-                                                                                               style="color: white">登录</a>
-                    </button>
-                </div>
-
-                <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
-                      style="display: inline-block">
-                    <div class="am-form-group am-topbar-btn writeBlog">
-                        <span class="am-icon-signing"/>
-                        <a style="cursor: pointer;">写博客</a>
-                    </div>
-                </form>
             </div>
 
-            <div class="am-u-sm-12 am-u-md-4" shiro:authenticated="">
-
-                <div class="am-topbar-right" style="display: inline-block">
-                    <div class="am-dropdown" data-am-dropdown>
-                        <button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"
-                                data-am-dropdown-toggle style="border-radius: 50%;">
-                            <span><shiro:principal property="username"/></span>
-                            <span class="am-icon-caret-down"></span>
-                        </button>
-                        <ul class="am-dropdown-content">
-                            <li><a href="/user">个人主页</a></li>
-                            <li><a href="/user" shiro:hasRole="admin">网站后台管理</a></li>
-                            <li><a href="/#" class="news">消息<span class="newsNum am-badge am-badge-danger"></span></a></li>
-                            <li><a class="feedbackClick">反馈</a></li>
-                            <hr style="margin: 10px 0 5px 0;">
-                            <li><a class="logou" style="cursor: pointer;">退出登录</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
-                      style="display: inline-block">
-                    <div class="am-form-group am-topbar-btn writeBlog">
-                        <span class="am-icon-signing"/>
-                        <a style="color: #363636">写博客</a>
-                    </div>
-                </form>
+            <div class="am-topbar-right" shiro:notAuthenticated="">
+                <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                   style="color: white">注册</a>
             </div>
+            <div class="am-topbar-right" shiro:notAuthenticated="">
+                <a href="/login" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                   style="color: white">登录</a>
+            </div>
+
         </header>
 
         <div id="writeArticle">
@@ -112,6 +92,7 @@
             </div>
 
         </div>
+
     </div>
 
 

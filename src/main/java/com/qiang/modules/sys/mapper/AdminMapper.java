@@ -19,13 +19,13 @@ import java.util.List;
 @Repository
 public interface AdminMapper {
 
-    @Select("select * from user")
+    @Select("select * from users")
     List<Users> findAllUsers();
 
     @Select("select * from blog order by id desc")
     List<BlogMessage> findAllBlogs();
 
-    @Delete("delete from user where username = #{arg0}")
+    @Delete("delete from users where username = #{arg0}")
     int delUsers(String username);
 
     @Delete("delete from blog where id = #{arg0}")

@@ -87,7 +87,7 @@ public class RedisOperator {
 	 * @param key
 	 * @param value
 	 */
-	public void set(String key, Integer value) {
+		public void set(String key, Object value) {
 		redisTemplate.opsForValue().set(key, value);
 	}
 

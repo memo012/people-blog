@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="style/tig.css">
     <link rel="stylesheet" href="style/index.css" th:href="@{/style/index.css}"/>
     <style>
-        .header {
+        .header1 {
             text-align: center;
         }
 
-        .header h1 {
+        .header1 h1 {
             font-size: 200%;
             color: #333;
             margin-top: 30px;
         }
 
-        .header p {
+        .header1 p {
             font-size: 14px;
         }
     </style>
@@ -27,7 +27,7 @@
 <!--引入公共头部-->
 <div th:replace="header :: header"></div>
 
-<div class="header">
+<div class="header1">
     <div class="am-g">
         <h1>注册界面</h1>
     </div>
@@ -86,6 +86,10 @@
     <div class="notice-box notice-box-yan">
         <i class="am-icon-exclamation-circle"></i>
         <span> 验证码不能为空</span>
+    </div>
+    <div class="notice-box notice-box-code">
+        <i class="am-icon-exclamation-circle"></i>
+        <span> 验证码错误</span>
     </div>
     <div class="notice-box notice-box-user">
         <i class="am-icon-exclamation-circle"></i>
@@ -153,4 +157,5 @@
 <script src="assets/js/jquery-1.12.4.min.js"></script>
 <script src="assets/js/amazeui.js"></script>
 <script src="style/js/register.js"></script>
+<script src="style/js/header.js" th:src="@{/style/js/header.js}"></script>
 </html>

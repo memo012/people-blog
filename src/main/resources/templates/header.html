@@ -3,18 +3,20 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <body>
 <div th:fragment="header">
-    <header class="am-topbar">
-        <div class="am-u-sm-7 am-u-md-2">
+
+    <div class="header">
+        <div class="am-topbar" style="margin-bottom: 0">
             <h1 class="am-topbar-brand qz-h1">
-                <img src="style/images/myPicture.jpg">
-                <a href="/" class="am-kai" style="color: #111111">强子博客</a>
+                <a href="/" class="am-kai"><img src="style/images/myPicture.jpg">&nbsp;&nbsp;强子博客</a>
             </h1>
-        </div>
-        <div class="am-u-sm-12 am-u-md-7">
+
+            <!--手机适配导航显示按钮-->
             <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
                     data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
                     class="am-icon-bars"></span></button>
+
             <div class="am-collapse am-topbar-collapse qz-header" id="doc-topbar-collapse">
+
                 <ul class="am-nav am-nav-pills am-topbar-nav div-ul-li">
                     <li class="list-header "><a href="/"><span class="am-icon-home"></span>首页</a></li>
                     <li class="am-dropdown list-header" data-am-dropdown>
@@ -25,82 +27,176 @@
                         <ul class="am-dropdown-content">
                             <li><a href="#">Java学习指南 <em style="font-weight: bold">更新中~~</em></a></li>
                             <li class="am-divider"></li>
-                            <li><a href="#">spring <i style="font-weight: bold">更新中~~</i></a> </li>
+                            <li><a href="#">spring <i style="font-weight: bold">更新中~~</i></a></li>
                             <li class="am-divider"></li>
-                            <li><a href="#">springMVC <em style="font-weight: bold">更新中~~</em></a> </li>
+                            <li><a href="#">springMVC <em style="font-weight: bold">更新中~~</em></a></li>
                             <li class="am-divider"></li>
-                            <li><a href="#">Spring Boot <em style="font-weight: bold">更新中~~</em></a> </li>
+                            <li><a href="#">Spring Boot <em style="font-weight: bold">更新中~~</em></a></li>
                             <li class="am-divider"></li>
-                            <li><a href="#">MyBatis <em style="font-weight: bold">更新中~~</em></a> </li>
+                            <li><a href="#">MyBatis <em style="font-weight: bold">更新中~~</em></a></li>
                             <li class="am-divider"></li>
-                            <li><a href="#">面试题 <em style="font-weight: bold">更新中~~</em></a> </li>
+                            <li><a href="#">面试题 <em style="font-weight: bold">更新中~~</em></a></li>
                         </ul>
                     </li>
-                    <li class="list-header"><a href="/archive" style="color: #111111"><span class="am-icon-archive"/>归档</a></li>
-                    <li class="list-header"><a href="/update" style="color: #111111"><span class="am-icon-calendar-plus-o"/>更新</a></li>
-                    <li class="list-header"><a href="/guest" style="color: #111111"><span class="am-icon-pencil"/>留言板</a></li>
-                    <li class="list-header"><a style="color: #111111"><i class="layui-icon layui-icon-senior"></i>友链</a></li>
-                    <li class="list-header"><a href="/aboutme" style="color: #111111"><i class="layui-icon layui-icon-username"></i>关于我</a></li>
+                    <li class=""><a href="/archive" style="color: #111111"><span class="am-icon-archive"/>归档</a></li>
+                    <li class=""><a href="/update" style="color: #111111"><span class="am-icon-calendar-plus-o"/>更新</a>
+                    </li>
+                    <li class=""><a href="/guest" style="color: #111111"><span class="am-icon-pencil"/>留言板</a></li>
+                    <li class=""><a style="color: #111111"><i class="layui-icon layui-icon-senior"></i>友链</a></li>
+                    <li class=""><a href="/aboutme" style="color: #111111"><i
+                            class="layui-icon layui-icon-username"></i>关于我</a></li>
+                    <li class="">
+                        <div class="search"><input type="text" class="es" placeholder="搜索" style="width: 120px"><span
+                                class="am-icon-search"/></div>
+                    </li>
                 </ul>
 
-                <div class="am-topbar-form am-topbar-left am-form-inline" role="search">
-                    <div class="am-form-group">
-                        <input type="text" class="am-form-field am-input-sm es" placeholder="搜索" style="width: 120px">
-                        <span class="am-icon-search"/>
+
+                <div class="am-topbar-right" shiro:authenticated="">
+                    <div class="am-dropdown" data-am-dropdown>
+                        <button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"
+                                data-am-dropdown-toggle style="border-radius: 50%;">
+                            <span class="name"><shiro:principal property="username"/></span>
+                            <span class="am-icon-caret-down"></span>
+                        </button>
+                        <ul class="am-dropdown-content tar">
+                            <li><a href="/user">个人主页</a></li>
+                            <li><a href="/SuperAdmin" shiro:hasRole="admin">网站后台管理</a></li>
+                            <li shiro:hasRole="user"><a class="feedbackClick">消息&nbsp;&nbsp;<span
+                                    class="newsNum am-badge am-badge-danger"></span></a></li>
+                            <li shiro:hasRole="admin"><a class="feedbackClick">反馈&nbsp;&nbsp;<span id="mess"
+                                                                                                   class="am-badge am-radius am-badge-danger"></span></a>
+                            </li>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <li><a class="logou" style="cursor: pointer;">退出登录</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="am-u-sm-12 am-u-md-3" shiro:notAuthenticated="">
 
-            <div class="am-topbar-right" style="display: inline-block">
-                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/register"
-                                                                                           style="color: white">注册</a>
-                </button>
-            </div>
-            <div class="am-topbar-right" style="display: inline-block">
-                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/login"
-                                                                                           style="color: white">登录</a>
-                </button>
-            </div>
-
-            <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
-                  style="display: inline-block">
-                <div class="am-form-group am-topbar-btn writeBlog">
-                    <span class="am-icon-signing"/>
-                    <a style="cursor: pointer;">写博客</a>
+                <div class="am-topbar-right" shiro:notAuthenticated="">
+                    <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                       style="color: white">注册</a>
                 </div>
-            </form>
-        </div>
-        <div class="au am-u-sm-12 am-u-md-3" shiro:authenticated="">
-
-            <div class="am-topbar-right" style="display: inline-block">
-                <div class="am-dropdown" data-am-dropdown>
-                    <button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"
-                            data-am-dropdown-toggle style="border-radius: 50%;">
-                        <span  class="name"><shiro:principal property="username"/></span>
-                        <span class="am-icon-caret-down"></span>
-                    </button>
-                    <ul class="am-dropdown-content">
-                        <li><a href="/user">个人主页</a></li>
-                        <li><a href="/SuperAdmin" shiro:hasRole="admin">网站后台管理</a></li>
-                        <li shiro:hasRole="user"><a  class="feedbackClick">消息&nbsp;&nbsp;<span class="newsNum am-badge am-badge-danger"></span></a></li>
-                        <li shiro:hasRole="admin"><a class="feedbackClick">反馈&nbsp;&nbsp;<span id="mess" class="am-badge am-radius am-badge-danger"></span></a></li>
-                        <hr style="margin: 10px 0 5px 0;">
-                        <li><a class="logou" style="cursor: pointer;">退出登录</a></li>
-                    </ul>
+                <div class="am-topbar-right" shiro:notAuthenticated="">
+                    <a href="/login" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                       style="color: white">登录</a>
                 </div>
+
+                <div class="am-topbar-right am-hide-md-down writeBlog">
+                    <a target="_blank" style="text-decoration: none;cursor: pointer;">
+                        <span class="am-icon-signing"/>
+                        <span>写博客</span>
+                    </a>
+                </div>
+
             </div>
 
-            <form class="am-topbar-form am-form-inline qz-blog am-topbar-right"
-                  style="display: inline-block">
-                <div class="am-form-group am-topbar-btn writeBlog">
-                    <span class="am-icon-signing"/>
-                    <a style="color: #363636;cursor: pointer;">写博客</a>
-                </div>
-            </form>
         </div>
-    </header>
+    </div>
+
+    <!--<header class="am-topbar">-->
+    <!---->
+    <!--<div class="am-u-sm-7 am-u-md-2">-->
+    <!--<h1 class="am-topbar-brand qz-h1">-->
+    <!--<img src="style/images/myPicture.jpg">-->
+    <!--<a href="/" class="am-kai" style="color: #111111">强子博客</a>-->
+    <!--</h1>-->
+    <!--</div>-->
+    <!---->
+    <!--<div class="am-u-sm-12 am-u-md-7">-->
+    <!--<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"-->
+    <!--data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span-->
+    <!--class="am-icon-bars"></span></button>-->
+    <!--<div class="am-collapse am-topbar-collapse qz-header" id="doc-topbar-collapse">-->
+    <!--<ul class="am-nav am-nav-pills am-topbar-nav div-ul-li">-->
+    <!--<li class="list-header "><a href="/"><span class="am-icon-home"></span>首页</a></li>-->
+    <!--<li class="am-dropdown list-header" data-am-dropdown>-->
+    <!--<a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;"-->
+    <!--style="color: #111111">-->
+    <!--<span class="am-icon-gg"/>技术专题 <span class="am-icon-caret-down"></span>-->
+    <!--</a>-->
+    <!--<ul class="am-dropdown-content">-->
+    <!--<li><a href="#">Java学习指南 <em style="font-weight: bold">更新中~~</em></a></li>-->
+    <!--<li class="am-divider"></li>-->
+    <!--<li><a href="#">spring <i style="font-weight: bold">更新中~~</i></a> </li>-->
+    <!--<li class="am-divider"></li>-->
+    <!--<li><a href="#">springMVC <em style="font-weight: bold">更新中~~</em></a> </li>-->
+    <!--<li class="am-divider"></li>-->
+    <!--<li><a href="#">Spring Boot <em style="font-weight: bold">更新中~~</em></a> </li>-->
+    <!--<li class="am-divider"></li>-->
+    <!--<li><a href="#">MyBatis <em style="font-weight: bold">更新中~~</em></a> </li>-->
+    <!--<li class="am-divider"></li>-->
+    <!--<li><a href="#">面试题 <em style="font-weight: bold">更新中~~</em></a> </li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="list-header"><a href="/archive" style="color: #111111"><span class="am-icon-archive"/>归档</a></li>-->
+    <!--<li class="list-header"><a href="/update" style="color: #111111"><span class="am-icon-calendar-plus-o"/>更新</a></li>-->
+    <!--<li class="list-header"><a href="/guest" style="color: #111111"><span class="am-icon-pencil"/>留言板</a></li>-->
+    <!--<li class="list-header"><a style="color: #111111"><i class="layui-icon layui-icon-senior"></i>友链</a></li>-->
+    <!--<li class="list-header"><a href="/aboutme" style="color: #111111"><i class="layui-icon layui-icon-username"></i>关于我</a></li>-->
+    <!--</ul>-->
+
+    <!--<div class="am-topbar-form am-topbar-left am-form-inline" role="search">-->
+    <!--<div class="am-form-group">-->
+    <!--<input type="text" class="am-form-field am-input-sm es" placeholder="搜索" style="width: 120px">-->
+    <!--<span class="am-icon-search"/>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!---->
+    <!--<div class="am-u-sm-12 am-u-md-3" shiro:notAuthenticated="">-->
+
+    <!--<div class="am-topbar-right" style="display: inline-block">-->
+    <!--<button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/register"-->
+    <!--style="color: white">注册</a>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--<div class="am-topbar-right" style="display: inline-block">-->
+    <!--<button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-radius"><a href="/login"-->
+    <!--style="color: white">登录</a>-->
+    <!--</button>-->
+    <!--</div>-->
+
+    <!--<form class="am-topbar-form am-form-inline qz-blog am-topbar-right"-->
+    <!--style="display: inline-block">-->
+    <!--<div class="am-form-group am-topbar-btn writeBlog">-->
+    <!--<span class="am-icon-signing"/>-->
+    <!--<a style="cursor: pointer;">写博客</a>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!---->
+    <!--<div class="au am-u-sm-12 am-u-md-3" shiro:authenticated="">-->
+
+    <!--<div class="am-topbar-right" style="display: inline-block">-->
+    <!--<div class="am-dropdown" data-am-dropdown>-->
+    <!--<button class="personalSpace am-btn am-topbar-btn am-btn-sm am-dropdown-toggle"-->
+    <!--data-am-dropdown-toggle style="border-radius: 50%;">-->
+    <!--<span  class="name"><shiro:principal property="username"/></span>-->
+    <!--<span class="am-icon-caret-down"></span>-->
+    <!--</button>-->
+    <!--<ul class="am-dropdown-content">-->
+    <!--<li><a href="/user">个人主页</a></li>-->
+    <!--<li><a href="/SuperAdmin" shiro:hasRole="admin">网站后台管理</a></li>-->
+    <!--<li shiro:hasRole="user"><a  class="feedbackClick">消息&nbsp;&nbsp;<span class="newsNum am-badge am-badge-danger"></span></a></li>-->
+    <!--<li shiro:hasRole="admin"><a class="feedbackClick">反馈&nbsp;&nbsp;<span id="mess" class="am-badge am-radius am-badge-danger"></span></a></li>-->
+    <!--<hr style="margin: 10px 0 5px 0;">-->
+    <!--<li><a class="logou" style="cursor: pointer;">退出登录</a></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<form class="am-topbar-form am-form-inline qz-blog am-topbar-right"-->
+    <!--style="display: inline-block">-->
+    <!--<div class="am-form-group am-topbar-btn writeBlog">-->
+    <!--<span class="am-icon-signing"/>-->
+    <!--<a style="color: #363636;cursor: pointer;">写博客</a>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!---->
+    <!--</header>-->
 </div>
 </body>
 </html>

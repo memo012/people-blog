@@ -9,7 +9,6 @@ $(function () {
         contentType: "application/json",
         dataType: "json",
         success: function (data) {
-            console.log(data.data);
             $(".visitCount").html(''+data.data);
         }
     })
@@ -157,7 +156,6 @@ function messageNotReadMana() {
         },
         success: function (data) {
             if(data.data != 0){
-                console.log(data.data);
                 $(".feedbackClick").html('反馈&nbsp;&nbsp;'+'<span id="mess" class="am-badge am-radius am-badge-danger">'+data.data+'</span>');
             }
         },
@@ -284,7 +282,7 @@ $(function () {
  * @type {string}
  */
 //网站开始时间
-var siteBeginRunningTime = '2019-07-25 20:00:00';
+var siteBeginRunningTime = '2019-08-7 10:00:00';
 
 //网站运行时间
 //beginTime为建站时间的时间戳
@@ -326,7 +324,7 @@ setInterval(function () {
 
 
 //网站最后更新时间（版本更新需更改）
-var siteLastUpdateTime = '2019年05月23日15点';
+var siteLastUpdateTime = '2019年08月7日10点';
 $(".siteUpdateTime").html(''+siteLastUpdateTime);
 
 

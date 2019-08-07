@@ -68,7 +68,7 @@ function putInComment(data) {
         );
         var visitorCommentImg = $(
             '<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
-            '<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg">' +
+            '<img src="style/images/default.jpg">' +
             '</div>'
         );
         var cn = $('<div class="am-u-sm-10 am-u-lg-11 cn"></div>');

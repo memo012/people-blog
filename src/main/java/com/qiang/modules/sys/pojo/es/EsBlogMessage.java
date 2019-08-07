@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @Description: ES文档类
  * @Date: 2019/7/13 0013 19:06
  **/
-@Document(indexName = "blog", type = "blog", shards = 1, replicas = 0, refreshInterval = "-1")
+@Document(indexName = "blog", type = "blog")
 public class EsBlogMessage implements Serializable {
 
     /**
@@ -76,6 +76,7 @@ public class EsBlogMessage implements Serializable {
      */
     @Field(index = FieldIndex.not_analyzed) // 不做全文检索字段
     private String createTime;
+
 
     /**
      * 点赞

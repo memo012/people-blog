@@ -30,7 +30,7 @@
 
     <select id="findByPhone" parameterType="String" resultMap="userMap">
       SELECT u.*, r.*, p.*
-      from user u
+      from users u
       INNER JOIN roles r on u.roleId = r.rid
       INNER JOIN permission_role pr on pr.rid = r.rid
       INNER JOIN permission p on p.pid = pr.pid
@@ -38,14 +38,14 @@
     </select>
 
     <update id="updUserMess" parameterType="Users">
-        update  user
+        update  users
          set realname = #{realname}, qq = #{qq}, email = #{email}, intro = #{intro}
          where username = #{username}
     </update>
 
     <insert id="insUsers" parameterType="Users">
         insert into
-         user
+         users
           values(#{id}, #{username}, #{password}, #{phone}, #{sex}, #{lastTime}, #{roleId}, #{realname}, #{qq}, #{email}, #{intro})
     </insert>
 

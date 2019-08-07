@@ -22,13 +22,13 @@ public interface UsersMapper {
 
     int insUsers(Users users);
 
-    @Select("select count(*) from user where phone = #{arg0} and password = #{arg1}")
+    @Select("select count(*) from users where phone = #{arg0} and password = #{arg1}")
     int findByPhonePass(String phone, String password);
 
-    @Select("select * from user where username = #{arg0}")
+    @Select("select * from users where username = #{arg0}")
     Users findByName(String name);
 
-    @Select("select * from user where username = #{arg0}")
+    @Select("select * from users where username = #{arg0}")
     Users findUserMess(String username);
 
 
@@ -81,7 +81,7 @@ public interface UsersMapper {
     @Select("select count(*) from repguest where risRead = 1 and guestName = #{arg0}")
     int findNotReadRepGuest(String username);
 
-    @Update("update user set password = #{arg1} where phone = #{arg0}")
+    @Update("update users set password = #{arg1} where phone = #{arg0}")
     int updUserPwd(String phone, String password);
 
 

@@ -21,7 +21,7 @@ function putInArticle(data) {
             '<span style="font-size: 14px;"><i class="am-icon-user">&nbsp;' + obj['name'] + '</i></span>&nbsp;&nbsp;' +
             '</div>' +
             '</header>' +
-            '<div class="article-entry" style="height: 130px;">' +
+            '<div class="article-entry" style="height: 130px;overflow:hidden;">' +
             ' <p>' + obj['articleTabloid'] + '</p>' +
             '</div>' +
             '<div class="read-all">' +
