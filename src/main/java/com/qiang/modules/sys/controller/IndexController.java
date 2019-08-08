@@ -3,6 +3,7 @@ package com.qiang.modules.sys.controller;
 import com.qiang.common.utils.BlogJSONResult;
 import com.qiang.common.utils.Constant;
 import com.qiang.common.utils.RedisOperator;
+import com.qiang.modules.sys.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,9 @@ public class IndexController {
     @Autowired
     private RedisOperator redisOperator;
 
+    @Autowired
+    private IndexService indexService;
+
 
     /**
      * 文章总数
@@ -30,6 +34,8 @@ public class IndexController {
         Long count = 0L;
         if(redisOperator.hasKey(Constant.BLOG_DETAIL)){
             count = redisOperator.hsize(Constant.BLOG_DETAIL);
+        }else{
+            count = indexService.myArticlesCount();
         }
         return BlogJSONResult.ok(count);
     }
@@ -43,6 +49,8 @@ public class IndexController {
         Long count = 0L;
         if(redisOperator.hasKey(Constant.LABEL_ALL)){
             count = redisOperator.llen(Constant.LABEL_ALL);
+        }else{
+            count = indexService.myLabelsCount();
         }
         return BlogJSONResult.ok(count);
     }
@@ -57,6 +65,8 @@ public class IndexController {
         Integer count = 0;
         if(redisOperator.hasKey(Constant.BLOG_REPORT_COUNT)){
             count = (Integer) redisOperator.get(Constant.BLOG_REPORT_COUNT);
+        }else{
+            count = indexService.myReportsCount();
         }
 
         return BlogJSONResult.ok(count);
@@ -71,6 +81,8 @@ public class IndexController {
         Integer count = 0;
         if(redisOperator.hasKey(Constant.BLOG_GUEST_COUNT)){
             count = (Integer)redisOperator.get(Constant.BLOG_GUEST_COUNT);
+        }else{
+            count = indexService.myGuestCount();
         }
         return BlogJSONResult.ok(count);
     }

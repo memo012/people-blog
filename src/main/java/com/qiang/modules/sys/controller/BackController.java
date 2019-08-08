@@ -41,7 +41,6 @@ public class BackController {
      */
     @GetMapping("/findPwd")
     public String findPwd(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "findPwd";
     }
 
@@ -71,7 +70,6 @@ public class BackController {
      */
     @GetMapping("login")
     public String login(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "login";
     }
 
@@ -94,7 +92,6 @@ public class BackController {
      */
     @GetMapping("register")
     public String register(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "register";
     }
 
@@ -104,7 +101,6 @@ public class BackController {
      */
     @GetMapping("editor")
     public String editor(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "editor";
     }
 
@@ -220,7 +216,6 @@ public class BackController {
      */
     @GetMapping("/user")
     public String user(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
         return "user";
     }
 

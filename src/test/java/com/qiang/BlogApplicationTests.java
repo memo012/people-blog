@@ -1,5 +1,6 @@
 package com.qiang;
 
+import com.qiang.common.utils.Constant;
 import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.phoneVerify.service.SMSService;
 import com.qiang.common.utils.phoneVerify.util.SMSUtil;
@@ -10,9 +11,7 @@ import com.qiang.modules.sys.pojo.Comment;
 import com.qiang.modules.sys.pojo.Guest;
 import com.qiang.modules.sys.pojo.ReportComment;
 import com.qiang.modules.sys.pojo.VO.ReportCommentVO;
-import com.qiang.modules.sys.service.CommentService;
-import com.qiang.modules.sys.service.EsService;
-import com.qiang.modules.sys.service.UserService;
+import com.qiang.modules.sys.service.*;
 import com.qiang.modules.sys.service.impl.EsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +26,15 @@ import java.util.Set;
 @SpringBootTest
 public class BlogApplicationTests {
 
+    @Autowired
+    private RedisOperator redisOperator;
+
+    @Autowired
+    private IndexService indexService;
+
     @Test
     public void contextLoads() {
+
     }
 
 }

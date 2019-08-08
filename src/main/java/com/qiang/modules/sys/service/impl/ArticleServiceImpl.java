@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qiang.common.utils.Constant;
 import com.qiang.common.utils.PagedResult;
+import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.StringAndArray;
 import com.qiang.modules.sys.mapper.ArticleMapper;
 import com.qiang.modules.sys.pojo.BlogMessage;
@@ -31,12 +32,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private RedisOperator redisOperator;
+
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int updLike(long articleId) {
-        articleMapper.updLike(articleId);
-        return articleMapper.findLike(articleId);
+        // articleMapper.updLike(articleId);
+        redisOperator.incr(Constant.BLOG_LIKES+articleId, 1);
+        return (int)redisOperator.get(Constant.BLOG_LIKES+articleId);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

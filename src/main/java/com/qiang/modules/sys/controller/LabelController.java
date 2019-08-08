@@ -35,6 +35,9 @@ public class LabelController {
     @GetMapping("/getTags")
     public BlogJSONResult getTags(){
         List<Label> labels = labelService.selAllLabel();
+        if(labels == null || labels.size() == 0 ){
+            return BlogJSONResult.errorMsg("无数据");
+        }
         return BlogJSONResult.ok(labels);
     }
 

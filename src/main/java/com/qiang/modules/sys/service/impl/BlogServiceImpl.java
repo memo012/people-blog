@@ -42,6 +42,12 @@ public class BlogServiceImpl implements BlogService {
             byId = (BlogMessage)redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
             long incr = redisOperator.incr(Constant.BLOG_DETAIL + id, 1L);
             byId.setLook((int) incr);
+            if(redisOperator.hasKey(Constant.BLOG_LIKES+id)){
+                byId.setLike((int)redisOperator.get(Constant.BLOG_LIKES+id));
+            }else{
+                byId.setLike(0);
+            }
+
         }else{
             blogMapper.updLooksById(id);
             byId = blogMapper.findById(id);

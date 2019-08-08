@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,10 +35,15 @@ public class LabelServiceImpl implements LabelService {
     public List<Label> selAllLabel() {
         List<Label> list = null;
         if(redisOperator.hasKey(Constant.LABEL_ALL)){
-            long length = redisOperator.llen(Constant.LABEL_ALL);
-            list = (List<Label>)redisOperator.range(Constant.LABEL_ALL, 0, length);
+            list = (List<Label>)redisOperator.range(Constant.LABEL_ALL, 0, -1);
         }else{
             list = labelMapper.selAllLabel();
+            if (list != null) {
+                for (Label la:
+                     list) {
+                    redisOperator.lpush(Constant.LABEL_ALL, la);
+                }
+            }
         }
         return list;
     }
@@ -53,7 +59,7 @@ public class LabelServiceImpl implements LabelService {
                 tags.setId(id);
                 tags.setLabelName(label[i]);
                 flag = labelMapper.insLabel(tags);
-                // 把标签加入缓存
+                // 把标签名加入缓存
                 redisOperator.lpush(Constant.LABEL_ALL, tags);
             }
         }

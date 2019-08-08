@@ -197,6 +197,7 @@ public class RedisOperator {
 	 * @return 执行 LPUSH命令后，列表的长度。
 	 */
 	public long lpush(String key, Object value) {
+		System.out.println(value);
 		return redisTemplate.opsForList().leftPush(key, value);
 	}
 

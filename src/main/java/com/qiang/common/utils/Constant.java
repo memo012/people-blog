@@ -30,6 +30,11 @@ public class Constant {
      */
     public static final String BLOG_REPORT = "redis:article:report:blog";
 
+
+    /**
+     * 文章点赞数
+     */
+    public static final String BLOG_LIKES = "redis:article:like:blog";
     /**
      * 网站留言(总数)
      */
@@ -40,6 +45,11 @@ public class Constant {
      * 评论总数
      */
     public static final String BLOG_REPORT_COUNT = "redis:report:blog:count";
+
+    /**
+     * 文章总篇
+     */
+    public static final String BLOG_COUNT = "redis:article:blog:count";
 
     /**
      * 访客量

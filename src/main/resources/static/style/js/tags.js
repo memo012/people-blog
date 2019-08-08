@@ -26,7 +26,9 @@ $.ajax({
     dataType: "json",
     success: function (data) {
         //放入数据
-        putInLabel(data.data);
+        if(data.status == 200){
+            putInLabel(data.data);
+        }
     },
     error: function () {
         alert("出错啦...");
