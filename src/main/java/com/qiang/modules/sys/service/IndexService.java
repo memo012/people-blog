@@ -19,7 +19,7 @@ public interface IndexService {
      * 标签总数
      * @return
      */
-    public Long myLabelsCount();
+    public int myLabelsCount();
 
 
     /**
@@ -33,5 +33,11 @@ public interface IndexService {
      * @return
      */
     public Integer myGuestCount();
+
+    /**
+     * 网站访问量
+     * @return
+     */
+    public int myWebCount();
 
 }

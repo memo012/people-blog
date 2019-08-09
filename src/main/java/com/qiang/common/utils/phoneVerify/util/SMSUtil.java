@@ -1,4 +1,4 @@
-package com.qiang.common.utils.phoneVerify.util;
+﻿package com.qiang.common.utils.phoneVerify.util;
 
 /**
  * @Author: qiang
@@ -10,17 +10,17 @@ package com.qiang.common.utils.phoneVerify.util;
 public class SMSUtil {
 
     // 短信应用SDK AppID
-    public static final Integer APPID = 1;// 你的AppID
+    public static final Integer APPID = 140024047771; // 你的AppID
 
     // 短信应用SDK AppKEY
-    public static final String APPKEY = "你的APPKEY";
+    public static final String APPKEY = ""; //你的
 
     // 短信模板id（注册）
-    public static final Integer SHORTNOTID = 388377;
+    public static final Integer SHORTNOTID = 3878379;// AppKEY
 
 
     // 短信模板id （密码修改）
-    public static final Integer UPDPWDID = 388707;
+    public static final Integer UPDPWDID = 3885707;
 
     //短信签名
     public static final String NOTESIGN = "强子博客";

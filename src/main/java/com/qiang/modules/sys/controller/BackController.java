@@ -31,7 +31,9 @@ public class BackController {
      */
     @GetMapping("/")
     public String index(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         return "index";
     }
 
@@ -50,7 +52,9 @@ public class BackController {
      */
     @GetMapping("/aboutme")
     public String aboutme(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         return "aboutme";
     }
 
@@ -79,7 +83,9 @@ public class BackController {
      */
     @GetMapping("/es/{message}")
     public String elasticsearch(@PathVariable("message") String message, HttpServletResponse response){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setHeader("message", TransCodingUtil.stringToUnicode(message));
@@ -110,7 +116,9 @@ public class BackController {
      */
     @GetMapping("/archive")
     public String archive(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         return "archive";
     }
 
@@ -120,7 +128,9 @@ public class BackController {
      */
     @GetMapping("/update")
     public String update(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         return "update";
     }
 
@@ -133,7 +143,9 @@ public class BackController {
     @GetMapping("/article/{articleId}")
     public String show(@PathVariable("articleId") long articleId
                         , HttpServletResponse response){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         //将文章id存入响应头
@@ -187,7 +199,9 @@ public class BackController {
     @GetMapping("categories")
     public String categories(HttpServletRequest request
                                 ,HttpServletResponse response){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -206,7 +220,9 @@ public class BackController {
      */
     @GetMapping("/guest")
     public String guest(){
-        redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
+            redisOperator.incr(Constant.BLOG_VISIT_COUNT, 1);
+        }
         return "guest";
     }
 

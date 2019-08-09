@@ -148,7 +148,7 @@ public class RedisOperator {
 
 
 	/**
-	 * 实现命令：HSET key，将哈希表 key中数据
+	 * 实现命令：hHSIZE key，将哈希表 key中数据
 	 *
 	 * @param key
 	 */

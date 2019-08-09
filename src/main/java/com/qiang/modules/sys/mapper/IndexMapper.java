@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.mapper;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,7 +18,7 @@ public interface IndexMapper {
     Long findmyArticlesCount();
 
     @Select("select count(*) from label")
-    Long findMyLabelsCount();
+    int findMyLabelsCount();
 
     @Select("select count(*) from reportcomment")
     Integer findMyReportCount();
@@ -30,5 +31,11 @@ public interface IndexMapper {
 
     @Select("select count(*) from repguest")
     Integer findmyGuestRepount();
+
+    @Select("select visitor from web")
+    int findWebVisitorCount();
+
+    @Update("update web set visitor = #{argo}")
+    int updWebVisitorCount(int count);
 
 }

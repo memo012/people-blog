@@ -44,7 +44,7 @@ public interface EsService {
 
     /**
      * 删除博文(博文)
-     * @param id
+     * @param
      */
     void removeAllEsBlog();
 

@@ -85,7 +85,7 @@ public interface UsersMapper {
     int updUserPwd(String phone, String password);
 
 
-@Insert("insert into blog() values(arg0)")
+    @Insert("insert into blog() values(arg0)")
     int ins(String xiaoxi);
 
 }

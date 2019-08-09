@@ -35,9 +35,9 @@ public class IndexServiceImpl implements IndexService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public Long myLabelsCount() {
-        Long myLabelsCount = indexMapper.findMyLabelsCount();
-        redisOperator.set(Constant.LABEL_ALL, myLabelsCount);
+    public int myLabelsCount() {
+        int myLabelsCount = indexMapper.findMyLabelsCount();
+        redisOperator.set(Constant.LABEL_ALL_COUNT, myLabelsCount);
         return myLabelsCount;
     }
 
@@ -61,4 +61,11 @@ public class IndexServiceImpl implements IndexService {
         return al;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public int myWebCount() {
+        int visitorCount = indexMapper.findWebVisitorCount();
+        redisOperator.set(Constant.BLOG_VISIT_COUNT, visitorCount);
+        return visitorCount;
+    }
 }

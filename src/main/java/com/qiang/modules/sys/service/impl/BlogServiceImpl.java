@@ -34,25 +34,46 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private RedisOperator redisOperator;
 
+    @Autowired
+    private AsyncServiceImpl asyncService;
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public BlogMessage findById(long id) {
-        BlogMessage byId = null;
+        BlogMessage blogMessage = null;
+        // 从缓存中查询
         if(redisOperator.hasHkey(Constant.BLOG_DETAIL, String.valueOf(id))){
-            byId = (BlogMessage)redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
-            long incr = redisOperator.incr(Constant.BLOG_DETAIL + id, 1L);
-            byId.setLook((int) incr);
-            if(redisOperator.hasKey(Constant.BLOG_LIKES+id)){
-                byId.setLike((int)redisOperator.get(Constant.BLOG_LIKES+id));
+            blogMessage = (BlogMessage)redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
+            long looks = 0L; // 浏览次数
+            int likes = 0; // 点赞数
+
+            // 缓存中是否存在博客浏览数
+            if(redisOperator.hasKey(Constant.BLOG_DETAIL + id)){
+                looks = redisOperator.incr(Constant.BLOG_DETAIL + id, 1L);
+                // 异步存储
+                asyncService.updBlogLook(id);
             }else{
-                byId.setLike(0);
+                Long lookNum = blogMapper.findLooksById(id);
+                looks = lookNum + 1;
+                redisOperator.set(Constant.BLOG_DETAIL + id, looks);
             }
 
+            // 缓存中是否存在博客点赞数
+            if(redisOperator.hasKey(Constant.BLOG_LIKES+id)){
+                likes = (int)redisOperator.get(Constant.BLOG_LIKES + id);
+            }else{
+                int like = blogMapper.findLikesById(id);
+                redisOperator.set(Constant.BLOG_LIKES + id, like);
+            }
+            blogMessage.setLike(likes);
+            blogMessage.setLook((int)looks);
+
         }else{
-            blogMapper.updLooksById(id);
-            byId = blogMapper.findById(id);
+            // 从数据库中查 ， 然后存入缓存中
+            blogMessage = blogMapper.findById(id);
+            redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(id), blogMessage);
         }
-        return byId;
+        return blogMessage;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

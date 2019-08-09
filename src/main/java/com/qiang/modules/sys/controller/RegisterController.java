@@ -5,6 +5,7 @@ import com.qiang.common.utils.Constant;
 import com.qiang.common.utils.RedisOperator;
 import com.qiang.common.utils.phoneVerify.service.SMSService;
 import com.qiang.modules.sys.pojo.Users;
+import com.qiang.modules.sys.service.RegisterService;
 import com.qiang.modules.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,9 @@ public class RegisterController {
 
     @Autowired
     private SMSService smsService;
+
+    @Autowired
+    private RegisterService registerService;
 
     /**
      * 注册用户
@@ -51,10 +55,21 @@ public class RegisterController {
      */
     @GetMapping("phoneCheck")
     public BlogJSONResult phoneCheck(@RequestParam("phone") String phone){
-        if(!redisOperator.hasHkey(Constant.USER_PHONE_EXIST, phone)){
-            return BlogJSONResult.ok();
+        // 先从缓存中查询
+        if(redisOperator.hsize(Constant.USER_PHONE_EXIST) != 0){
+            if(!redisOperator.hasHkey(Constant.USER_PHONE_EXIST, phone)){
+                return BlogJSONResult.ok();
+            }else{
+                return BlogJSONResult.errorMsg("该手机号已被注册");
+            }
+        }else{
+            int result = registerService.findByPhone(phone);
+            if(result == 0){
+                return BlogJSONResult.ok();
+            }else{
+                return BlogJSONResult.errorMsg("该手机号已被注册");
+            }
         }
-        return BlogJSONResult.errorMsg("该手机号已被注册");
     }
 
 
@@ -65,10 +80,22 @@ public class RegisterController {
      */
     @GetMapping("usernameCheck")
     public BlogJSONResult usernameCheck(@RequestParam("username") String username){
-        if(!redisOperator.hasHkey(Constant.USER_NAME_EXIST, username)){
-            return BlogJSONResult.ok();
+        // 先从缓存中查询
+        if(redisOperator.hsize(Constant.USER_NAME_EXIST) != 0){
+            if(!redisOperator.hasHkey(Constant.USER_NAME_EXIST, username)){
+                return BlogJSONResult.ok();
+            }else{
+                return BlogJSONResult.errorMsg("该用户已存在");
+            }
+
+        }else{
+            int result = registerService.findByUsername(username);
+            if(result == 0){
+                return BlogJSONResult.ok();
+            }else{
+                return BlogJSONResult.errorMsg("该用户已存在");
+            }
         }
-        return BlogJSONResult.errorMsg("该用户已存在");
     }
 
 

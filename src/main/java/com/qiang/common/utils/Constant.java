@@ -19,7 +19,10 @@ public class Constant {
      */
     public static  final String LABEL_ALL = "redis:index:all:label";
 
-
+    /**
+     * 首页标签数
+     */
+    public static  final String LABEL_ALL_COUNT = "redis:index:label:count";
     /**
      * 文章详情
      */

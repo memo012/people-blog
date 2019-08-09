@@ -47,18 +47,8 @@ public class ArticleController {
     @GetMapping("myArticles")
     public BlogJSONResult myArticles(@RequestParam(value = "pageSize") Integer pageSize,
                                      @RequestParam(value = "pageNum") Integer pageNum) {
-        int start = (pageNum - 1) * pageSize;
-        int stop = pageNum * pageSize - 1;
-        Map<String, Object> map = new HashMap<>();
-        List<BlogMessageVO> range = (List<BlogMessageVO>) redisOperator.range(Constant.PAGE_BLOG, start, stop);
-        long length = redisOperator.llen(Constant.PAGE_BLOG);
-        map.put("rows", range);
-        map.put("records", length);
-        if (length == 0) {
-            PagedResult allBlog = articleService.findAllBlog(pageNum, pageSize);
-            return BlogJSONResult.ok(allBlog);
-        }
-        return BlogJSONResult.ok(map);
+        PagedResult allBlog = articleService.findAllBlog(pageNum, pageSize);
+        return BlogJSONResult.ok(allBlog);
     }
 
 
@@ -71,10 +61,6 @@ public class ArticleController {
     public BlogJSONResult getArticleDetail(@RequestParam("articleId") long articleId) {
         BlogMessage byId = blogService.findById(articleId);
         if(byId != null){
-//            String text = byId.getText();
-//            PegDownProcessor peg = new PegDownProcessor();
-//            String s = peg.markdownToHtml(text);
-//            byId.setText(s);
             return BlogJSONResult.ok(byId);
         }else{
             return BlogJSONResult.errorMsg("已删除");

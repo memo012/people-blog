@@ -21,6 +21,15 @@ public interface BlogMapper {
     @Select("select * from blog where id = #{arg0}")
     BlogMessageVO findById(Long id);
 
+    @Select("select look from blog where id = #{arg0}")
+    Long findLooksById(Long id);
+
+    @Select("select likes from blog where id = #{arg0}")
+    int findLikesById(Long id);
+
     @Update("update blog set look = look + 1 where id = #{arg0}")
     void updLooksById(Long id);
+
+    @Update("update blog set look = #{arg1} where id = #{arg0}")
+    void updLooksByAsyncId(Long id, int looks);
 }

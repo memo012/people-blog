@@ -46,9 +46,9 @@ public class IndexController {
      */
     @GetMapping("myLabelsCount")
     public BlogJSONResult myLabelsCount(){
-        Long count = 0L;
-        if(redisOperator.hasKey(Constant.LABEL_ALL)){
-            count = redisOperator.llen(Constant.LABEL_ALL);
+        Integer count = 0;
+        if(redisOperator.hasKey(Constant.LABEL_ALL_COUNT)){
+            count = (int)redisOperator.get(Constant.LABEL_ALL_COUNT);
         }else{
             count = indexService.myLabelsCount();
         }
@@ -96,6 +96,8 @@ public class IndexController {
         Integer count = 0;
         if(redisOperator.hasKey(Constant.BLOG_VISIT_COUNT)){
             count = (Integer)redisOperator.get(Constant.BLOG_VISIT_COUNT);
+        }else{
+            count = indexService.myWebCount();
         }
         return BlogJSONResult.ok(count);
     }
