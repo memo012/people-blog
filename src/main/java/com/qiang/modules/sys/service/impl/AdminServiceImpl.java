@@ -11,6 +11,7 @@ import com.qiang.modules.sys.pojo.BlogMessage;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.pojo.VO.BlogMessageVO;
 import com.qiang.modules.sys.service.AdminService;
+import com.qiang.modules.sys.service.EsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,18 +35,26 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private RedisOperator redisOperator;
 
+    @Autowired
+    private EsService esService;
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int deleteBlog(Long id) {
-        redisOperator.del(Constant.BLOG_DETAIL+id);
-        redisOperator.hdel(Constant.BLOG_DETAIL, String.valueOf(id));
+        // 删除缓存里东西
+        redisOperator.lremove(Constant.PAGE_BLOG, 0, redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id))); // 首页
+        redisOperator.del(Constant.BLOG_DETAIL+id); // 文章浏览次数
+        redisOperator.hdel(Constant.BLOG_DETAIL, String.valueOf(id)); // 详情
+        esService.removeEsBlog(id); // 搜索
         BlogMessageVO byId = adminMapper.findById(id);
-        System.out.println(byId.getLabelValues());
-        byId.setTagValue(StringAndArray.stringToArray(byId.getLabelValues()));
-        byId.setArticleUrl("/article/" + byId.getId());
-        redisOperator.lremove(Constant.PAGE_BLOG, 0, byId);
         int i = adminMapper.delBlog(id);
         return i;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public BlogMessage editByBlogId(Long id) {
+        return adminMapper.editByBlogId(id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

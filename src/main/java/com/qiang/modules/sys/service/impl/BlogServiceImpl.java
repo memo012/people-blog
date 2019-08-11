@@ -42,38 +42,64 @@ public class BlogServiceImpl implements BlogService {
     public BlogMessage findById(long id) {
         BlogMessage blogMessage = null;
         // 从缓存中查询
-        if(redisOperator.hasHkey(Constant.BLOG_DETAIL, String.valueOf(id))){
-            blogMessage = (BlogMessage)redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
+        if (redisOperator.hasHkey(Constant.BLOG_DETAIL, String.valueOf(id))) {
+            if(redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id)) == null){
+                return blogMessage;
+            }
+            blogMessage = (BlogMessage) redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(id));
             long looks = 0L; // 浏览次数
             int likes = 0; // 点赞数
 
             // 缓存中是否存在博客浏览数
-            if(redisOperator.hasKey(Constant.BLOG_DETAIL + id)){
+            if (redisOperator.hasKey(Constant.BLOG_DETAIL + id)) {
                 looks = redisOperator.incr(Constant.BLOG_DETAIL + id, 1L);
                 // 异步存储
                 asyncService.updBlogLook(id);
-            }else{
+            } else {
                 Long lookNum = blogMapper.findLooksById(id);
                 looks = lookNum + 1;
                 redisOperator.set(Constant.BLOG_DETAIL + id, looks);
             }
 
             // 缓存中是否存在博客点赞数
-            if(redisOperator.hasKey(Constant.BLOG_LIKES+id)){
-                likes = (int)redisOperator.get(Constant.BLOG_LIKES + id);
-            }else{
+            if (redisOperator.hasKey(Constant.BLOG_LIKES + id)) {
+                likes = (int) redisOperator.get(Constant.BLOG_LIKES + id);
+            } else {
                 int like = blogMapper.findLikesById(id);
                 redisOperator.set(Constant.BLOG_LIKES + id, like);
             }
             blogMessage.setLike(likes);
-            blogMessage.setLook((int)looks);
+            blogMessage.setLook((int) looks);
 
-        }else{
+        } else {
             // 从数据库中查 ， 然后存入缓存中
             blogMessage = blogMapper.findById(id);
             redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(id), blogMessage);
         }
         return blogMessage;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public Boolean updBlogById(BlogMessageVO blogMessageVO) {
+        EsBlogMessage esBlogMessage = null;
+        TimeUtil timeUtil = new TimeUtil();
+        blogMessageVO.setCreateTime(timeUtil.getFormatDateForThree());
+        blogMessageVO.setTagValue(StringAndArray.stringToArray(blogMessageVO.getLabelValues()));
+        blogMessageVO.setArticleUrl("/article/" + blogMessageVO.getId());
+        int i = blogMapper.updBlogById(blogMessageVO);
+        // 搜索修改 -- 先删后存
+        esBlogMessage = esService.findById(blogMessageVO.getId());
+        esService.removeEsBlog(blogMessageVO.getId());
+        esBlogMessage.update(blogMessageVO);
+        esService.saveBlog(esBlogMessage);
+        // 存入缓存中(首页分页查询) -- 先删后存
+        redisOperator.lremove(Constant.PAGE_BLOG, 0, redisOperator.hget(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId())));
+        redisOperator.lpush(Constant.PAGE_BLOG, blogMessageVO);
+        // 存入缓存（博客具体详情） -- 先删后存
+        redisOperator.hdel(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId()));
+        redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId()), blogMessageVO);
+        return true;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -94,7 +120,7 @@ public class BlogServiceImpl implements BlogService {
             blogMapper.publishBlog(blogMessageVO);
             blog = blogMapper.findById(id);
             esBlogMessage = new EsBlogMessage(blog);
-        }else{
+        } else {
             esBlogMessage = esService.findById(blogMessageVO.getId());
             esBlogMessage.update(blogMessageVO);
         }
@@ -102,8 +128,8 @@ public class BlogServiceImpl implements BlogService {
         // 存入缓存中(首页分页查询)
         redisOperator.lpush(Constant.PAGE_BLOG, blogMessageVO);
         // 存入缓存（博客具体详情）
-        redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId()), blog);
+        redisOperator.hset(Constant.BLOG_DETAIL, String.valueOf(blogMessageVO.getId()), blogMessageVO);
         // 文章浏览次数
-        redisOperator.set(Constant.BLOG_DETAIL+blogMessageVO.getId(), 0);
+        redisOperator.set(Constant.BLOG_DETAIL + blogMessageVO.getId(), 0);
     }
 }

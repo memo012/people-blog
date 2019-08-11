@@ -78,7 +78,7 @@ public class AsyncServiceImpl implements AsyncService {
         for (BlogMessageVO b:
              list) {
             // 存入缓存中(首页分页查询)
-            redisOperator.lpush(Constant.PAGE_BLOG, b);
+            redisOperator.rpush(Constant.PAGE_BLOG, b);
         }
     }
 

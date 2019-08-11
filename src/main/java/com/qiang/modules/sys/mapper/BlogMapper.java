@@ -21,6 +21,8 @@ public interface BlogMapper {
     @Select("select * from blog where id = #{arg0}")
     BlogMessageVO findById(Long id);
 
+    int updBlogById(BlogMessageVO blogMessageVO);
+
     @Select("select look from blog where id = #{arg0}")
     Long findLooksById(Long id);
 

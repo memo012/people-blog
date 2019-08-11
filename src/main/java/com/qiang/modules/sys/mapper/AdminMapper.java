@@ -35,4 +35,7 @@ public interface AdminMapper {
     @Select("select * from blog where id = #{arg0}")
     BlogMessageVO findById(Long id);
 
+    @Select("select * from blog where id = #{arg0}")
+    BlogMessage editByBlogId(Long id);
+
 }

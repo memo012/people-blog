@@ -20,6 +20,13 @@ public interface BlogService {
     void publishBlog(BlogMessageVO blogMessage);
 
     /**
+     * 编辑文章
+     * @param blogMessageVO
+     * @return
+     */
+    Boolean updBlogById(BlogMessageVO blogMessageVO);
+
+    /**
      * 通过id查询该文章详情
      * @param id
      * @return

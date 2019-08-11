@@ -106,7 +106,11 @@ public class BackController {
      * @return
      */
     @GetMapping("editor")
-    public String editor(){
+    public String editor(HttpServletRequest request){
+        String id = request.getParameter("id");
+        if(!"".equals(id)){
+            request.getSession().setAttribute("id", id);
+        }
         return "editor";
     }
 

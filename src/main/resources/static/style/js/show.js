@@ -58,7 +58,6 @@ $.ajax({
         articleId = xhr.getResponseHeader("articleId");
     }
 });
-
 $.ajax({
     type: "GET",
     url: "/getArticleDetail",
@@ -70,10 +69,12 @@ $.ajax({
     },
     success: function (data) {
         //放入数据
-        $("#article-like-span").html(data.data.like);
         if(data.status == 200){
+            $("#article-like-span").html(data.data.like);
             putInArticleDetail(data.data);
         }else if(data.status == 500){
+            var cent = ('<div class="qz-article-top"><div class="article-top am-kai">客官，博客可能被博主一不小心删除了</div></div>');
+            $(".qz-art").html(''+cent);
         }
 
     },

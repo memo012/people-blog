@@ -11,4 +11,12 @@
               #{message}, #{createTime}, #{likes}, #{name}, #{articleTabloid}, #{look});
     </insert>
 
+    <update id="updBlogById" parameterType="BlogMessageVO">
+        update blog
+        set title = #{title}, text = #{text}, labelValues = #{labelValues}, selectType = #{selectType},
+            selectCategories = #{selectCategories}, selectGrade = #{selectGrade}, originalAuthor = #{originalAuthor},
+            createTime = #{createTime}, articleTabloid = #{articleTabloid}
+        where id = #{id}
+    </update>
+
 </mapper>

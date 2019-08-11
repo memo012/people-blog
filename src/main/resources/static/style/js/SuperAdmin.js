@@ -215,7 +215,7 @@ function putInBlogs(data) {
             '<td>' +
             '<div class="am-btn-toolbar">' +
             '<div class="am-btn-group am-btn-group-xs">' +
-            '<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-save"></span> 编辑</button>' +
+            '<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only qz-edit"><span class="am-icon-save"></span> 编辑</button>' +
             '<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only qz-delete"><span class="am-icon-trash-o"></span> 删除</button>' +
             '</div>' +
             '</div>' +
@@ -254,6 +254,16 @@ function putInBlogs(data) {
             }
         })
 
+    });
+
+
+    /**
+     * 用户编辑管理
+     */
+    $(".qz-edit").click(function () {
+        var $this = $(this);
+        var id = $this.parent().parent().parent().parent().find($(".id")).text();
+        window.location.replace("/editor?id=" + id);
     });
 }
 

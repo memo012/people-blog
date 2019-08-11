@@ -1,8 +1,10 @@
 package com.qiang.modules.sys.controller;
 
 import com.qiang.common.utils.*;
+import com.qiang.modules.sys.pojo.BlogMessage;
 import com.qiang.modules.sys.pojo.Users;
 import com.qiang.modules.sys.pojo.VO.BlogMessageVO;
+import com.qiang.modules.sys.service.AdminService;
 import com.qiang.modules.sys.service.BlogService;
 import com.qiang.modules.sys.service.LabelService;
 import org.apache.shiro.SecurityUtils;
@@ -37,6 +39,9 @@ public class EditorController {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private AdminService adminService;
+
     /**
      * 发布博客
      * @param blogMessage
@@ -65,23 +70,53 @@ public class EditorController {
         String label = StringAndArray.arrayToString(tagValue);
         blogMessage.setLabelValues(label);
         blogMessage.setName(user.getUsername());
-        blogMessage.setOriginalAuthor("");
+        if (blogMessage.getSelectType() == "转载") {
+            blogMessage.setOriginalAuthor(blogMessage.getOriginalAuthor());
+        }else{
+            blogMessage.setOriginalAuthor("");
+        }
 
-        String id = request.getParameter("id");
+        Long id = blogMessage.getId();
+
 
         //修改文章
-        if (!"".equals(id) && id != null) {
-
+        if (id != 0L) {
+            return BlogJSONResult.build(201, "修改成功", blogService.updBlogById(blogMessage));
         }
         blogService.publishBlog(blogMessage);
         return BlogJSONResult.ok(blogMessage);
     }
 
+    /**
+     * 是否拥有写博客权限
+     * @return
+     */
     @GetMapping("/isNotPermission")
     public BlogJSONResult isNotPermission(){
         Subject subject = SecurityUtils.getSubject();
         if(!subject.hasRole("admin")){
             return BlogJSONResult.errorRolesMsg("无角色功能");
+        }
+        return BlogJSONResult.ok();
+    }
+
+
+
+    /**
+     * 编辑博客
+     * @param
+     * @return
+     */
+    @GetMapping("/getDraftArticle")
+    public BlogJSONResult editBlog(HttpServletRequest request){
+        String id = (String) request.getSession().getAttribute("id");
+        //判断是否为修改文章
+        if(id != null){
+            request.getSession().removeAttribute("id");
+            BlogMessage blogMessage = adminService.editByBlogId(Long.parseLong(id));
+            String[] labels = StringAndArray.stringToArray(blogMessage.getLabelValues());
+            blogMessage.setTagValue(labels);
+            return BlogJSONResult.build(201, "编辑博客", blogMessage);
         }
         return BlogJSONResult.ok();
     }

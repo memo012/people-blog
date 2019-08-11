@@ -1,6 +1,7 @@
 package com.qiang.modules.sys.service;
 
 import com.qiang.common.utils.PagedResult;
+import com.qiang.modules.sys.pojo.BlogMessage;
 import com.qiang.modules.sys.pojo.Users;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 
@@ -42,6 +43,13 @@ public interface AdminService {
      * @return
      */
     int deleteBlog(Long id);
+
+    /**
+     * 博客编辑
+     * @param id
+     * @return
+     */
+    BlogMessage editByBlogId(Long id);
 
 
 
