@@ -2,8 +2,8 @@
 ## 博客网站地址：[www.lqnb.xyz](http://www.lqnb.xyz)
 ## 注意
 #### 博客网站后台技术更新,采用springboot2.1.7+mybatis-plus，GitHub地址为:[https://github.com/memo012/ac-blog](https://github.com/memo012/ac-blog)
-#### 俩个版本，供大家选择学习 [https://github.com/memo012/ac-blog](https://github.com/memo012/ac-blog)
-#### 建议查看最新版本 
+#### 俩个版本，供大家选择学习 
+#### 建议查看最新版本 [https://github.com/memo012/ac-blog](https://github.com/memo012/ac-blog)
 # spring boot实现people博客
 ## 前言
    正如你们所见，我就是这个简陋网站的维护人，一个普普通通的在校大二学生，不对，应该说马上就要大三了，唉唉，大学已经过去了一半了，想想自己的困境，头就要炸，既要应对学业上的问题，又要面临实习找工作，做准备工作，能怎么办？扛着吧！！！  
